@@ -31,34 +31,75 @@ body {
   }
 }
 
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(1deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(10px) rotate(-1deg);
+  }
+}
+
 @keyframes pulse-subtle {
   0%, 100% {
     opacity: 1;
     transform: scale(1);
   }
   50% {
-    opacity: 0.85;
+    opacity: 0.9;
     transform: scale(1.02);
   }
 }
 
-@keyframes shimmer {
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
   100% {
-    transform: translateX(100%);
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.25);
   }
   50% {
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+    box-shadow: 0 0 28px rgba(59, 130, 246, 0.55);
   }
 }
 
 .animate-float {
   animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 5.5s ease-in-out infinite;
 }
 
 .animate-pulse-subtle {
@@ -67,6 +108,55 @@ body {
 
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-flow 6s ease infinite;
+}
+
+/* Subtle Matrix Dot Grid */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Premium Card Light Reflection Hover Effect */
+.card-hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover-shine::after {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    65deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 70%
+  );
+  transform: rotate(35deg) translateX(-100%);
+  transition: transform 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+.card-hover-shine:hover::after {
+  transform: rotate(35deg) translateX(100%);
 }
 
 /* Smooth Scrolling & Custom Range Sliders */
