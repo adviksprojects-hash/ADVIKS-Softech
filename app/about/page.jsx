@@ -153,7 +153,7 @@ export default function AboutPage() {
               {teamMembers.map((member, idx) => (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300"
+                  className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
                 >
                   <div>
                     {/* Header */}

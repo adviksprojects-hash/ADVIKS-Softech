@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ProductShowcase from '@/components/ProductShowcase';
+import MarketingRoiCalculator from '@/components/MarketingRoiCalculator';
+import GrowthFunnelMatrix from '@/components/GrowthFunnelMatrix';
 import { GithubIcon } from '@/components/SocialIcons';
 import {
   Code2,
@@ -21,9 +24,10 @@ import {
   ChevronRight,
   Zap,
   ExternalLink,
-
   Globe,
   Building2,
+  Calculator,
+  Laptop,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -31,13 +35,13 @@ export default function HomePage() {
     {
       icon: Code2,
       title: 'Full-Stack Web & SaaS Platforms',
-      desc: 'Next.js, React, and Node.js web platforms engineered for microsecond response times, bank-grade security, and scale.',
+      desc: 'Next.js, React, and Node.js web platforms engineered for microsecond response times, bank-grade security, and enterprise scale.',
       badge: 'Engineering',
     },
     {
       icon: Smartphone,
       title: 'Mobile App Development',
-      desc: 'Native and cross-platform iOS & Android mobile applications designed for fluid touch interactions and offline support.',
+      desc: 'Native and cross-platform iOS & Android mobile applications designed for fluid touch interactions, gestures, and offline support.',
       badge: 'Mobile',
     },
     {
@@ -105,41 +109,6 @@ export default function HomePage() {
     },
   ];
 
-  const featuredWork = [
-    {
-      title: 'Paras Business Park',
-      category: 'Commercial Real Estate Hub',
-      desc: 'Next.js & TypeScript corporate presentation and tenant leasing portal built for premium commercial property leasing.',
-      tech: ['TypeScript', 'Next.js', 'Tailwind', 'Vercel'],
-      liveUrl: 'https://paras-business-park-2.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/paras-business-park-2',
-    },
-    {
-      title: 'AI Review System',
-      category: 'AI & Sentiment Classification',
-      desc: 'AI-powered customer feedback classification and automated response platform built for customer satisfaction intelligence.',
-      tech: ['TypeScript', 'React', 'NLP', 'Next.js'],
-      liveUrl: 'https://ai-review-system-bay.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/AI-Review-System',
-    },
-    {
-      title: 'VyaparStock Cloud Billing',
-      category: 'Enterprise SaaS & Inventory',
-      desc: 'In-house enterprise billing and inventory SaaS helping retailers issue GST invoices and reconcile stock instantly.',
-      tech: ['Next.js', 'PostgreSQL', 'Cloud API', 'Tailwind'],
-      liveUrl: 'https://www.vyaparstock.in',
-      githubUrl: 'https://github.com/adviksprojects-hash',
-    },
-    {
-      title: 'HaruViru Gold Honey',
-      category: 'D2C E-Commerce & Marketing',
-      desc: 'Organic honey and natural wellness brand storefront with conversion-optimized checkouts and ad campaign tracking.',
-      tech: ['Next.js', 'Tailwind', 'CRO', 'WhatsApp API'],
-      liveUrl: 'https://haru-viru-gold-honey.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/HaruViru-Gold-Honey',
-    },
-  ];
-
   const stats = [
     { label: 'Deployed Projects', value: '160+' },
     { label: 'Average Client ROAS', value: '4.6x' },
@@ -174,8 +143,8 @@ export default function HomePage() {
         {/* HERO SECTION */}
         <section className="relative overflow-hidden pt-20 pb-16 md:pt-28 md:pb-24 border-b border-slate-100 bg-gradient-to-b from-slate-50/70 via-white to-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            {/* Pill badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-8 shadow-xs">
+            {/* Pill badge with subtle pulse */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-8 shadow-xs animate-pulse-subtle">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               <span>Enterprise IT Engineering & High-Growth Digital Marketing</span>
             </div>
@@ -202,9 +171,9 @@ export default function HomePage() {
               </Link>
               <Link
                 href="/portfolio"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-semibold bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xs transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-semibold bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xs transition-all hover:scale-[1.01]"
               >
-                <span>Explore GitHub Projects</span>
+                <span>Explore Live Products</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </Link>
             </div>
@@ -212,8 +181,8 @@ export default function HomePage() {
             {/* Stats strip */}
             <div className="mt-16 pt-10 border-t border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
               {stats.map((stat, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                <div key={i} className="text-center group">
+                  <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
                     {stat.value}
                   </div>
                   <div className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">
@@ -225,8 +194,38 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* INTERACTIVE PRODUCT SHOWCASE SECTION */}
+        <section className="py-20 bg-slate-50/60 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+                  <Laptop className="w-3.5 h-3.5" />
+                  <span>Interactive Product Explorer</span>
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                  Software Products Built & Shipped by ADVIKS
+                </h2>
+                <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-2xl">
+                  Test and inspect our enterprise SaaS platforms, AI sentiment classifiers, and commercial web applications in real time.
+                </p>
+              </div>
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+              >
+                <span>Full Portfolio & GitHub Source</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            {/* The Interactive Product Showcase Component */}
+            <ProductShowcase />
+          </div>
+        </section>
+
         {/* PILLAR 1: IT & SOFTWARE ENGINEERING SERVICES */}
-        <section className="py-20 bg-slate-50/50 border-b border-slate-200">
+        <section className="py-20 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
               <div>
@@ -256,7 +255,7 @@ export default function HomePage() {
                 return (
                   <div
                     key={index}
-                    className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 flex flex-col justify-between"
+                    className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -281,8 +280,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* PILLAR 2: DIGITAL MARKETING & REVENUE ACCELERATION */}
-        <section className="py-20 bg-white border-b border-slate-200">
+        {/* PILLAR 2: DIGITAL MARKETING & METHODOLOGY */}
+        <section className="py-20 bg-slate-50/60 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
               <div>
@@ -294,7 +293,7 @@ export default function HomePage() {
                   High-Impact Digital Marketing & Acquisition
                 </h2>
                 <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-2xl">
-                  Data-backed campaigns, organic search domination, and conversion funnels engineered to maximize your return on ad spend (ROAS).
+                  Data-backed campaigns, organic search domination, and conversion funnels engineered to maximize return on ad spend (ROAS).
                 </p>
               </div>
               <Link
@@ -306,13 +305,14 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {marketingServices.map((service, index) => {
                 const Icon = service.icon;
                 return (
                   <div
                     key={index}
-                    className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-md hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between"
+                    className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-xs hover:shadow-md hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -334,92 +334,26 @@ export default function HomePage() {
                 );
               })}
             </div>
-          </div>
-        </section>
 
-        {/* FEATURED WORK FROM GITHUB */}
-        <section className="py-20 bg-slate-50/70 border-b border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
-              <div>
-                <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
-                  Verified Deployments
+            {/* 4-Stage Full Funnel Growth Architecture */}
+            <div className="mb-16">
+              <div className="text-center max-w-3xl mx-auto mb-10">
+                <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">
+                  Our Acquisition Methodology
                 </span>
-                <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                  Real Projects Shipped by ADVIKS
-                </h2>
-                <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-2xl">
-                  Inspect our publicly accessible web platforms, SaaS billing tools, and AI review applications built for live businesses.
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                  The 4-Stage Full-Funnel Growth Framework
+                </h3>
+                <p className="text-sm text-slate-600 mt-2">
+                  See how we systematically eliminate ad leakage and transform anonymous clicks into recurring revenue.
                 </p>
               </div>
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
-              >
-                <span>View Full Portfolio</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <GrowthFunnelMatrix />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {featuredWork.map((project, pIdx) => (
-                <div
-                  key={pIdx}
-                  className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
-                        {project.category}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-6 leading-relaxed">
-                      {project.desc}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-1.5 mb-6">
-                      {project.tech.map((t, tIdx) => (
-                        <span
-                          key={tIdx}
-                          className="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-700 font-mono"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700"
-                        >
-                          <span>Live Site</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900"
-                        >
-                          <GithubIcon className="w-3.5 h-3.5" />
-                          <span>GitHub</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
+            {/* Interactive ROAS & Growth Simulator */}
+            <div>
+              <MarketingRoiCalculator />
             </div>
           </div>
         </section>
@@ -443,7 +377,7 @@ export default function HomePage() {
               {whyAdviksPoints.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-8 rounded-2xl border border-slate-200 bg-slate-50/50 shadow-xs space-y-4"
+                  className="p-8 rounded-2xl border border-slate-200 bg-slate-50/50 shadow-xs space-y-4 hover:shadow-sm hover:border-slate-300 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
@@ -499,7 +433,7 @@ export default function HomePage() {
                 <div className="mt-10 flex flex-wrap items-center gap-4">
                   <Link
                     href="/dashboard"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-sm"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-sm hover:scale-[1.02]"
                   >
                     <span>Launch Client Portal</span>
                     <ArrowRight className="w-4 h-4" />
@@ -513,8 +447,8 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Mock Dashboard Preview Card */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl relative">
+              {/* Mock Dashboard Preview Card with subtle floating animation */}
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl relative animate-float">
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-rose-500" />
@@ -574,7 +508,7 @@ export default function HomePage() {
             <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="/contact"
-                className="px-8 py-3.5 rounded-xl font-semibold bg-white text-blue-600 hover:bg-slate-100 transition-colors shadow-md"
+                className="px-8 py-3.5 rounded-xl font-semibold bg-white text-blue-600 hover:bg-slate-100 transition-all shadow-md hover:scale-105"
               >
                 Schedule Discovery Call
               </Link>

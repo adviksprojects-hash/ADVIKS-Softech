@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { ArrowRight, Sparkles, ExternalLink, CheckCircle2 } from 'lucide-react';
+import ProductShowcase from '@/components/ProductShowcase';
+import { ArrowRight, Sparkles, ExternalLink, CheckCircle2, Laptop } from 'lucide-react';
 import { GithubIcon } from '@/components/SocialIcons';
 
 export default function PortfolioPage() {
@@ -111,24 +112,24 @@ export default function PortfolioPage() {
       <main className="flex-1 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6 animate-pulse-subtle">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               <span>Verified Repositories & Real Client Deployments</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-              Featured Projects by ADVIKS Softech
+              Featured Products & Case Studies
             </h1>
             <p className="mt-4 text-slate-600 text-base sm:text-lg">
               Explore our production-deployed software and web platforms built for real-world businesses — all publicly accessible and verified on our GitHub.
             </p>
 
-            <div className="mt-6 flex items-center justify-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="https://github.com/adviksprojects-hash"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800 transition-colors shadow-xs"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>Visit GitHub @adviksprojects-hash</span>
@@ -144,12 +145,38 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          {/* Grid of GitHub Projects */}
+          {/* Interactive Product Sandbox */}
+          <div className="mb-24 p-6 sm:p-10 rounded-3xl border border-slate-200 bg-slate-50/50 shadow-xs">
+            <div className="mb-8">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
+                Live Interactive Sandbox
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                Hands-On Product Laboratory
+              </h2>
+              <p className="text-sm text-slate-600 mt-1">
+                Click any product to interact with live feature demos, sentiment simulators, and billing workflows.
+              </p>
+            </div>
+
+            <ProductShowcase />
+          </div>
+
+          {/* Grid of GitHub Projects Deep Dives */}
+          <div className="mb-8">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-600">
+              Technical Deliverables Archive
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1 mb-10">
+              Detailed Case Studies & Architecture Breakdown
+            </h2>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {gitHubProjects.map((item) => (
               <div
                 key={item.id}
-                className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300"
+                className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between gap-4 mb-4">
@@ -243,7 +270,7 @@ export default function PortfolioPage() {
             <div className="mt-6 flex justify-center gap-4">
               <Link
                 href="/contact"
-                className="px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold text-white shadow-sm transition-all"
+                className="px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold text-white shadow-sm transition-all hover:scale-105"
               >
                 Schedule Project Discovery
               </Link>

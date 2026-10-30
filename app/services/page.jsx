@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import GrowthFunnelMatrix from '@/components/GrowthFunnelMatrix';
+import MarketingRoiCalculator from '@/components/MarketingRoiCalculator';
 import {
   Code2,
   Smartphone,
@@ -17,6 +19,7 @@ import {
   Megaphone,
   BarChart3,
   Sparkles,
+  Zap,
 } from 'lucide-react';
 
 export default function ServicesPage() {
@@ -202,7 +205,7 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700 mb-6 animate-pulse-subtle">
               <Sparkles className="w-3.5 h-3.5 text-blue-600" />
               <span>Comprehensive IT & Growth Services</span>
             </div>
@@ -236,7 +239,7 @@ export default function ServicesPage() {
                 return (
                   <div
                     key={svc.id}
-                    className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300"
+                    className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -305,13 +308,13 @@ export default function ServicesPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
               {marketingServices.map((svc) => {
                 const Icon = svc.icon;
                 return (
                   <div
                     key={svc.id}
-                    className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-emerald-300 transition-all duration-300"
+                    className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-emerald-300 transition-all duration-300 hover:-translate-y-1"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-6">
@@ -362,6 +365,27 @@ export default function ServicesPage() {
                 );
               })}
             </div>
+
+            {/* Growth Funnel Architecture deep dive */}
+            <div className="mb-16">
+              <div className="text-center max-w-2xl mx-auto mb-10">
+                <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
+                  Growth Blueprint
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
+                  The 4-Stage Full-Funnel Architecture
+                </h3>
+                <p className="text-sm text-slate-600 mt-1">
+                  How our engineering and performance teams systematically acquire, convert, and scale customer pipelines.
+                </p>
+              </div>
+              <GrowthFunnelMatrix />
+            </div>
+
+            {/* Interactive Marketing Simulator */}
+            <div>
+              <MarketingRoiCalculator />
+            </div>
           </div>
 
           {/* CTA Banner */}
@@ -375,7 +399,7 @@ export default function ServicesPage() {
             <div className="mt-6 flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="/contact"
-                className="px-7 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold text-white transition-colors shadow-sm"
+                className="px-7 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 font-semibold text-white transition-colors shadow-sm hover:scale-105"
               >
                 Schedule Free Strategy Session
               </Link>
