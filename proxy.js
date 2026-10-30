@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 
-// If Clerk keys are provided, use Clerk middleware; otherwise, allow graceful browsing during initial setup
+// If Clerk keys are provided, use Clerk middleware/proxy; otherwise, allow graceful browsing during initial setup
 const hasClerkKeys =
   process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
   !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('your_clerk_publishable_key');
 
-let middlewareHandler;
+let proxyHandler;
 
 if (hasClerkKeys) {
   try {
@@ -21,20 +21,24 @@ if (hasClerkKeys) {
       '/api/leads(.*)',
     ]);
 
-    middlewareHandler = clerkMiddleware(async (auth, req) => {
+    proxyHandler = clerkMiddleware(async (auth, req) => {
       if (!isPublicRoute(req)) {
         await auth.protect();
       }
     });
   } catch (err) {
-    console.warn('Clerk middleware fallback:', err.message);
-    middlewareHandler = () => NextResponse.next();
+    console.warn('Clerk proxy fallback:', err.message);
+    proxyHandler = () => NextResponse.next();
   }
 } else {
-  middlewareHandler = () => NextResponse.next();
+  proxyHandler = () => NextResponse.next();
 }
 
-export default middlewareHandler;
+export function proxy(req, ev) {
+  return proxyHandler(req, ev);
+}
+
+export default proxyHandler;
 
 export const config = {
   matcher: [
@@ -42,3 +46,4 @@ export const config = {
     '/(api|trpc)(.*)',
   ],
 };
+

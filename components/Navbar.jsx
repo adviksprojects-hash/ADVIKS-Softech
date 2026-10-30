@@ -8,35 +8,35 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
             A
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-white group-hover:text-blue-400 transition-colors">
-              ADVIKS <span className="text-blue-500">Softech</span>
+            <span className="text-xl font-bold tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
+              ADVIKS <span className="text-blue-600">Softech</span>
             </span>
-            <span className="text-[10px] tracking-widest uppercase text-slate-400 font-medium">
-              Software • Cloud • AI
+            <span className="text-[10px] tracking-wider uppercase text-slate-500 font-semibold">
+              IT Services • Digital Marketing
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/services" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+          <Link href="/services" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
             Services
           </Link>
-          <Link href="/portfolio" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+          <Link href="/portfolio" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
             Case Studies
           </Link>
-          <Link href="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+          <Link href="/about" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
             About Us
           </Link>
-          <Link href="/contact" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+          <Link href="/contact" className="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">
             Contact
           </Link>
         </nav>
@@ -45,23 +45,23 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/dashboard"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-900 border border-slate-700 text-slate-200 hover:bg-slate-800 hover:border-slate-600 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 transition-colors"
           >
-            <User className="w-3.5 h-3.5 text-blue-400" />
+            <User className="w-3.5 h-3.5 text-blue-600" />
             Client Portal
           </Link>
 
           <Link
             href="/admin"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-900/50 border border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 transition-colors"
           >
-            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+            <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
             Admin
           </Link>
 
           <Link
             href="/contact"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-blue-500/30"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm shadow-blue-600/20 transition-all hover:scale-[1.02]"
           >
             <span>Get in Touch</span>
             <ArrowRight className="w-4 h-4" />
@@ -72,13 +72,13 @@ export default function Navbar() {
         <div className="flex md:hidden items-center gap-2">
           <Link
             href="/dashboard"
-            className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-200"
+            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200"
           >
             Portal
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
+            className="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -88,56 +88,56 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 bg-slate-950 px-4 py-6 space-y-4">
+        <div className="md:hidden border-b border-slate-200 bg-white px-4 py-6 space-y-4">
           <nav className="flex flex-col space-y-3">
             <Link
               href="/services"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-slate-300 hover:text-white"
+              className="text-base font-semibold text-slate-700 hover:text-blue-600"
             >
               Services
             </Link>
             <Link
               href="/portfolio"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-slate-300 hover:text-white"
+              className="text-base font-semibold text-slate-700 hover:text-blue-600"
             >
               Case Studies
             </Link>
             <Link
               href="/about"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-slate-300 hover:text-white"
+              className="text-base font-semibold text-slate-700 hover:text-blue-600"
             >
               About Us
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-base font-medium text-slate-300 hover:text-white"
+              className="text-base font-semibold text-slate-700 hover:text-blue-600"
             >
               Contact Us
             </Link>
           </nav>
-          <div className="pt-4 border-t border-slate-800 flex flex-col gap-2.5">
+          <div className="pt-4 border-t border-slate-200 flex flex-col gap-2.5">
             <Link
               href="/dashboard"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-slate-900 border border-slate-700 text-slate-200"
+              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-slate-100 border border-slate-200 text-slate-800"
             >
               Client Dashboard
             </Link>
             <Link
               href="/admin"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-slate-900/60 border border-slate-800 text-slate-400"
+              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-slate-50 border border-slate-200 text-slate-700"
             >
               Admin Dashboard
             </Link>
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-blue-600 text-white"
+              className="w-full text-center py-2.5 rounded-lg text-sm font-semibold bg-blue-600 text-white shadow-sm"
             >
               Start a Project
             </Link>

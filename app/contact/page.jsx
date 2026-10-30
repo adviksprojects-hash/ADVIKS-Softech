@@ -11,7 +11,7 @@ export default function ContactPage() {
     email: '',
     phone: '',
     company: '',
-    serviceInterest: 'Custom Web Platform',
+    serviceInterest: 'Custom Web & SaaS Platform',
     budgetRange: '₹2,00,000 - ₹5,00,000',
     message: '',
   });
@@ -50,64 +50,64 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       <Navbar />
 
       <main className="flex-1 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold tracking-widest text-blue-400 uppercase">
+            <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
               Get In Touch
             </span>
-            <h1 className="mt-2 text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            <h1 className="mt-2 text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
               Start Your Project With ADVIKS Softech
             </h1>
-            <p className="mt-4 text-slate-400 text-base">
-              Tell us about your project requirements or technical challenges. Our solutions architect will respond within 24 hours.
+            <p className="mt-4 text-slate-600 text-base">
+              Tell us about your technical requirements or marketing goals. Our solutions team will respond within 24 hours.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Contact Details Card */}
             <div className="lg:col-span-5 space-y-8">
-              <div className="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-md space-y-6">
-                <h3 className="text-xl font-bold text-white">Direct Contacts</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">
-                  Have an RFP or urgent consultation? Reach out directly via phone or email to speak with our technical team.
+              <div className="p-8 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-6">
+                <h3 className="text-xl font-bold text-slate-900">Direct Contacts</h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  Have an RFP, urgent consultation, or marketing inquiry? Reach out directly via phone or email to speak with our specialists.
                 </p>
 
                 <div className="space-y-4 pt-2">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
                       <Mail className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Email Inquiry</div>
-                      <a href="mailto:contact@advikssoftech.com" className="text-sm font-semibold text-white hover:text-blue-400 transition-colors">
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Email Inquiry</div>
+                      <a href="mailto:contact@advikssoftech.com" className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors">
                         contact@advikssoftech.com
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
                       <Phone className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Direct Line</div>
-                      <div className="text-sm font-semibold text-white">
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Direct Line</div>
+                      <div className="text-sm font-semibold text-slate-900">
                         +91 98765 43210
                       </div>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-medium uppercase tracking-wider">Headquarters</div>
-                      <div className="text-sm text-slate-300">
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Headquarters</div>
+                      <div className="text-sm text-slate-700">
                         Tech Park Hub, Bengaluru, Karnataka 560100, India
                       </div>
                     </div>
@@ -116,24 +116,24 @@ export default function ContactPage() {
               </div>
 
               {/* Company Bank Account Info Note for Clients */}
-              <div className="p-6 rounded-2xl border border-blue-900/40 bg-blue-950/20 text-xs text-slate-400 space-y-2">
-                <span className="font-semibold text-blue-300 uppercase tracking-wider block">Notice For Clients</span>
+              <div className="p-6 rounded-2xl border border-blue-200 bg-blue-50/60 text-xs text-slate-600 space-y-2">
+                <span className="font-semibold text-blue-800 uppercase tracking-wider block">Notice For Clients</span>
                 <p>
-                  ADVIKS Softech processes invoices via corporate direct bank transfer (NEFT/RTGS/IMPS). Existing clients can view invoice payment instructions and log transaction UTRs directly in their <span className="text-white font-medium">Client Dashboard</span>.
+                  ADVIKS Softech processes invoices via corporate direct bank transfer (NEFT/RTGS/IMPS). Existing clients can view invoice payment instructions and log transaction UTRs directly in their <span className="text-slate-900 font-semibold">Client Dashboard</span>.
                 </p>
               </div>
             </div>
 
             {/* Interactive Form */}
             <div className="lg:col-span-7">
-              <div className="p-8 sm:p-10 rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md">
+              <div className="p-8 sm:p-10 rounded-2xl border border-slate-200 bg-white shadow-xs">
                 {submitted ? (
                   <div className="text-center py-12 space-y-4">
-                    <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto">
+                    <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white">Inquiry Received!</h3>
-                    <p className="text-slate-400 max-w-md mx-auto text-sm">
+                    <h3 className="text-2xl font-bold text-slate-900">Inquiry Received!</h3>
+                    <p className="text-slate-600 max-w-md mx-auto text-sm">
                       Thank you for contacting ADVIKS Softech. Our solutions team has received your project parameters and will reach out within 24 hours.
                     </p>
                     <button
@@ -144,12 +144,12 @@ export default function ContactPage() {
                           email: '',
                           phone: '',
                           company: '',
-                          serviceInterest: 'Custom Web Platform',
+                          serviceInterest: 'Custom Web & SaaS Platform',
                           budgetRange: '₹2,00,000 - ₹5,00,000',
                           message: '',
                         });
                       }}
-                      className="mt-6 px-6 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sm font-semibold text-white transition-colors"
+                      className="mt-6 px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-sm font-semibold text-white transition-colors"
                     >
                       Send Another Inquiry
                     </button>
@@ -157,7 +157,7 @@ export default function ContactPage() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {errorMsg && (
-                      <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center gap-3 text-rose-400 text-sm">
+                      <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-center gap-3 text-rose-700 text-sm">
                         <AlertCircle className="w-5 h-5 shrink-0" />
                         <span>{errorMsg}</span>
                       </div>
@@ -165,7 +165,7 @@ export default function ContactPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Full Name *
                         </label>
                         <input
@@ -175,12 +175,12 @@ export default function ContactPage() {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="e.g. Rahul Sharma"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Business Email *
                         </label>
                         <input
@@ -190,14 +190,14 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={handleChange}
                           placeholder="rahul@company.com"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Phone Number
                         </label>
                         <input
@@ -206,12 +206,12 @@ export default function ContactPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           placeholder="+91 98765 00000"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         />
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Company / Organization
                         </label>
                         <input
@@ -220,40 +220,52 @@ export default function ContactPage() {
                           value={formData.company}
                           onChange={handleChange}
                           placeholder="Company Name"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         />
                       </div>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Service of Interest
                         </label>
                         <select
                           name="serviceInterest"
                           value={formData.serviceInterest}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         >
-                          <option value="Custom Web Platform">Custom Web Platform</option>
-                          <option value="Mobile App Development">Mobile App (iOS/Android)</option>
-                          <option value="Cloud & DevOps Engineering">Cloud & DevOps Engineering</option>
-                          <option value="AI & Machine Learning">AI & Machine Learning</option>
-                          <option value="Enterprise ERP / CRM">Enterprise ERP / CRM</option>
-                          <option value="IT Staff Augmentation">Dedicated Team / Augmentation</option>
+                          <optgroup label="IT & Engineering">
+                            <option value="Custom Web & SaaS Platform">Custom Web & SaaS Platform</option>
+                            <option value="Mobile App Development">Mobile App (iOS/Android)</option>
+                            <option value="Cloud & DevOps Engineering">Cloud & DevOps Engineering</option>
+                            <option value="AI & Machine Learning">AI & Workflow Automation</option>
+                            <option value="Enterprise ERP / CRM">Enterprise ERP / CRM</option>
+                          </optgroup>
+                          <optgroup label="Digital Marketing & Growth">
+                            <option value="Performance Marketing (Google/Meta Ads)">Performance Marketing (PPC)</option>
+                            <option value="Search Engine Optimization (SEO)">Search Engine Optimization (SEO)</option>
+                            <option value="Social Media & Brand Growth">Social Media & Brand Growth</option>
+                            <option value="Conversion Rate Optimization (CRO)">CRO & Funnel Optimization</option>
+                            <option value="Marketing Automation">Marketing Automation & CRM</option>
+                          </optgroup>
+                          <optgroup label="Integrated Packages">
+                            <option value="End-to-End Tech + Growth Retainer">Full Tech + Marketing Retainer</option>
+                            <option value="Dedicated Team Augmentation">Dedicated Team Augmentation</option>
+                          </optgroup>
                         </select>
                       </div>
 
                       <div>
-                        <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                        <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                           Estimated Budget
                         </label>
                         <select
                           name="budgetRange"
                           value={formData.budgetRange}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                         >
                           <option value="Under ₹2,00,000">Under ₹2,00,000</option>
                           <option value="₹2,00,000 - ₹5,00,000">₹2,00,000 - ₹5,00,000</option>
@@ -265,7 +277,7 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                      <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
                         Project Description & Scope *
                       </label>
                       <textarea
@@ -275,14 +287,14 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="Provide details about your project goals, timelines, and required features..."
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:bg-white transition-colors"
                       />
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full py-4 rounded-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                      className="w-full py-4 rounded-xl font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                     >
                       {loading ? (
                         <>
