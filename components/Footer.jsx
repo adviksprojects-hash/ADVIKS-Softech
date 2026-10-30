@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Globe, ArrowUpRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Globe, ArrowUpRight, Sparkles } from 'lucide-react';
+import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
 
 export default function Footer() {
   return (
@@ -17,8 +18,43 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm">
-              Empowering global businesses with bespoke software engineering, scalable cloud architectures, intelligent AI systems, and high-ROI digital marketing growth.
+              Empowering global and Indian businesses with bespoke software development, real estate & SaaS platforms, AI integrations, and high-ROI digital marketing growth.
             </p>
+
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://github.com/adviksprojects-hash"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-slate-950 hover:border-slate-400 flex items-center justify-center transition-colors shadow-2xs"
+                title="GitHub @adviksprojects-hash"
+                aria-label="GitHub @adviksprojects-hash"
+              >
+                <GithubIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/adviks_softech/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-rose-600 hover:border-rose-300 hover:bg-rose-50 flex items-center justify-center transition-colors shadow-2xs"
+                title="Instagram @adviks_softech"
+                aria-label="Instagram @adviks_softech"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/adviks-software-solutions/posts/?feedView=all"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg bg-white border border-slate-200 text-blue-600 hover:border-blue-300 hover:bg-blue-50 flex items-center justify-center transition-colors shadow-2xs"
+                title="LinkedIn @adviks-software-solutions"
+                aria-label="LinkedIn @adviks-software-solutions"
+              >
+                <LinkedinIcon className="w-4 h-4" />
+              </a>
+            </div>
+
             <div className="pt-2 text-xs text-slate-500">
               © {new Date().getFullYear()} ADVIKS Softech Pvt. Ltd. All rights reserved.
             </div>
@@ -32,17 +68,17 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm font-medium">
               <li>
                 <Link href="/services" className="hover:text-blue-600 transition-colors">
-                  Web & SaaS Development
+                  Web & SaaS Engineering
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-blue-600 transition-colors">
-                  Mobile Apps (iOS/Android)
+                  Mobile App Development
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-blue-600 transition-colors">
-                  Cloud & DevOps Solutions
+                  AI Review & NLP Systems
                 </Link>
               </li>
               <li>
@@ -52,48 +88,81 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/services" className="hover:text-blue-600 transition-colors">
-                  SEO & Organic Search
+                  SEO & Search Dominance
                 </Link>
               </li>
               <li>
                 <Link href="/services" className="hover:text-blue-600 transition-colors">
-                  Brand Strategy & CRO
+                  Social Media & Brand Growth
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Portals & Pages */}
+          {/* Featured Platforms & Products */}
           <div>
             <h4 className="text-xs font-bold text-slate-900 tracking-wider uppercase mb-4">
-              Portals & Pages
+              Our Products & Work
             </h4>
             <ul className="space-y-2.5 text-sm font-medium">
               <li>
-                <Link href="/dashboard" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                  <span>Client Dashboard</span>
+                <a
+                  href="https://vyaparstock.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                >
+                  <span>VyaparStock (Billing SaaS)</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-blue-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://paras-business-park-2.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                >
+                  <span>Paras Business Park</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/admin" className="flex items-center gap-1 hover:text-blue-600 transition-colors">
-                  <span>Admin Operations</span>
+                <a
+                  href="https://ai-review-system-bay.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                >
+                  <span>AI Review System</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/portfolio" className="hover:text-blue-600 transition-colors">
-                  Case Studies & Results
-                </Link>
+                <a
+                  href="https://aameena-ferniture.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                >
+                  <span>Aameena Furniture</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+                </a>
               </li>
               <li>
-                <Link href="/about" className="hover:text-blue-600 transition-colors">
-                  About Our Team
-                </Link>
+                <a
+                  href="https://haru-viru-gold-honey.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 hover:text-blue-600 transition-colors"
+                >
+                  <span>HaruViru Gold Honey</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-blue-600 transition-colors">
-                  Contact & Inquiries
+                <Link href="/portfolio" className="text-blue-600 font-semibold hover:underline">
+                  View All 7+ GitHub Projects →
                 </Link>
               </li>
             </ul>
@@ -102,26 +171,51 @@ export default function Footer() {
           {/* Contact Details */}
           <div>
             <h4 className="text-xs font-bold text-slate-900 tracking-wider uppercase mb-4">
-              Contact
+              Get in Touch
             </h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                <span>Tech Park Hub, Bengaluru, Karnataka, India</span>
+                <span>Tech Park Hub, Bengaluru & Maharashtra, India</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-blue-600 shrink-0" />
-                <a href="mailto:contact@advikssoftech.com" className="hover:text-blue-600 transition-colors font-medium">
-                  contact@advikssoftech.com
+                <a href="mailto:advikssoftech@gmail.com" className="hover:text-blue-600 transition-colors font-semibold text-slate-900">
+                  advikssoftech@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-blue-600 shrink-0" />
-                <span className="font-medium">+91 98765 43210</span>
+                <InstagramIcon className="w-4 h-4 text-rose-600 shrink-0" />
+                <a
+                  href="https://www.instagram.com/adviks_softech/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-rose-600 transition-colors font-medium text-slate-700"
+                >
+                  @adviks_softech
+                </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Globe className="w-4 h-4 text-blue-600 shrink-0" />
-                <span>advikssoftech.com</span>
+                <LinkedinIcon className="w-4 h-4 text-blue-600 shrink-0" />
+                <a
+                  href="https://www.linkedin.com/company/adviks-software-solutions/posts/?feedView=all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 transition-colors font-medium text-slate-700"
+                >
+                  Adviks Software Solutions
+                </a>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <GithubIcon className="w-4 h-4 text-slate-800 shrink-0" />
+                <a
+                  href="https://github.com/adviksprojects-hash"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-blue-600 transition-colors font-medium text-slate-700"
+                >
+                  github.com/adviksprojects-hash
+                </a>
               </li>
             </ul>
           </div>

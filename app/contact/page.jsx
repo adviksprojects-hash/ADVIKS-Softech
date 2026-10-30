@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function ContactPage() {
@@ -73,7 +74,7 @@ export default function ContactPage() {
               <div className="p-8 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-6">
                 <h3 className="text-xl font-bold text-slate-900">Direct Contacts</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
-                  Have an RFP, urgent consultation, or marketing inquiry? Reach out directly via phone or email to speak with our specialists.
+                  Have an RFP, urgent consultation, or marketing inquiry? Reach out directly via email, phone, or our social channels.
                 </p>
 
                 <div className="space-y-4 pt-2">
@@ -83,8 +84,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Email Inquiry</div>
-                      <a href="mailto:contact@advikssoftech.com" className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors">
-                        contact@advikssoftech.com
+                      <a href="mailto:advikssoftech@gmail.com" className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors">
+                        advikssoftech@gmail.com
                       </a>
                     </div>
                   </div>
@@ -102,14 +103,53 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
-                      <MapPin className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0">
+                      <InstagramIcon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Headquarters</div>
-                      <div className="text-sm text-slate-700">
-                        Tech Park Hub, Bengaluru, Karnataka 560100, India
-                      </div>
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Instagram</div>
+                      <a
+                        href="https://www.instagram.com/adviks_softech/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-slate-900 hover:text-rose-600 transition-colors"
+                      >
+                        @adviks_softech
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600 shrink-0">
+                      <LinkedinIcon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">LinkedIn</div>
+                      <a
+                        href="https://www.linkedin.com/company/adviks-software-solutions/posts/?feedView=all"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                      >
+                        Adviks Software Solutions
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-800 shrink-0">
+                      <GithubIcon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider">GitHub Projects</div>
+                      <a
+                        href="https://github.com/adviksprojects-hash"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-semibold text-slate-900 hover:text-blue-600 transition-colors"
+                      >
+                        adviksprojects-hash
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -240,8 +280,8 @@ export default function ContactPage() {
                             <option value="Custom Web & SaaS Platform">Custom Web & SaaS Platform</option>
                             <option value="Mobile App Development">Mobile App (iOS/Android)</option>
                             <option value="Cloud & DevOps Engineering">Cloud & DevOps Engineering</option>
-                            <option value="AI & Machine Learning">AI & Workflow Automation</option>
-                            <option value="Enterprise ERP / CRM">Enterprise ERP / CRM</option>
+                            <option value="AI & Machine Learning">AI Review & Workflow Automation</option>
+                            <option value="VyaparStock Billing / ERP">VyaparStock Billing & ERP</option>
                           </optgroup>
                           <optgroup label="Digital Marketing & Growth">
                             <option value="Performance Marketing (Google/Meta Ads)">Performance Marketing (PPC)</option>

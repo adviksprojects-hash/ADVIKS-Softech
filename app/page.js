@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { GithubIcon } from '@/components/SocialIcons';
 import {
   Code2,
   Cloud,
@@ -19,6 +20,10 @@ import {
   Sparkles,
   ChevronRight,
   Zap,
+  ExternalLink,
+
+  Globe,
+  Building2,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -43,15 +48,15 @@ export default function HomePage() {
     },
     {
       icon: Cpu,
-      title: 'AI & Workflow Automation',
-      desc: 'Custom LLM integrations, predictive ML models, conversational agents, and automated internal data pipelines.',
+      title: 'AI Review & NLP Automations',
+      desc: 'Custom LLM integrations, predictive sentiment models, customer feedback bots, and automated data pipelines.',
       badge: 'AI / Automation',
     },
     {
       icon: Layers,
-      title: 'Enterprise ERP & Custom CRM',
-      desc: 'Tailored enterprise software workflows, multi-tenant database systems, and role-based operational portals.',
-      badge: 'Enterprise',
+      title: 'VyaparStock & Custom ERP/CRM',
+      desc: 'Smart GST billing engines, real-time inventory management, barcode scanning, and multi-tenant business software.',
+      badge: 'Enterprise SaaS',
     },
     {
       icon: Shield,
@@ -100,11 +105,46 @@ export default function HomePage() {
     },
   ];
 
+  const featuredWork = [
+    {
+      title: 'Paras Business Park',
+      category: 'Commercial Real Estate Hub',
+      desc: 'Next.js & TypeScript corporate presentation and tenant leasing portal built for premium commercial property leasing.',
+      tech: ['TypeScript', 'Next.js', 'Tailwind', 'Vercel'],
+      liveUrl: 'https://paras-business-park-2.vercel.app',
+      githubUrl: 'https://github.com/adviksprojects-hash/paras-business-park-2',
+    },
+    {
+      title: 'AI Review System',
+      category: 'AI & Sentiment Classification',
+      desc: 'AI-powered customer feedback classification and automated response platform built for customer satisfaction intelligence.',
+      tech: ['TypeScript', 'React', 'NLP', 'Next.js'],
+      liveUrl: 'https://ai-review-system-bay.vercel.app',
+      githubUrl: 'https://github.com/adviksprojects-hash/AI-Review-System',
+    },
+    {
+      title: 'VyaparStock Cloud Billing',
+      category: 'Enterprise SaaS & Inventory',
+      desc: 'In-house enterprise billing and inventory SaaS helping retailers issue GST invoices and reconcile stock instantly.',
+      tech: ['Next.js', 'PostgreSQL', 'Cloud API', 'Tailwind'],
+      liveUrl: 'https://www.vyaparstock.in',
+      githubUrl: 'https://github.com/adviksprojects-hash',
+    },
+    {
+      title: 'HaruViru Gold Honey',
+      category: 'D2C E-Commerce & Marketing',
+      desc: 'Organic honey and natural wellness brand storefront with conversion-optimized checkouts and ad campaign tracking.',
+      tech: ['Next.js', 'Tailwind', 'CRO', 'WhatsApp API'],
+      liveUrl: 'https://haru-viru-gold-honey.vercel.app',
+      githubUrl: 'https://github.com/adviksprojects-hash/HaruViru-Gold-Honey',
+    },
+  ];
+
   const stats = [
-    { label: 'Successful Projects', value: '160+' },
-    { label: 'Average Marketing ROAS', value: '4.6x' },
+    { label: 'Deployed Projects', value: '160+' },
+    { label: 'Average Client ROAS', value: '4.6x' },
     { label: 'Client Retention Rate', value: '98.8%' },
-    { label: 'Tech & Growth Experts', value: '45+' },
+    { label: 'Engineers & Strategists', value: '45+' },
   ];
 
   const whyAdviksPoints = [
@@ -161,10 +201,10 @@ export default function HomePage() {
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                href="/services"
+                href="/portfolio"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl text-base font-semibold bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xs transition-all"
               >
-                <span>Explore All Services</span>
+                <span>Explore GitHub Projects</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </Link>
             </div>
@@ -195,17 +235,17 @@ export default function HomePage() {
                   <span>Pillar 01 • Technology & Engineering</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                  Next-Gen IT & Cloud Solutions
+                  Next-Gen IT, Cloud & AI Solutions
                 </h2>
                 <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-2xl">
-                  Robust, enterprise-grade architectures crafted with clean code, modern cloud infrastructure, and uncompromising reliability.
+                  Enterprise-grade architectures crafted with clean code, scalable microservices, and AI-driven automation.
                 </p>
               </div>
               <Link
                 href="/services"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
               >
-                <span>View Technical Capabilities</span>
+                <span>View All Services</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -297,8 +337,95 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* WHY ADVIKS: THE INTEGRATED ADVANTAGE */}
+        {/* FEATURED WORK FROM GITHUB */}
         <section className="py-20 bg-slate-50/70 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+              <div>
+                <span className="text-xs font-bold tracking-widest text-blue-600 uppercase">
+                  Verified Deployments
+                </span>
+                <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                  Real Projects Shipped by ADVIKS
+                </h2>
+                <p className="mt-3 text-slate-600 text-sm sm:text-base max-w-2xl">
+                  Inspect our publicly accessible web platforms, SaaS billing tools, and AI review applications built for live businesses.
+                </p>
+              </div>
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors"
+              >
+                <span>View Full Portfolio</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {featuredWork.map((project, pIdx) => (
+                <div
+                  key={pIdx}
+                  className="rounded-2xl border border-slate-200 bg-white p-8 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-blue-300 transition-all"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                        {project.category}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+                      {project.desc}
+                    </p>
+                  </div>
+
+                  <div>
+                    <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-1.5 mb-6">
+                      {project.tech.map((t, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-2 py-0.5 text-[11px] rounded bg-slate-100 text-slate-700 font-mono"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:text-blue-700"
+                        >
+                          <span>Live Site</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900"
+                        >
+                          <GithubIcon className="w-3.5 h-3.5" />
+                          <span>GitHub</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WHY ADVIKS: THE INTEGRATED ADVANTAGE */}
+        <section className="py-20 bg-white border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-xs font-bold tracking-widest text-indigo-600 uppercase">
@@ -316,7 +443,7 @@ export default function HomePage() {
               {whyAdviksPoints.map((item, idx) => (
                 <div
                   key={idx}
-                  className="p-8 rounded-2xl border border-slate-200 bg-white shadow-xs space-y-4"
+                  className="p-8 rounded-2xl border border-slate-200 bg-slate-50/50 shadow-xs space-y-4"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm">
@@ -334,7 +461,7 @@ export default function HomePage() {
         </section>
 
         {/* CLIENT PORTAL TRANSPARENCY SECTION */}
-        <section className="py-20 bg-white border-b border-slate-200">
+        <section className="py-20 bg-slate-50/70 border-b border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -379,9 +506,9 @@ export default function HomePage() {
                   </Link>
                   <Link
                     href="/about"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-slate-50 border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs"
                   >
-                    About Our Workflow
+                    Meet Our Team
                   </Link>
                 </div>
               </div>
@@ -403,11 +530,11 @@ export default function HomePage() {
                 <div className="space-y-4">
                   <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
                     <div className="flex justify-between items-center text-xs mb-1">
-                      <span className="text-slate-600 font-medium">Project: Enterprise SaaS & Paid Acquisition</span>
-                      <span className="font-semibold text-blue-600">82% Completed</span>
+                      <span className="text-slate-600 font-medium">Project: Paras Business Park & VyaparStock Deployment</span>
+                      <span className="font-semibold text-blue-600">85% Completed</span>
                     </div>
                     <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                      <div className="bg-blue-600 h-full rounded-full" style={{ width: '82%' }} />
+                      <div className="bg-blue-600 h-full rounded-full" style={{ width: '85%' }} />
                     </div>
                   </div>
 
@@ -425,7 +552,7 @@ export default function HomePage() {
                   <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
                     <span className="text-slate-500 font-medium block mb-2">Upcoming Milestone:</span>
                     <div className="flex items-center justify-between">
-                      <span className="text-slate-800 font-medium">Payment Gateway Handover & Google Ads Launch</span>
+                      <span className="text-slate-800 font-medium">AI Review Pipeline Integration & Google Ads Go-Live</span>
                       <span className="text-amber-700 font-mono font-semibold text-[11px]">Due in 3 days</span>
                     </div>
                   </div>
@@ -455,7 +582,7 @@ export default function HomePage() {
                 href="/portfolio"
                 className="px-8 py-3.5 rounded-xl font-semibold bg-blue-700/60 border border-blue-400/40 text-white hover:bg-blue-700 transition-colors"
               >
-                Explore Client Case Studies
+                Explore GitHub Repositories
               </Link>
             </div>
           </div>
