@@ -11,6 +11,7 @@ import GrowthFunnelMatrix from '@/components/GrowthFunnelMatrix';
 import FunnelComparisonToggle from '@/components/FunnelComparisonToggle';
 import EngagementModels from '@/components/EngagementModels';
 import AgencyComparisonCard from '@/components/AgencyComparisonCard';
+import { INITIAL_WEBSITE_PROJECTS } from '@/lib/showcaseData';
 import {
   Code2,
   Cloud,
@@ -118,10 +119,10 @@ export default function HomePage() {
   ];
 
   const stats = [
-    { label: 'Deployed Projects', value: '160+' },
+    { label: 'Production Platforms', value: `${INITIAL_WEBSITE_PROJECTS.length}+ Active` },
     { label: 'Average Client ROAS', value: '4.6x' },
     { label: 'Client Retention Rate', value: '98.8%' },
-    { label: 'Engineers & Strategists', value: '45+' },
+    { label: 'Core Pod Architects', value: '8 Officers' },
   ];
 
   const whyAdviksPoints = [

@@ -11,27 +11,30 @@ import {
   Lock,
   ArrowRight,
   AlertCircle,
-  Briefcase,
-  Layers,
+  Mail,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 
 export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) {
-  const { teamMembers, login, currentUser } = useEmployeeAuth();
+  const { teamMembers, login } = useEmployeeAuth();
 
   const [selectedPreset, setSelectedPreset] = useState(null);
-  const [name, setName] = useState('');
-  const [position, setPosition] = useState('');
+  const [identifier, setIdentifier] = useState('');
+  const [password, setPassword] = useState('adviks@123');
+  const [showPassword, setShowPassword] = useState(false);
   const [department, setDepartment] = useState('Developer');
-  const [accessCode, setAccessCode] = useState('ADVIKS2026');
+  const [position, setPosition] = useState('');
   const [error, setError] = useState('');
 
   if (!isOpen) return null;
 
   const handleSelectPreset = (member) => {
     setSelectedPreset(member.id);
-    setName(member.name);
+    setIdentifier(member.email || member.name);
     setPosition(member.role);
     setDepartment(member.department || 'Developer');
+    setPassword(member.password || 'adviks@123');
     setError('');
   };
 
@@ -39,7 +42,7 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
     e.preventDefault();
     setError('');
 
-    const res = login(name, position, department, accessCode);
+    const res = login(identifier, password, department, { position });
     if (!res.success) {
       setError(res.error);
       return;
@@ -69,10 +72,10 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
             <span>ADVIKS Internal Access Gate</span>
           </div>
           <h2 className="text-2xl font-extrabold text-white tracking-tight">
-            Employee & Super Admin Login
+            Founder, Executive & Employee Login
           </h2>
           <p className="text-blue-100 text-xs mt-1">
-            Access internal sprint tasks, client SOW projects, and edit your official profile.
+            Sign in with your official ADVIKS email or select your officer account below.
           </p>
         </div>
 
@@ -89,14 +92,14 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
             <div className="flex items-center justify-between mb-2.5">
               <span className="text-xs font-bold text-[#0A224E] uppercase tracking-wider flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-[#FF8800]" />
-                <span>Quick Select Founder / Officer</span>
+                <span>Quick Select Founder / Officer ({teamMembers.length})</span>
               </span>
               <span className="text-[11px] text-slate-400">1-click autofill</span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {teamMembers.map((m) => {
-                const isSelected = selectedPreset === m.id || name === m.name;
+                const isSelected = selectedPreset === m.id || identifier === m.email || identifier === m.name;
                 return (
                   <button
                     key={m.id}
@@ -110,7 +113,7 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
                   >
                     <div className="font-bold text-[#0A224E] truncate">{m.name}</div>
                     <div className="text-[10px] text-slate-500 truncate mt-0.5">
-                      {m.role.split('(')[0]}
+                      {m.role.split('(')[0].trim()}
                     </div>
                   </button>
                 );
@@ -122,83 +125,62 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
-                Full Name
+                Official Email Address or Full Name *
               </label>
               <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Mail className="w-4 h-4 text-slate-400" />
+                </div>
                 <input
                   type="text"
                   required
-                  value={name}
+                  value={identifier}
                   onChange={(e) => {
-                    setName(e.target.value);
+                    setIdentifier(e.target.value);
                     setSelectedPreset(null);
                   }}
-                  placeholder="e.g. Vivek Pawar"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
+                  placeholder="e.g. kaustubhronge25@gmail.com or Kaustubh Ronge"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
                 />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
-                  Position / Title
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    required
-                    value={position}
-                    onChange={(e) => setPosition(e.target.value)}
-                    placeholder="e.g. Chief Technology Officer"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
-                  Pod / Department
-                </label>
-                <select
-                  value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
-                >
-                  <option value="Developer">Developer Pod (Engineering)</option>
-                  <option value="Marketing">Marketing Pod (Growth & CRO)</option>
-                </select>
               </div>
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider">
-                  Access Passkey (Restriction PIN)
+                  Account Password *
                 </label>
-                <span className="text-[11px] font-mono text-[#0062E6] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  Default: ADVIKS2026
+                <span className="text-[11px] font-mono text-[#0062E6] bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-bold">
+                  Default: adviks@123
                 </span>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                  <KeyRound className="w-4 h-4 text-slate-400" />
+                  <Lock className="w-4 h-4 text-slate-400" />
                 </div>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
-                  value={accessCode}
-                  onChange={(e) => setAccessCode(e.target.value)}
-                  placeholder="Enter employee security key"
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your account password"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-300 bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6] focus:border-transparent transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
               <p className="text-[11px] text-slate-500 mt-1">
-                Security key protects project requirements, client confidential SOWs, and team profile editing.
+                All accounts initially configured with <span className="font-mono font-bold text-slate-700">adviks@123</span>. You can change this in your Profile page.
               </p>
             </div>
 
-            <div className="pt-4 flex items-center gap-3">
+            <div className="pt-3 flex items-center gap-3">
               <button
                 type="button"
                 onClick={onClose}
@@ -220,4 +202,3 @@ export default function EmployeeLoginModal({ isOpen, onClose, onLoginSuccess }) 
     </div>
   );
 }
-

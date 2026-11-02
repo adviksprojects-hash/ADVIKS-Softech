@@ -25,6 +25,7 @@ import {
   ShieldCheck,
   LogIn,
   LogOut,
+  Mail,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
 
@@ -209,6 +210,16 @@ export default function AboutPage() {
                             <div className="text-xs font-bold text-[#0062E6]">
                               {member.role}
                             </div>
+                            {member.email && (
+                              <a
+                                href={`mailto:${member.email}`}
+                                className="text-[11px] text-slate-500 hover:text-[#0062E6] flex items-center gap-1 mt-0.5 transition-colors"
+                                title={`Send email to ${member.name}`}
+                              >
+                                <Mail className="w-3 h-3 text-[#FF8800] shrink-0" />
+                                <span className="truncate">{member.email}</span>
+                              </a>
+                            )}
                           </div>
                         </div>
 

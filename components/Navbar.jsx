@@ -2,6 +2,10 @@
 
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
+import AdviksLogo from '@/components/AdviksLogo';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
+import { INITIAL_WEBSITE_SERVICES } from '@/lib/showcaseData';
+import { InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
 import {
   Menu,
   X,
@@ -10,27 +14,23 @@ import {
   ChevronDown,
   Code2,
   Smartphone,
-  Database,
-  Cloud,
+  DatabaseZap,
+  CloudCog,
   Target,
   Search,
   TrendingUp,
-  MessageSquare,
   BrainCircuit,
-  Bot,
-  Cpu,
-  Layers,
-  Palette,
-  Sparkles,
+  Network,
+  Share2,
+  Megaphone,
+  MailCheck,
+  ShieldCheck,
   Zap,
+  Sparkles,
 } from 'lucide-react';
-import AdviksLogo from '@/components/AdviksLogo';
-import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
-import { InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
-import { ShieldCheck } from 'lucide-react';
 
 export default function Navbar() {
-  const { currentUser } = useEmployeeAuth();
+  const { currentUser, websiteServices } = useEmployeeAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -53,138 +53,81 @@ export default function Navbar() {
     };
   }, []);
 
+  const allServices =
+    websiteServices && websiteServices.length > 0
+      ? websiteServices.filter((s) => s.showOnWebsite)
+      : INITIAL_WEBSITE_SERVICES.filter((s) => s.showOnWebsite);
+
+  const techServices = allServices.filter((s) => s.category === 'Technology & Engineering');
+  const growthServices = allServices.filter((s) => s.category === 'Growth & Digital Marketing');
+
+  const navIconMap = {
+    Code2,
+    Smartphone,
+    BrainCircuit,
+    CloudCog,
+    DatabaseZap,
+    Network,
+    Target,
+    Search,
+    TrendingUp,
+    Share2,
+    Megaphone,
+    MailCheck,
+  };
+
   const serviceColumns = [
     {
-      title: 'Tech & SaaS Node',
-      subtitle: 'Your Tech Solutions Partner',
+      title: 'Core Web & Apps',
+      subtitle: 'Your Engineering Partner',
       accentColor: 'text-[#0062E6]',
       borderColor: 'border-blue-200',
       bgColor: 'bg-[#EFF6FF]',
-      items: [
-        {
-          name: 'Full-Stack Web & SaaS',
-          desc: 'Next.js 16, PostgreSQL & scalable microservices',
-          icon: Code2,
-          href: '/services#web-development',
-        },
-        {
-          name: 'Mobile App Engineering',
-          desc: 'Cross-platform iOS & Android with offline sync',
-          icon: Smartphone,
-          href: '/services#mobile-apps',
-        },
-        {
-          name: 'Custom ERP & Billing Systems',
-          desc: 'High-throughput inventory & invoicing architectures',
-          icon: Database,
-          href: '/services#enterprise-erp',
-        },
-        {
-          name: 'Cloud DevOps & CI/CD',
-          desc: 'Zero-downtime Docker, AWS & serverless setups',
-          icon: Cloud,
-          href: '/services#cloud-devops',
-        },
-      ],
+      items: techServices.slice(0, 3).map((s) => ({
+        name: s.title,
+        desc: s.shortDesc || s.tagline,
+        icon: navIconMap[s.iconName] || Code2,
+        href: `/services/${s.slug}`,
+      })),
     },
     {
-      title: 'Growth & ROAS Pulse',
-      subtitle: 'Your Revenue Partner',
-      accentColor: 'text-[#EA580C]',
-      borderColor: 'border-orange-200',
-      bgColor: 'bg-[#FFF7ED]',
-      items: [
-        {
-          name: 'Performance Marketing (PPC)',
-          desc: 'High-ROI Meta Advantage+ & Google PMax ads',
-          icon: Target,
-          href: '/services#performance-marketing',
-        },
-        {
-          name: 'Technical & AI Search (SEO)',
-          desc: 'Sub-second Core Web Vitals & organic intent capture',
-          icon: Search,
-          href: '/services#seo-growth',
-        },
-        {
-          name: 'Conversion Rate Optimization',
-          desc: 'Heatmaps, friction-free checkout & A/B testing',
-          icon: TrendingUp,
-          href: '/services#cro-funnels',
-        },
-        {
-          name: 'WhatsApp & CRM Funnels',
-          desc: 'Automated 90-second lead dispatch & cart recovery',
-          icon: MessageSquare,
-          href: '/services#marketing-automation',
-        },
-      ],
-    },
-    {
-      title: 'Applied AI Studio',
-      subtitle: 'Your Automation Partner',
+      title: 'Cloud & Systems',
+      subtitle: 'Your Infrastructure Partner',
       accentColor: 'text-[#0062E6]',
       borderColor: 'border-blue-200',
       bgColor: 'bg-[#EFF6FF]',
-      items: [
-        {
-          name: 'AI Sentiment & Review NLP',
-          desc: '180ms customer feedback analysis & auto-replies',
-          icon: BrainCircuit,
-          href: '/services#ai-solutions',
-        },
-        {
-          name: 'Private LLM & RAG Agents',
-          desc: 'Custom vector embeddings on proprietary business data',
-          icon: Cpu,
-          href: '/services#ai-solutions',
-        },
-        {
-          name: 'Automated Support Copilots',
-          desc: '24/7 intelligent brand inquiry triage chatbots',
-          icon: Bot,
-          href: '/services#ai-solutions',
-        },
-        {
-          name: 'Workflow Telemetry & APIs',
-          desc: 'Autonomous webhook sync & task automation',
-          icon: Zap,
-          href: '/services#cloud-devops',
-        },
-      ],
+      items: techServices.slice(3, 6).map((s) => ({
+        name: s.title,
+        desc: s.shortDesc || s.tagline,
+        icon: navIconMap[s.iconName] || DatabaseZap,
+        href: `/services/${s.slug}`,
+      })),
     },
     {
-      title: 'UI/UX & Brand Edge',
-      subtitle: 'Your Design & Experience Partner',
+      title: 'Acquisition & ROAS',
+      subtitle: 'Your Performance Partner',
       accentColor: 'text-[#EA580C]',
       borderColor: 'border-orange-200',
       bgColor: 'bg-[#FFF7ED]',
-      items: [
-        {
-          name: 'Product UI/UX Design',
-          desc: 'B2B enterprise portals & mobile design systems',
-          icon: Palette,
-          href: '/services#cro-funnels',
-        },
-        {
-          name: 'Interactive Prototyping',
-          desc: 'Clickable Figma architectures & design sprints',
-          icon: Layers,
-          href: '/services#web-development',
-        },
-        {
-          name: 'Brand Identity Systems',
-          desc: 'High-contrast typography, marks & design books',
-          icon: Sparkles,
-          href: '/services#social-media',
-        },
-        {
-          name: 'Social Content & Presence',
-          desc: 'Strategic storytelling across Instagram & LinkedIn',
-          icon: MessageSquare,
-          href: '/services#social-media',
-        },
-      ],
+      items: growthServices.slice(0, 3).map((s) => ({
+        name: s.title,
+        desc: s.shortDesc || s.tagline,
+        icon: navIconMap[s.iconName] || Target,
+        href: `/services/${s.slug}`,
+      })),
+    },
+    {
+      title: 'Inbound & Lifecycle',
+      subtitle: 'Your Funnel Partner',
+      accentColor: 'text-[#EA580C]',
+      borderColor: 'border-orange-200',
+      bgColor: 'bg-[#FFF7ED]',
+      items: growthServices.slice(3, 6).map((s) => ({
+        name: s.title,
+        desc: s.shortDesc || s.tagline,
+        icon: navIconMap[s.iconName] || Megaphone,
+        href: `/services/${s.slug}`,
+      })),
     },
   ];
 

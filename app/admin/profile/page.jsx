@@ -18,6 +18,9 @@ import {
   Layers,
   ArrowRight,
   Eye,
+  Mail,
+  KeyRound,
+  Lock,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
 
@@ -37,6 +40,8 @@ function ProfileEditorForm({ currentMember }) {
   const [portfolioUrl, setPortfolioUrl] = useState(currentMember?.portfolioUrl || '');
   const [githubUrl, setGithubUrl] = useState(currentMember?.githubUrl || '');
   const [badge, setBadge] = useState(currentMember?.badge || 'Leadership');
+  const [email, setEmail] = useState(currentMember?.email || '');
+  const [newPassword, setNewPassword] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
 
   const handleAddSkill = (e) => {
@@ -65,10 +70,16 @@ function ProfileEditorForm({ currentMember }) {
       portfolioUrl: portfolioUrl.trim(),
       githubUrl: githubUrl.trim(),
       badge: badge.trim(),
+      email: email.trim(),
     };
+
+    if (newPassword.trim()) {
+      updated.password = newPassword.trim();
+    }
 
     updateMemberProfile(currentMember.id, updated);
     setSavedSuccess(true);
+    setNewPassword('');
 
     setTimeout(() => {
       setSavedSuccess(false);
@@ -78,14 +89,15 @@ function ProfileEditorForm({ currentMember }) {
   return (
     <div className="space-y-6">
       {savedSuccess && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs flex items-center justify-between gap-3 animate-in fade-in duration-300">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between gap-3 shadow-sm animate-in fade-in duration-300">
           <div className="flex items-center gap-2.5 font-bold">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
             <span>Profile updated successfully! Live website and /about page updated.</span>
           </div>
           <Link
             href="/about"
-            className="px-3 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 text-xs font-bold transition-colors"
+            target="_blank"
+            className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors shadow-sm"
           >
             Check Live View →
           </Link>
@@ -94,16 +106,16 @@ function ProfileEditorForm({ currentMember }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Editor Form (7 Cols) */}
-        <div className="lg:col-span-7 bg-slate-900/80 p-6 sm:p-7 rounded-3xl border border-slate-800 space-y-5">
-          <h2 className="text-base font-extrabold text-white pb-3 border-b border-slate-800 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-400" />
+        <div className="lg:col-span-7 bg-white p-6 sm:p-7 rounded-3xl border border-[#E2E8F0] space-y-5 shadow-sm">
+          <h2 className="text-base font-extrabold text-[#0A224E] pb-3 border-b border-[#E2E8F0] flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#FF8800]" />
             <span>Edit Information for {currentMember?.name}</span>
           </h2>
 
           <form onSubmit={handleSave} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                   Official Role / Title *
                 </label>
                 <input
@@ -112,18 +124,18 @@ function ProfileEditorForm({ currentMember }) {
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                   placeholder="e.g. Chief Technology Officer (CTO)"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-medium focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                   Pod / Department
                 </label>
                 <select
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-bold focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 >
                   <option value="Developer">Developer Pod (Engineering)</option>
                   <option value="Marketing">Marketing Pod (Growth & CRO)</option>
@@ -133,7 +145,7 @@ function ProfileEditorForm({ currentMember }) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                   Specialty Tagline *
                 </label>
                 <input
@@ -142,12 +154,12 @@ function ProfileEditorForm({ currentMember }) {
                   value={specialty}
                   onChange={(e) => setSpecialty(e.target.value)}
                   placeholder="e.g. Enterprise Architecture • AI Systems"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-medium focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                   Card Badge Label
                 </label>
                 <input
@@ -155,13 +167,13 @@ function ProfileEditorForm({ currentMember }) {
                   value={badge}
                   onChange={(e) => setBadge(e.target.value)}
                   placeholder="e.g. Architecture & Leadership"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-medium focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                 Professional Biography *
               </label>
               <textarea
@@ -170,27 +182,27 @@ function ProfileEditorForm({ currentMember }) {
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 placeholder="Describe your executive responsibilities, technology focus, or growth track record..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500 leading-relaxed"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-medium focus:outline-none focus:ring-2 focus:ring-[#0062E6] leading-relaxed"
               />
             </div>
 
             {/* Core Competencies / Skills Chip Editor */}
             <div>
-              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-1.5">
                 Core Competencies / Skills ({skills.length} skills listed)
               </label>
 
-              <div className="flex flex-wrap gap-2 mb-2 p-3 rounded-xl bg-slate-950 border border-slate-800 min-h-[50px]">
+              <div className="flex flex-wrap gap-2 mb-2 p-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] min-h-[50px]">
                 {skills.map((skill, idx) => (
                   <span
                     key={idx}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white text-[#0A224E] text-xs font-bold border border-slate-200 shadow-xs"
                   >
                     <span>{skill}</span>
                     <button
                       type="button"
                       onClick={() => handleRemoveSkill(skill)}
-                      className="text-slate-400 hover:text-rose-400 transition-colors"
+                      className="text-slate-400 hover:text-rose-600 transition-colors"
                       title="Remove skill"
                     >
                       <Trash2 className="w-3 h-3" />
@@ -205,7 +217,7 @@ function ProfileEditorForm({ currentMember }) {
                   value={newSkillInput}
                   onChange={(e) => setNewSkillInput(e.target.value)}
                   placeholder="Type new skill (e.g. Next.js 16, Neon DB) & press Add..."
-                  className="flex-1 px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="flex-1 px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
@@ -216,7 +228,7 @@ function ProfileEditorForm({ currentMember }) {
                 <button
                   type="button"
                   onClick={handleAddSkill}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold transition-colors flex items-center gap-1"
+                  className="px-4 py-2 rounded-xl bg-[#0A224E] hover:bg-slate-800 text-white text-xs font-bold transition-colors flex items-center gap-1"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>Add</span>
@@ -225,14 +237,14 @@ function ProfileEditorForm({ currentMember }) {
             </div>
 
             {/* Social & Personal Links */}
-            <div className="pt-3 border-t border-slate-800 space-y-3">
-              <span className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+            <div className="pt-3 border-t border-[#E2E8F0] space-y-3">
+              <span className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider">
                 Personal Web & Social Links
               </span>
 
               <div>
-                <label className="block text-[11px] text-slate-400 mb-1 flex items-center gap-1.5">
-                  <LinkedinIcon className="w-3.5 h-3.5 text-blue-400" />
+                <label className="block text-[11px] font-bold text-[#475569] mb-1 flex items-center gap-1.5">
+                  <LinkedinIcon className="w-3.5 h-3.5 text-[#0062E6]" />
                   <span>LinkedIn Profile URL</span>
                 </label>
                 <input
@@ -240,13 +252,13 @@ function ProfileEditorForm({ currentMember }) {
                   value={linkedinUrl}
                   onChange={(e) => setLinkedinUrl(e.target.value)}
                   placeholder="https://www.linkedin.com/in/username"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-400 mb-1 flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-orange-400" />
+                <label className="block text-[11px] font-bold text-[#475569] mb-1 flex items-center gap-1.5">
+                  <Globe className="w-3.5 h-3.5 text-[#EA580C]" />
                   <span>Personal Portfolio / Vercel Domain</span>
                 </label>
                 <input
@@ -254,13 +266,13 @@ function ProfileEditorForm({ currentMember }) {
                   value={portfolioUrl}
                   onChange={(e) => setPortfolioUrl(e.target.value)}
                   placeholder="https://yourname.vercel.app/"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-400 mb-1 flex items-center gap-1.5">
-                  <GithubIcon className="w-3.5 h-3.5 text-slate-300" />
+                <label className="block text-[11px] font-bold text-[#475569] mb-1 flex items-center gap-1.5">
+                  <GithubIcon className="w-3.5 h-3.5 text-slate-700" />
                   <span>Personal GitHub Profile URL (Optional)</span>
                 </label>
                 <input
@@ -268,15 +280,57 @@ function ProfileEditorForm({ currentMember }) {
                   value={githubUrl}
                   onChange={(e) => setGithubUrl(e.target.value)}
                   placeholder="https://github.com/yourhandle"
-                  className="w-full px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-blue-500"
+                  className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
             </div>
 
-            <div className="pt-4 flex items-center justify-end gap-3 border-t border-slate-800">
+            {/* Account Credentials & Password Management */}
+            <div className="pt-3 border-t border-[#E2E8F0] space-y-3">
+              <span className="block text-xs font-bold text-[#0A224E] uppercase tracking-wider flex items-center gap-1.5">
+                <KeyRound className="w-3.5 h-3.5 text-[#FF8800]" />
+                <span>Account Login Credentials & Security Key</span>
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-[11px] font-bold text-[#475569] mb-1 flex items-center gap-1.5">
+                    <Mail className="w-3.5 h-3.5 text-[#0062E6]" />
+                    <span>Official Member Email Address *</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="e.g. name@adviks.in"
+                    className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold text-[#475569] mb-1 flex items-center gap-1.5">
+                    <Lock className="w-3.5 h-3.5 text-[#EA580C]" />
+                    <span>Change Account Password (Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password (leaves unchanged if blank)"
+                    className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                  />
+                  <span className="text-[10px] text-[#475569] mt-1 block">
+                    Current active password: <span className="text-[#0A224E] font-mono font-bold bg-slate-100 px-1.5 py-0.5 rounded">{currentMember?.password || 'adviks@123'}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 flex items-center justify-end gap-3 border-t border-[#E2E8F0]">
               <button
                 type="submit"
-                className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:opacity-95 text-white text-xs font-extrabold shadow-md shadow-orange-600/20 transition-all flex items-center gap-2"
+                className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] hover:opacity-95 text-white text-xs font-extrabold shadow-md shadow-orange-500/20 transition-all flex items-center gap-2"
               >
                 <Save className="w-4 h-4" />
                 <span>Save Profile to Live /about Page</span>
@@ -288,17 +342,17 @@ function ProfileEditorForm({ currentMember }) {
         {/* Live Card Preview (5 Cols) */}
         <div className="lg:col-span-5 space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Eye className="w-4 h-4 text-blue-400" />
+            <span className="text-xs font-bold text-[#0A224E] uppercase tracking-wider flex items-center gap-1.5">
+              <Eye className="w-4 h-4 text-[#0062E6]" />
               <span>Live /about Page Replica Preview</span>
             </span>
-            <span className="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full font-bold">
+            <span className="text-[10px] text-[#EA580C] bg-[#FFF7ED] border border-orange-200 px-2.5 py-0.5 rounded-full font-bold">
               Updates Live as You Type
             </span>
           </div>
 
           {/* Exact Replica of /about Card */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-7 shadow-xl flex flex-col justify-between text-slate-700">
+          <div className="rounded-3xl border border-[#E2E8F0] bg-white p-7 shadow-lg flex flex-col justify-between text-slate-700">
             <div>
               {/* Header */}
               <div className="flex items-start justify-between gap-4 mb-4">
@@ -330,7 +384,7 @@ function ProfileEditorForm({ currentMember }) {
               </div>
 
               {/* Specialty */}
-              <div className="text-[11px] font-mono font-medium text-slate-600 mb-3 bg-[#F8FAFC] px-3 py-1.5 rounded-xl border border-slate-200">
+              <div className="text-[11px] font-mono font-medium text-slate-600 mb-3 bg-[#F8FAFC] px-3 py-1.5 rounded-xl border border-[#E2E8F0]">
                 {specialty || 'Specialty tagline'}
               </div>
 
@@ -406,16 +460,16 @@ export default function AdminProfileEditPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold mb-2">
-            <UserCheck className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-orange-200 text-xs font-bold mb-2">
+            <UserCheck className="w-3.5 h-3.5 text-[#FF8800]" />
             <span>Public Executive Identity</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E]">
             My About Page Profile Editor
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-[#475569] mt-1">
             Update your public executive bio, competencies, and personal portfolio links rendered on the /about page.
           </p>
         </div>
@@ -425,7 +479,7 @@ export default function AdminProfileEditPage() {
             href="/about"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 transition-colors flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-[#E2E8F0] text-xs font-bold text-[#0A224E] shadow-sm transition-all flex items-center gap-1.5"
           >
             <span>View Public /about Page</span>
             <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
@@ -434,25 +488,25 @@ export default function AdminProfileEditPage() {
       </div>
 
       {/* Member Selector Pill */}
-      <div className="bg-slate-900/90 p-4 sm:p-5 rounded-2xl border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-white p-4 sm:p-5 rounded-2xl border border-[#E2E8F0] shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+          <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] border border-blue-200 flex items-center justify-center text-[#0062E6]">
             <UserCheck className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+            <span className="text-xs font-bold text-[#475569] uppercase tracking-wider block">
               Editing Profile For:
             </span>
-            <div className="text-base font-extrabold text-white">{currentMember?.name}</div>
+            <div className="text-base font-extrabold text-[#0A224E]">{currentMember?.name}</div>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <label className="text-xs text-slate-400 hidden md:block">Switch Officer:</label>
+          <label className="text-xs font-bold text-[#475569] hidden md:block">Switch Officer:</label>
           <select
             value={selectedMemberId}
             onChange={(e) => setSelectedMemberId(e.target.value)}
-            className="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-medium focus:outline-none focus:border-blue-500"
+            className="px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] font-bold focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
           >
             {teamMembers.map((m) => (
               <option key={m.id} value={m.id}>

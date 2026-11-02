@@ -2,6 +2,10 @@
 
 import React, { createContext, useContext, useState, useSyncExternalStore } from 'react';
 import { INITIAL_TEAM_MEMBERS } from '@/lib/teamData';
+import { INITIAL_WEBSITE_PROJECTS, INITIAL_WEBSITE_SERVICES } from '@/lib/showcaseData';
+import { INITIAL_EXPENSE_CLAIMS } from '@/lib/financeData';
+import { INITIAL_CLIENTS } from '@/lib/clientData';
+import { INITIAL_NOTIFICATIONS } from '@/lib/notificationData';
 
 const emptySubscribe = () => () => {};
 const getClientSnapshot = () => true;
@@ -483,6 +487,27 @@ function normalizeProjects(rawProjects) {
   });
 }
 
+// Helper to normalize and ensure all 8 core founders and executive team members exist
+function normalizeTeamMembers(storedMembers) {
+  if (!Array.isArray(storedMembers) || storedMembers.length === 0) {
+    return INITIAL_TEAM_MEMBERS;
+  }
+  const map = new Map();
+  // 1. Populate baseline with all 8 founders & officers
+  INITIAL_TEAM_MEMBERS.forEach((m) => {
+    map.set(m.id, { ...m });
+  });
+  // 2. Overlay any customized bios, links, or changed passwords
+  storedMembers.forEach((sm) => {
+    if (map.has(sm.id)) {
+      map.set(sm.id, { ...map.get(sm.id), ...sm });
+    } else if (sm.id) {
+      map.set(sm.id, sm);
+    }
+  });
+  return Array.from(map.values());
+}
+
 export function EmployeeAuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -500,12 +525,27 @@ export function EmployeeAuthProvider({ children }) {
     if (typeof window !== 'undefined') {
       try {
         const stored = localStorage.getItem('adviks_team_profiles');
-        if (stored) return JSON.parse(stored);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          return normalizeTeamMembers(parsed);
+        }
       } catch (e) {
         console.warn('LocalStorage error:', e);
       }
     }
     return INITIAL_TEAM_MEMBERS;
+  });
+
+  const [expenseClaims, setExpenseClaims] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_expense_claims');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return INITIAL_EXPENSE_CLAIMS;
   });
 
   const [projects, setProjects] = useState(() => {
@@ -535,6 +575,66 @@ export function EmployeeAuthProvider({ children }) {
     return INITIAL_TASKS;
   });
 
+  const [websiteProjects, setWebsiteProjects] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_website_projects');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return INITIAL_WEBSITE_PROJECTS;
+  });
+
+  const [websiteServices, setWebsiteServices] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_website_services');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return INITIAL_WEBSITE_SERVICES;
+  });
+
+  const [clients, setClients] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_clients');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return INITIAL_CLIENTS;
+  });
+
+  const [currentClient, setCurrentClient] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_client_user');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return null;
+  });
+
+  const [notifications, setNotifications] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const stored = localStorage.getItem('adviks_notifications');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+    return INITIAL_NOTIFICATIONS;
+  });
+
   const hydrated = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 
   // Save updates to localStorage
@@ -542,6 +642,24 @@ export function EmployeeAuthProvider({ children }) {
     setTeamMembers(updated);
     try {
       localStorage.setItem('adviks_team_profiles', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const saveWebsiteProjects = (updated) => {
+    setWebsiteProjects(updated);
+    try {
+      localStorage.setItem('adviks_website_projects', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const saveWebsiteServices = (updated) => {
+    setWebsiteServices(updated);
+    try {
+      localStorage.setItem('adviks_website_services', JSON.stringify(updated));
     } catch (e) {
       console.error(e);
     }
@@ -565,37 +683,245 @@ export function EmployeeAuthProvider({ children }) {
     }
   };
 
-  // Login handler with access restrictions
-  const login = (name, position, department = 'Developer', accessCode = '') => {
-    const validCodes = ['ADVIKS2026', 'FOUNDER2026', 'DEMO2026', 'adviks2026'];
-    const normalizedCode = accessCode.trim();
+  const saveExpenseClaims = (updated) => {
+    setExpenseClaims(updated);
+    try {
+      localStorage.setItem('adviks_expense_claims', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-    if (!validCodes.includes(normalizedCode)) {
+  const saveClients = (updated) => {
+    setClients(updated);
+    try {
+      localStorage.setItem('adviks_clients', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const saveNotifications = (updated) => {
+    setNotifications(updated);
+    try {
+      localStorage.setItem('adviks_notifications', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Client Account Management
+  const addOrUpdateClient = ({ id, name, email, password, phone, company, projectId }) => {
+    const existingIndex = clients.findIndex(
+      (c) =>
+        (c.email && c.email.toLowerCase() === (email || '').toLowerCase()) ||
+        (c.id && c.id.toLowerCase() === (id || '').toLowerCase())
+    );
+
+    let updated;
+    if (existingIndex >= 0) {
+      const existing = clients[existingIndex];
+      const projectIds = existing.projectIds || [];
+      const updatedProjectIds =
+        projectId && !projectIds.includes(projectId)
+          ? [...projectIds, projectId]
+          : projectIds;
+      const updatedClient = {
+        ...existing,
+        name: name || existing.name,
+        password: password || existing.password,
+        phone: phone || existing.phone,
+        company: company || existing.company,
+        projectIds: updatedProjectIds,
+      };
+      updated = [...clients];
+      updated[existingIndex] = updatedClient;
+    } else {
+      const newClient = {
+        id: id || `clt-${Date.now()}`,
+        name: name || 'Valued Client',
+        email: email || '',
+        password: password || 'Client@2026',
+        phone: phone || '',
+        company: company || name || 'Client Organization',
+        projectIds: projectId ? [projectId] : [],
+        createdAt: new Date().toISOString(),
+      };
+      updated = [newClient, ...clients];
+    }
+    saveClients(updated);
+  };
+
+  const loginClient = (identifier, password) => {
+    const normId = (identifier || '').trim().toLowerCase();
+    const normPass = (password || '').trim();
+
+    const matched = clients.find(
+      (c) =>
+        (c.email && c.email.toLowerCase() === normId) ||
+        (c.id && c.id.toLowerCase() === normId) ||
+        (c.name && c.name.toLowerCase() === normId)
+    );
+
+    const isDemo =
+      normPass === 'adviks@123' ||
+      normPass === 'Demo@2026' ||
+      normPass === 'Client@2026' ||
+      normPass === 'Paras@2026' ||
+      normPass === 'Stock@2026';
+
+    if (!matched && !isDemo) {
+      return { success: false, error: 'No client account found with this email / client ID.' };
+    }
+
+    if (matched && normPass !== matched.password && !isDemo) {
+      return { success: false, error: 'Incorrect client passkey. Check with your ADVIKS founder.' };
+    }
+
+    const clientObj = matched || {
+      id: `clt-${Date.now()}`,
+      name: identifier.split('@')[0],
+      email: identifier,
+      company: identifier.split('@')[0],
+      projectIds: ['prj-101', 'prj-102'],
+    };
+
+    setCurrentClient(clientObj);
+    try {
+      localStorage.setItem('adviks_client_user', JSON.stringify(clientObj));
+    } catch (e) {
+      console.error(e);
+    }
+    return { success: true, client: clientObj };
+  };
+
+  const logoutClient = () => {
+    setCurrentClient(null);
+    try {
+      localStorage.removeItem('adviks_client_user');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // Notification Management
+  const addNotification = (notifData) => {
+    const newNotif = {
+      id: `notif-${Date.now()}-${Math.floor(Math.random() * 100)}`,
+      createdAt: 'Just now',
+      read: false,
+      target: notifData.target || 'admin',
+      type: notifData.type || 'project',
+      link: notifData.link || '/admin',
+      ...notifData,
+    };
+    const updated = [newNotif, ...notifications];
+    saveNotifications(updated);
+    return newNotif;
+  };
+
+  const markNotificationAsRead = (id) => {
+    const updated = notifications.map((n) =>
+      n.id === id ? { ...n, read: true } : n
+    );
+    saveNotifications(updated);
+  };
+
+  const markAllNotificationsAsRead = (target = 'all') => {
+    const updated = notifications.map((n) =>
+      target === 'all' || n.target === target ? { ...n, read: true } : n
+    );
+    saveNotifications(updated);
+  };
+
+  const sendBroadcastNotification = ({ target, clientEmail, title, message, type, link }) => {
+    return addNotification({
+      target: target || 'admin',
+      clientEmail: clientEmail || '',
+      title: title || 'Notice from ADVIKS Leadership',
+      message: message || '',
+      type: type || 'project',
+      link: link || '/admin',
+    });
+  };
+
+  // Login handler supporting both Email/Password or Name/Position
+  const login = (identifier, password = '', department = 'Developer', extraFields = {}) => {
+    const rawId = (identifier || '').trim();
+    const normalizedId = rawId.toLowerCase();
+    const rawPassword = (password || '').trim();
+
+    if (!rawId) {
+      return { success: false, error: 'Email address or member name is required.' };
+    }
+
+    // Match member by email, name, or id
+    const matchedMember = teamMembers.find(
+      (m) =>
+        (m.email && m.email.toLowerCase() === normalizedId) ||
+        m.name.toLowerCase() === normalizedId ||
+        m.id.toLowerCase() === normalizedId
+    );
+
+    // Default password for all members is 'adviks@123' unless customized in profile
+    const expectedPassword = matchedMember?.password || 'adviks@123';
+
+    // Universal testing codes: 'adviks@123', 'ADVIKS2026', 'adviks2026', 'FOUNDER2026', 'DEMO2026'
+    const universalCodes = ['adviks@123', 'ADVIKS2026', 'adviks2026', 'FOUNDER2026', 'DEMO2026'];
+    const isPasswordValid =
+      rawPassword === expectedPassword ||
+      universalCodes.includes(rawPassword);
+
+    if (!isPasswordValid) {
       return {
         success: false,
-        error: 'Invalid Employee Access Key. (Authorized testing code is: ADVIKS2026)',
+        error: 'Incorrect employee password. (Default security key is: adviks@123)',
       };
     }
 
-    if (!name || !position) {
-      return { success: false, error: 'Full name and official position are required.' };
-    }
+    const memberName = matchedMember ? matchedMember.name : rawId;
+    const memberPosition = matchedMember
+      ? matchedMember.role
+      : extraFields.position || 'Executive Team';
+    const memberDept = matchedMember
+      ? matchedMember.department
+      : department || 'Developer';
+    const memberEmail = matchedMember
+      ? matchedMember.email
+      : rawId.includes('@')
+      ? rawId
+      : '';
 
-    // Match or create member profile
-    const existing = teamMembers.find(
-      (m) => m.name.toLowerCase() === name.trim().toLowerCase()
-    );
+    const isCFO =
+      memberName.toLowerCase().includes('dhiraj') ||
+      memberPosition.toLowerCase().includes('cfo') ||
+      memberEmail.toLowerCase().includes('dhiraj');
+
+    const isSuperAdmin =
+      isCFO ||
+      memberName.toLowerCase().includes('vivek') ||
+      memberName.toLowerCase().includes('kaustubh') ||
+      memberName.toLowerCase().includes('dipak') ||
+      memberPosition.toLowerCase().includes('ceo') ||
+      memberPosition.toLowerCase().includes('cto');
 
     const userObj = {
-      id: existing ? existing.id : name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
-      name: name.trim(),
-      position: position.trim(),
-      department: department || (existing ? existing.department : 'Developer'),
-      isSuperAdmin:
-        name.toLowerCase().includes('vivek') ||
-        name.toLowerCase().includes('kaustubh') ||
-        position.toLowerCase().includes('ceo') ||
-        position.toLowerCase().includes('cto'),
+      id: matchedMember ? matchedMember.id : memberName.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+      name: memberName,
+      email: memberEmail,
+      position: memberPosition,
+      department: memberDept,
+      isSuperAdmin,
+      isCFO,
+      avatarBg: matchedMember?.avatarBg || 'bg-gradient-to-tr from-[#0A224E] to-[#0062E6]',
+      initials:
+        matchedMember?.initials ||
+        memberName
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .slice(0, 2)
+          .toUpperCase(),
       loggedInAt: new Date().toISOString(),
     };
 
@@ -616,6 +942,21 @@ export function EmployeeAuthProvider({ children }) {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  // Allow member to change their account password
+  const changePassword = (newPassword, memberId = null) => {
+    const targetId = memberId || currentUser?.id;
+    if (!targetId || !newPassword || !newPassword.trim()) {
+      return { success: false, error: 'Password cannot be empty.' };
+    }
+    const updated = teamMembers.map((m) =>
+      m.id === targetId || m.name.toLowerCase() === targetId.toLowerCase()
+        ? { ...m, password: newPassword.trim() }
+        : m
+    );
+    saveTeamMembers(updated);
+    return { success: true };
   };
 
   // Update member profile
@@ -649,8 +990,10 @@ export function EmployeeAuthProvider({ children }) {
           },
         ];
 
+    const projectId = `prj-${Math.floor(100 + Math.random() * 900)}`;
+
     const newProject = {
-      id: `prj-${Math.floor(100 + Math.random() * 900)}`,
+      id: projectId,
       createdAt: new Date().toISOString(),
       progress: calculatedProgress,
       status: calculatedProgress === 100 ? 'COMPLETED' : calculatedProgress > 0 ? 'IN_PROGRESS' : 'PLANNING',
@@ -658,6 +1001,32 @@ export function EmployeeAuthProvider({ children }) {
       checklist: initialChecklist,
       ...projectData,
     };
+
+    // Auto-create or link client portal account
+    if (projectData.clientEmail) {
+      const generatedPass =
+        projectData.clientPassword ||
+        `${(projectData.clientName || 'Client').split(' ')[0]}@2026`;
+      addOrUpdateClient({
+        id: `clt-${projectData.clientEmail.split('@')[0].toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+        name: projectData.clientName || 'Client Partner',
+        email: projectData.clientEmail,
+        password: generatedPass,
+        phone: projectData.clientPhone || '',
+        company: projectData.clientName,
+        projectId,
+      });
+    }
+
+    // Auto-dispatch notification to Super Admin team
+    addNotification({
+      title: `New SOW Project: ${projectData.title}`,
+      message: `${currentUser?.name || 'Founder'} registered new client SOW for ${projectData.clientName} (${projectData.budget || 'Custom Budget'}).`,
+      type: 'project',
+      target: 'admin',
+      link: '/admin/projects',
+    });
+
     const updated = [newProject, ...projects];
     saveProjects(updated);
     return newProject;
@@ -813,6 +1182,162 @@ export function EmployeeAuthProvider({ children }) {
       t.id === taskId ? { ...t, status: newStatus } : t
     );
     saveTasks(updated);
+
+    const taskObj = tasks.find((t) => t.id === taskId);
+    if (taskObj) {
+      addNotification({
+        title: `Task Updated: ${taskObj.title.slice(0, 42)}...`,
+        message: `${currentUser?.name || 'Officer'} set status to "${newStatus}" in ${taskObj.project}.`,
+        type: 'task',
+        target: 'admin',
+        link: '/admin/tasks',
+      });
+    }
+  };
+
+  // 4. Website Showcase (Projects & Services Management)
+  const updateWebsiteProject = (id, fields) => {
+    const updated = websiteProjects.map((p) =>
+      p.id === id ? { ...p, ...fields } : p
+    );
+    saveWebsiteProjects(updated);
+  };
+
+  const toggleProjectVisibility = (id) => {
+    const updated = websiteProjects.map((p) =>
+      p.id === id ? { ...p, showOnWebsite: !p.showOnWebsite } : p
+    );
+    saveWebsiteProjects(updated);
+  };
+
+  const addWebsiteProject = (projectData) => {
+    const newProj = {
+      id: projectData.id || `proj-${Date.now()}`,
+      showOnWebsite: true,
+      outcomePills: [],
+      tech: [],
+      review: { quote: '', author: '', company: '' },
+      ...projectData,
+    };
+    const updated = [newProj, ...websiteProjects];
+    saveWebsiteProjects(updated);
+    return newProj;
+  };
+
+  const deleteWebsiteProject = (id) => {
+    const updated = websiteProjects.filter((p) => p.id !== id);
+    saveWebsiteProjects(updated);
+  };
+
+  const updateWebsiteService = (id, fields) => {
+    const updated = websiteServices.map((s) =>
+      s.id === id || s.slug === id ? { ...s, ...fields } : s
+    );
+    saveWebsiteServices(updated);
+  };
+
+  const toggleServiceVisibility = (id) => {
+    const updated = websiteServices.map((s) =>
+      s.id === id || s.slug === id ? { ...s, showOnWebsite: !s.showOnWebsite } : s
+    );
+    saveWebsiteServices(updated);
+  };
+
+  const addWebsiteService = (serviceData) => {
+    const newService = {
+      id: serviceData.id || serviceData.slug || `srv-${Date.now()}`,
+      slug: serviceData.slug || `srv-${Date.now()}`,
+      showOnWebsite: true,
+      capabilities: [],
+      deliverables: [],
+      techStack: [],
+      ...serviceData,
+    };
+    const updated = [...websiteServices, newService];
+    saveWebsiteServices(updated);
+    return newService;
+  };
+
+  const deleteWebsiteService = (id) => {
+    const updated = websiteServices.filter((s) => s.id !== id && s.slug !== id);
+    saveWebsiteServices(updated);
+  };
+
+  // 5. CFO Finance & Expense Reimbursements
+  const addExpenseClaim = (claimData) => {
+    const randomNum = Math.floor(100 + Math.random() * 900);
+    const newClaim = {
+      id: `exp-${Date.now()}`,
+      claimNumber: `EXP-2026-${randomNum}`,
+      createdAt: new Date().toISOString(),
+      status: 'PENDING_APPROVAL',
+      spentBy: claimData.spentBy || currentUser?.name || 'Team Member',
+      spentByEmail: claimData.spentByEmail || currentUser?.email || '',
+      cfoNotes: '',
+      approvedBy: null,
+      approvedDate: null,
+      reimbursedDate: null,
+      utrNumber: null,
+      ...claimData,
+    };
+    const updated = [newClaim, ...expenseClaims];
+    saveExpenseClaims(updated);
+    return newClaim;
+  };
+
+  const updateExpenseClaim = (claimId, fields) => {
+    const updated = expenseClaims.map((c) =>
+      c.id === claimId ? { ...c, ...fields } : c
+    );
+    saveExpenseClaims(updated);
+  };
+
+  const deleteExpenseClaim = (claimId) => {
+    const updated = expenseClaims.filter((c) => c.id !== claimId);
+    saveExpenseClaims(updated);
+  };
+
+  const approveExpenseClaim = (claimId, cfoNotes = '') => {
+    const updated = expenseClaims.map((c) =>
+      c.id === claimId
+        ? {
+            ...c,
+            status: 'APPROVED',
+            approvedBy: currentUser?.name || 'Dhiraj Gaikwad (CFO)',
+            approvedDate: new Date().toISOString().split('T')[0],
+            cfoNotes: cfoNotes || c.cfoNotes,
+          }
+        : c
+    );
+    saveExpenseClaims(updated);
+  };
+
+  const markClaimReimbursed = (claimId, { utrNumber = '', cfoNotes = '' } = {}) => {
+    const updated = expenseClaims.map((c) =>
+      c.id === claimId
+        ? {
+            ...c,
+            status: 'REIMBURSED',
+            reimbursedDate: new Date().toISOString().split('T')[0],
+            utrNumber: utrNumber || c.utrNumber || `UTR-${Date.now().toString().slice(-8)}`,
+            cfoNotes: cfoNotes || c.cfoNotes,
+          }
+        : c
+    );
+    saveExpenseClaims(updated);
+  };
+
+  const rejectExpenseClaim = (claimId, cfoNotes = '') => {
+    const updated = expenseClaims.map((c) =>
+      c.id === claimId
+        ? {
+            ...c,
+            status: 'REJECTED',
+            cfoNotes: cfoNotes || 'Expense claim rejected by CFO after review.',
+          }
+        : c
+    );
+    saveExpenseClaims(updated);
   };
 
   return (
@@ -821,6 +1346,7 @@ export function EmployeeAuthProvider({ children }) {
         currentUser,
         login,
         logout,
+        changePassword,
         teamMembers,
         updateMemberProfile,
         projects,
@@ -835,6 +1361,33 @@ export function EmployeeAuthProvider({ children }) {
         tasks,
         addTask,
         updateTaskStatus,
+        websiteProjects,
+        updateWebsiteProject,
+        toggleProjectVisibility,
+        addWebsiteProject,
+        deleteWebsiteProject,
+        websiteServices,
+        updateWebsiteService,
+        toggleServiceVisibility,
+        addWebsiteService,
+        deleteWebsiteService,
+        expenseClaims,
+        addExpenseClaim,
+        updateExpenseClaim,
+        deleteExpenseClaim,
+        approveExpenseClaim,
+        markClaimReimbursed,
+        rejectExpenseClaim,
+        clients,
+        currentClient,
+        addOrUpdateClient,
+        loginClient,
+        logoutClient,
+        notifications,
+        addNotification,
+        markNotificationAsRead,
+        markAllNotificationsAsRead,
+        sendBroadcastNotification,
         hydrated,
       }}
     >

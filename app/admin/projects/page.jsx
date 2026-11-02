@@ -33,6 +33,9 @@ import {
   ChevronUp,
   Edit2,
   Save,
+  Lock,
+  KeyRound,
+  Copy,
 } from 'lucide-react';
 
 export default function AdminProjectsPage() {
@@ -73,6 +76,7 @@ export default function AdminProjectsPage() {
   const [clientName, setClientName] = useState('');
   const [clientEmail, setClientEmail] = useState('');
   const [clientPhone, setClientPhone] = useState('');
+  const [clientPassword, setClientPassword] = useState('Client@2026');
   const [department, setDepartment] = useState('Developer');
   const [category, setCategory] = useState('Enterprise SaaS & Fintech');
   const [assignedTo, setAssignedTo] = useState(currentUser?.name || 'Vivek Pawar');
@@ -176,6 +180,7 @@ export default function AdminProjectsPage() {
       clientName,
       clientEmail,
       clientPhone,
+      clientPassword: clientPassword.trim() || `${(clientName || 'Client').split(' ')[0]}@2026`,
       department,
       category,
       assignedTo,
@@ -192,6 +197,7 @@ export default function AdminProjectsPage() {
     setClientName('');
     setClientEmail('');
     setClientPhone('');
+    setClientPassword('Client@2026');
     setRequirementsSummary('');
     setInitialChecklistItems([
       'Core architecture & database schema setup',
@@ -204,16 +210,16 @@ export default function AdminProjectsPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Top Title Strip */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold mb-2">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>SOW Delivery & Dynamic Checklists</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-orange-200 text-xs font-bold mb-2">
+            <Sparkles className="w-3.5 h-3.5 text-[#FF8800]" />
+            <span>SOW Delivery &amp; Dynamic Checklists</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Client Projects & Milestones
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E]">
+            Client Projects &amp; Milestones
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-[#475569] mt-1">
             Checklist-driven completion percentages, recorded stage history, and collaborative deliverable management.
           </p>
         </div>
@@ -227,7 +233,7 @@ export default function AdminProjectsPage() {
               }
               setShowAddModal(true);
             }}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:opacity-95 text-white text-xs font-extrabold transition-all shadow-md shadow-orange-600/20 flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] hover:opacity-95 text-white text-xs font-extrabold transition-all shadow-xs flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             <span>+ Add New Project / Client SOW</span>
@@ -236,14 +242,14 @@ export default function AdminProjectsPage() {
       </div>
 
       {/* Primary Tab Switcher: "All Projects" vs "My Projects" */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-3.5 rounded-2xl border border-[#E2E8F0] shadow-2xs">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setActiveTab('ALL')}
             className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
               activeTab === 'ALL'
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-[#0062E6] text-white shadow-xs'
+                : 'text-[#475569] hover:text-[#0A224E] hover:bg-[#F8FAFC]'
             }`}
           >
             <FolderKanban className="w-4 h-4" />
@@ -263,8 +269,8 @@ export default function AdminProjectsPage() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
               activeTab === 'MY'
-                ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-gradient-to-r from-[#FF8800] to-[#EA580C] text-white shadow-xs'
+                : 'text-[#475569] hover:text-[#0A224E] hover:bg-[#F8FAFC]'
             }`}
           >
             <UserCheck className="w-4 h-4" />
@@ -284,19 +290,19 @@ export default function AdminProjectsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Filter by title, client, lead..."
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-48 sm:w-60"
+              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] placeholder-slate-400 focus:outline-none focus:border-[#0062E6] w-48 sm:w-60"
             />
           </div>
 
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-700">
+          <div className="flex items-center gap-1 bg-[#F8FAFC] p-1 rounded-xl border border-[#E2E8F0]">
             {['ALL', 'Developer', 'Marketing'].map((d) => (
               <button
                 key={d}
                 onClick={() => setSelectedDept(d)}
                 className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-colors ${
                   selectedDept === d
-                    ? 'bg-slate-800 text-white'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-white text-[#0A224E] shadow-2xs border border-[#E2E8F0]'
+                    : 'text-[#475569] hover:text-[#0A224E]'
                 }`}
               >
                 {d === 'ALL' ? 'All Pods' : d}
@@ -308,15 +314,15 @@ export default function AdminProjectsPage() {
 
       {/* If "My Projects" is selected but no user is logged in */}
       {activeTab === 'MY' && !currentUser && (
-        <div className="p-8 rounded-2xl bg-slate-900 border border-amber-500/30 text-center max-w-xl mx-auto space-y-3">
-          <AlertCircle className="w-8 h-8 text-amber-400 mx-auto" />
-          <h3 className="text-base font-bold text-white">Employee Login Required for &quot;My Projects&quot;</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Please log in with your name and employee passkey so ADVIKS can filter projects assigned specifically to your pod.
+        <div className="p-8 rounded-2xl bg-[#FFF7ED] border border-orange-200 text-center max-w-xl mx-auto space-y-3 shadow-2xs">
+          <AlertCircle className="w-8 h-8 text-[#FF8800] mx-auto" />
+          <h3 className="text-base font-bold text-[#0A224E]">Employee Login Required for &quot;My Projects&quot;</h3>
+          <p className="text-xs text-[#475569] leading-relaxed">
+            Please log in with your officer account so ADVIKS can filter projects assigned specifically to your pod.
           </p>
           <button
             onClick={() => setShowLoginModal(true)}
-            className="px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold transition-all shadow-md"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] text-white text-xs font-bold transition-all shadow-xs"
           >
             Log In as Team Member
           </button>
@@ -326,10 +332,10 @@ export default function AdminProjectsPage() {
       {/* Projects Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
         {displayedList.length === 0 ? (
-          <div className="col-span-full py-16 text-center rounded-2xl bg-slate-900/40 border border-slate-800">
-            <FolderKanban className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-            <p className="text-sm font-semibold text-slate-400">No projects match the current filter.</p>
-            <p className="text-xs text-slate-500 mt-1">
+          <div className="col-span-full py-16 text-center rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+            <FolderKanban className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <p className="text-sm font-semibold text-[#475569]">No projects match the current filter.</p>
+            <p className="text-xs text-slate-400 mt-1">
               Click &quot;+ Add New Project&quot; above to register a new client scope or product idea.
             </p>
           </div>
@@ -350,10 +356,10 @@ export default function AdminProjectsPage() {
             return (
               <div
                 key={project.id}
-                className={`p-6 sm:p-7 rounded-3xl border bg-slate-900/90 transition-all flex flex-col justify-between shadow-xl relative overflow-hidden ${
+                className={`p-6 sm:p-7 rounded-3xl border bg-white transition-all flex flex-col justify-between shadow-2xs relative overflow-hidden ${
                   isAssignedToCurrentUser
-                    ? 'border-amber-500/50 ring-1 ring-amber-500/30'
-                    : 'border-slate-800 hover:border-slate-700'
+                    ? 'border-orange-300 ring-1 ring-orange-500/20'
+                    : 'border-[#E2E8F0] hover:border-slate-300'
                 }`}
               >
                 <div>
@@ -363,31 +369,31 @@ export default function AdminProjectsPage() {
                       <span
                         className={`text-[11px] font-bold px-3 py-1 rounded-full border ${
                           isDev
-                            ? 'text-blue-400 bg-blue-500/10 border-blue-500/30'
-                            : 'text-orange-400 bg-orange-500/10 border-orange-500/30'
+                            ? 'text-[#0062E6] bg-[#EFF6FF] border-blue-200'
+                            : 'text-[#EA580C] bg-[#FFF7ED] border-orange-200'
                         }`}
                       >
                         {isDev ? 'Developer Pod' : 'Marketing Pod'}
                       </span>
-                      <span className="text-[11px] text-slate-400 font-mono">
+                      <span className="text-[11px] text-[#475569] font-mono">
                         {project.category || 'Custom Solution'}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <span
-                        className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full ${
+                        className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${
                           project.status === 'COMPLETED'
-                            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                             : project.status === 'REVIEW'
-                            ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
-                            : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                            ? 'bg-indigo-50 text-indigo-700 border-indigo-200'
+                            : 'bg-[#FFF7ED] text-[#EA580C] border-orange-200'
                         }`}
                       >
                         {project.status || 'IN_PROGRESS'}
                       </span>
                       {isAssignedToCurrentUser && (
-                        <span className="text-[10px] font-bold text-amber-300 bg-amber-500/20 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                        <span className="text-[10px] font-bold text-[#EA580C] bg-[#FFF7ED] border border-orange-200 px-2 py-0.5 rounded-full">
                           Your Assignment
                         </span>
                       )}
@@ -395,33 +401,33 @@ export default function AdminProjectsPage() {
                   </div>
 
                   {/* Project Title */}
-                  <h3 className="text-lg sm:text-xl font-extrabold text-white mb-2 leading-snug">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-[#0A224E] mb-2 leading-snug">
                     {project.title}
                   </h3>
 
                   {/* Client Info Block */}
-                  <div className="mb-4 p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80 space-y-1.5">
+                  <div className="mb-4 p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400 font-medium">Client / Stakeholder:</span>
-                      <span className="text-white font-bold">{project.clientName}</span>
+                      <span className="text-[#475569] font-medium">Client / Stakeholder:</span>
+                      <span className="text-[#0A224E] font-bold">{project.clientName}</span>
                     </div>
                     {(project.clientEmail || project.clientPhone) && (
-                      <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-slate-800 text-[11px] text-slate-400">
+                      <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#E2E8F0] text-[11px] text-[#475569]">
                         {project.clientEmail && (
                           <a
                             href={`mailto:${project.clientEmail}`}
-                            className="hover:text-blue-400 flex items-center gap-1 transition-colors"
+                            className="hover:text-[#0062E6] flex items-center gap-1 transition-colors"
                           >
-                            <Mail className="w-3 h-3 text-blue-400" />
+                            <Mail className="w-3 h-3 text-[#0062E6]" />
                             <span>{project.clientEmail}</span>
                           </a>
                         )}
                         {project.clientPhone && (
                           <a
                             href={`tel:${project.clientPhone}`}
-                            className="hover:text-amber-400 flex items-center gap-1 transition-colors"
+                            className="hover:text-[#EA580C] flex items-center gap-1 transition-colors"
                           >
-                            <Phone className="w-3 h-3 text-amber-400" />
+                            <Phone className="w-3 h-3 text-[#FF8800]" />
                             <span>{project.clientPhone}</span>
                           </a>
                         )}
@@ -430,34 +436,34 @@ export default function AdminProjectsPage() {
                   </div>
 
                   {/* DYNAMIC REQUIREMENTS CHECKLIST WITH AUTO-CALCULATED PROGRESS */}
-                  <div className="mb-5 p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+                  <div className="mb-5 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] space-y-3">
                     {/* Header with percentage & counters */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <CheckSquare className="w-4 h-4 text-emerald-400" />
-                        <span className="text-xs font-extrabold uppercase tracking-wider text-slate-200">
+                        <CheckSquare className="w-4 h-4 text-emerald-600" />
+                        <span className="text-xs font-extrabold uppercase tracking-wider text-[#0A224E]">
                           Requirements Checklist
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-mono text-slate-400">
+                        <span className="text-[11px] font-mono text-[#475569]">
                           {completedCount} / {totalCount} Done
                         </span>
-                        <span className="text-sm font-black font-mono text-white bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-700">
+                        <span className="text-sm font-black font-mono text-[#0062E6] bg-white px-2 py-0.5 rounded-lg border border-[#E2E8F0] shadow-2xs">
                           {project.progress}%
                         </span>
                       </div>
                     </div>
 
                     {/* Progress Bar (Dynamic gradient that glides as checkboxes toggle) */}
-                    <div className="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-800">
+                    <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden border border-[#E2E8F0]">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ease-out ${
                           project.progress === 100
                             ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
                             : isDev
-                            ? 'bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400'
-                            : 'bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-400'
+                            ? 'bg-gradient-to-r from-[#0062E6] via-indigo-500 to-cyan-400'
+                            : 'bg-gradient-to-r from-[#FF8800] via-amber-500 to-[#EA580C]'
                         }`}
                         style={{ width: `${project.progress}%` }}
                       />
@@ -466,7 +472,7 @@ export default function AdminProjectsPage() {
                     {/* Checklist Items */}
                     <div className="space-y-1.5 pt-1">
                       {checklist.length === 0 ? (
-                        <div className="text-xs text-slate-500 italic py-2 text-center">
+                        <div className="text-xs text-[#475569] italic py-2 text-center">
                           No requirement checkboxes added yet. Add below to auto-calculate completion.
                         </div>
                       ) : (
@@ -475,8 +481,8 @@ export default function AdminProjectsPage() {
                             key={item.id}
                             className={`p-2.5 rounded-xl border text-xs flex items-start justify-between gap-3 transition-all ${
                               item.done
-                                ? 'bg-slate-900/40 border-slate-800/60 text-slate-400'
-                                : 'bg-slate-900/90 border-slate-700/80 text-slate-200 shadow-xs'
+                                ? 'bg-emerald-50/60 border-emerald-200 text-[#475569]'
+                                : 'bg-white border-[#E2E8F0] text-[#0A224E] shadow-2xs'
                             }`}
                           >
                             <button
@@ -486,16 +492,16 @@ export default function AdminProjectsPage() {
                             >
                               <div className="mt-0.5 shrink-0 transition-transform group-hover:scale-110">
                                 {item.done ? (
-                                  <div className="w-4 h-4 rounded bg-emerald-500 flex items-center justify-center text-white shadow-xs">
+                                  <div className="w-4 h-4 rounded bg-emerald-600 flex items-center justify-center text-white shadow-2xs">
                                     <CheckCircle2 className="w-3.5 h-3.5" />
                                   </div>
                                 ) : (
-                                  <div className="w-4 h-4 rounded border-2 border-slate-600 group-hover:border-blue-400 bg-slate-950 transition-colors" />
+                                  <div className="w-4 h-4 rounded border-2 border-slate-300 group-hover:border-[#0062E6] bg-white transition-colors" />
                                 )}
                               </div>
                               <span
                                 className={`text-xs leading-snug break-words ${
-                                  item.done ? 'line-through text-slate-400 font-normal' : 'font-medium text-slate-200'
+                                  item.done ? 'line-through text-slate-400 font-normal' : 'font-medium text-[#0A224E]'
                                 }`}
                               >
                                 {item.text}
@@ -503,13 +509,13 @@ export default function AdminProjectsPage() {
                             </button>
 
                             <div className="flex items-center gap-2 shrink-0">
-                              <span className="text-[10px] text-slate-500 font-mono hidden sm:inline">
+                              <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
                                 By {item.addedBy?.split(' ')[0] || 'Team'}
                               </span>
                               <button
                                 type="button"
                                 onClick={() => deleteChecklistItem(project.id, item.id)}
-                                className="text-slate-500 hover:text-rose-400 p-1 transition-colors"
+                                className="text-slate-400 hover:text-rose-600 p-1 transition-colors"
                                 title="Delete requirement"
                               >
                                 <Trash2 className="w-3 h-3" />
@@ -521,7 +527,7 @@ export default function AdminProjectsPage() {
                     </div>
 
                     {/* Add New Checkbox Input */}
-                    <div className="flex items-center gap-2 pt-2 border-t border-slate-800/80">
+                    <div className="flex items-center gap-2 pt-2 border-t border-[#E2E8F0]">
                       <input
                         type="text"
                         value={newChecklistText[project.id] || ''}
@@ -537,13 +543,13 @@ export default function AdminProjectsPage() {
                             handleAddRequirement(project.id);
                           }
                         }}
-                        placeholder="Add new requirement checkbox & press Enter..."
-                        className="flex-1 px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        placeholder="Add new requirement checkbox &amp; press Enter..."
+                        className="flex-1 px-3 py-1.5 rounded-xl bg-white border border-[#E2E8F0] text-xs text-[#0A224E] placeholder-slate-400 focus:outline-none focus:border-[#0062E6]"
                       />
                       <button
                         type="button"
                         onClick={() => handleAddRequirement(project.id)}
-                        className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1 shadow-xs"
+                        className="px-3 py-1.5 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-bold transition-colors shrink-0 flex items-center gap-1 shadow-2xs"
                       >
                         <Plus className="w-3.5 h-3.5" />
                         <span>Add</span>
@@ -552,20 +558,20 @@ export default function AdminProjectsPage() {
                   </div>
 
                   {/* STAGES & MILESTONE HISTORY RECORD */}
-                  <div className="mb-4 rounded-2xl bg-slate-950/70 border border-slate-800 overflow-hidden">
+                  <div className="mb-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] overflow-hidden">
                     <button
                       type="button"
                       onClick={() => toggleStageAccordion(project.id)}
-                      className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-900/60 transition-colors"
+                      className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-slate-100 transition-colors"
                     >
                       <div className="flex items-center gap-2">
-                        <Milestone className="w-4 h-4 text-amber-400" />
-                        <span className="text-xs font-bold text-slate-200 uppercase tracking-wider">
-                          Stages & Milestone Record ({stages.length} Stages)
+                        <Milestone className="w-4 h-4 text-[#FF8800]" />
+                        <span className="text-xs font-bold text-[#0A224E] uppercase tracking-wider">
+                          Stages &amp; Milestone Record ({stages.length} Stages)
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-slate-400">
+                        <span className="text-[10px] text-[#475569]">
                           {isStagesOpen ? 'Hide Stages' : 'View / Edit Stages'}
                         </span>
                         {isStagesOpen ? (
@@ -577,9 +583,9 @@ export default function AdminProjectsPage() {
                     </button>
 
                     {isStagesOpen && (
-                      <div className="p-4 pt-1 border-t border-slate-800/80 space-y-3 animate-in fade-in duration-200">
+                      <div className="p-4 pt-1 border-t border-[#E2E8F0] space-y-3 animate-in fade-in duration-200">
                         {/* Stages Timeline */}
-                        <div className="space-y-3 relative pl-4 border-l-2 border-slate-800">
+                        <div className="space-y-3 relative pl-4 border-l-2 border-[#E2E8F0]">
                           {stages.map((stage, sIdx) => {
                             const isCompleted = stage.status === 'COMPLETED';
                             const isInProgress = stage.status === 'IN_PROGRESS';
@@ -588,17 +594,17 @@ export default function AdminProjectsPage() {
                               <div key={stage.id} className="relative space-y-1 text-xs">
                                 {/* Dot on vertical line */}
                                 <div
-                                  className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full border-2 border-slate-950 ${
+                                  className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full border-2 border-white ${
                                     isCompleted
-                                      ? 'bg-emerald-400'
+                                      ? 'bg-emerald-500'
                                       : isInProgress
-                                      ? 'bg-blue-400 animate-pulse'
-                                      : 'bg-slate-600'
+                                      ? 'bg-[#0062E6] animate-pulse'
+                                      : 'bg-slate-400'
                                   }`}
                                 />
 
                                 <div className="flex flex-wrap items-center justify-between gap-2">
-                                  <span className="font-bold text-white text-xs">
+                                  <span className="font-bold text-[#0A224E] text-xs">
                                     {stage.name}
                                   </span>
 
@@ -613,10 +619,10 @@ export default function AdminProjectsPage() {
                                       }
                                       className={`text-[10px] font-bold px-2 py-0.5 rounded-md border focus:outline-none ${
                                         isCompleted
-                                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                           : isInProgress
-                                          ? 'bg-blue-500/20 text-blue-300 border-blue-500/30'
-                                          : 'bg-slate-800 text-slate-300 border-slate-700'
+                                          ? 'bg-blue-50 text-[#0062E6] border-blue-200'
+                                          : 'bg-[#F8FAFC] text-[#475569] border-[#E2E8F0]'
                                       }`}
                                     >
                                       <option value="COMPLETED">Completed</option>
@@ -627,7 +633,7 @@ export default function AdminProjectsPage() {
                                     <button
                                       type="button"
                                       onClick={() => deleteProjectStage(project.id, stage.id)}
-                                      className="text-slate-500 hover:text-rose-400 p-0.5"
+                                      className="text-slate-400 hover:text-rose-600 p-0.5"
                                       title="Delete stage"
                                     >
                                       <Trash2 className="w-3 h-3" />
@@ -635,13 +641,13 @@ export default function AdminProjectsPage() {
                                   </div>
                                 </div>
 
-                                <div className="text-[11px] text-slate-400 font-normal">
+                                <div className="text-[11px] text-[#475569] font-normal">
                                   {stage.notes}
                                 </div>
 
-                                <div className="flex items-center gap-2 text-[10px] text-slate-500 pt-0.5">
-                                  <span className="text-amber-400 font-medium">
-                                    Stage listed by: <strong className="text-white">{stage.listedBy}</strong>
+                                <div className="flex items-center gap-2 text-[10px] text-slate-400 pt-0.5">
+                                  <span className="text-[#FF8800] font-semibold">
+                                    Stage listed by: <strong className="text-[#0A224E]">{stage.listedBy}</strong>
                                   </span>
                                   <span>•</span>
                                   <span>{stage.updatedAt}</span>
@@ -652,16 +658,16 @@ export default function AdminProjectsPage() {
                         </div>
 
                         {/* Add New Stage Button */}
-                        <div className="pt-2 border-t border-slate-800">
+                        <div className="pt-2 border-t border-[#E2E8F0]">
                           <button
                             type="button"
                             onClick={() => {
                               setShowAddStageModal(project.id);
                               setStageName(`Stage 0${stages.length + 1}: `);
                             }}
-                            className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-300 text-xs font-bold border border-slate-800 flex items-center justify-center gap-1.5 transition-colors"
+                            className="w-full py-2 px-3 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#0A224E] text-xs font-bold border border-[#E2E8F0] shadow-2xs flex items-center justify-center gap-1.5 transition-colors"
                           >
-                            <Plus className="w-3.5 h-3.5 text-amber-400" />
+                            <Plus className="w-3.5 h-3.5 text-[#FF8800]" />
                             <span>+ Record New Stage to Timeline</span>
                           </button>
                         </div>
@@ -671,19 +677,19 @@ export default function AdminProjectsPage() {
                 </div>
 
                 {/* Footer Metadata */}
-                <div className="pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div className="pt-4 border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3 text-xs">
                   <div className="flex items-center gap-2">
-                    <User className="w-3.5 h-3.5 text-blue-400" />
-                    <span className="text-slate-400">Handled By:</span>
-                    <span className="text-white font-bold">{project.assignedTo || 'Unassigned'}</span>
+                    <User className="w-3.5 h-3.5 text-[#0062E6]" />
+                    <span className="text-[#475569]">Handled By:</span>
+                    <span className="text-[#0A224E] font-bold">{project.assignedTo || 'Unassigned'}</span>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <span className="text-slate-400 flex items-center gap-1">
-                      <Calendar className="w-3 h-3 text-amber-400" />
+                    <span className="text-[#475569] flex items-center gap-1">
+                      <Calendar className="w-3 h-3 text-[#FF8800]" />
                       <span>{project.targetDelivery}</span>
                     </span>
-                    <span className="font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-lg border border-emerald-500/20">
+                    <span className="font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-lg border border-emerald-200">
                       {project.budget}
                     </span>
                   </div>
@@ -857,6 +863,53 @@ export default function AdminProjectsPage() {
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                   />
                 </div>
+              </div>
+
+              {/* Client Portal Access Generator Card */}
+              <div className="p-3.5 rounded-2xl bg-blue-50/80 border border-blue-200/90 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#0A224E] uppercase tracking-wider flex items-center gap-1.5">
+                    <KeyRound className="w-3.5 h-3.5 text-[#0062E6]" />
+                    <span>Client Portal Access & Auto-Generated Passkey</span>
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-blue-700 bg-white px-2 py-0.5 rounded border border-blue-200">
+                    ID: CLT-{clientEmail ? clientEmail.split('@')[0].toUpperCase().slice(0, 8) : 'NEW'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 mb-1">
+                      Client Portal Security Passkey *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={clientPassword}
+                      onChange={(e) => setClientPassword(e.target.value)}
+                      placeholder="e.g. Paras@2026"
+                      className="w-full px-3 py-1.5 rounded-xl bg-white border border-slate-300 text-xs text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                    />
+                  </div>
+
+                  <div className="flex flex-col justify-end">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const randomSuffix = Math.floor(100 + Math.random() * 900);
+                        const prefix = clientName ? clientName.split(' ')[0] : 'Client';
+                        setClientPassword(`${prefix}@${randomSuffix}`);
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-blue-200 text-xs font-bold text-[#0062E6] transition-colors"
+                    >
+                      🎲 Generate Random Passkey
+                    </button>
+                  </div>
+                </div>
+
+                <p className="text-[10px] text-slate-500">
+                  Client can log into <span className="font-mono text-blue-700 font-bold">/dashboard</span> using their email and this passkey to track milestones, inspect invoices &amp; bank transfer UTRs, and raise priority tickets.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

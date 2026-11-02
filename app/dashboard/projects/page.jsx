@@ -1,163 +1,195 @@
+'use client';
+
 import Link from 'next/link';
-import { FolderKanban, CheckCircle2, Clock, AlertCircle, Calendar, ArrowRight, Layers } from 'lucide-react';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
+import {
+  FolderKanban,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+  Calendar,
+  ArrowRight,
+  Layers,
+  CheckSquare,
+  Square,
+  User,
+  Sparkles,
+  ShieldCheck,
+} from 'lucide-react';
 
 export default function ClientProjectsPage() {
-  const projects = [
-    {
-      id: 'prj-101',
-      title: 'Enterprise ERP & Multi-Tenant Portal',
-      category: 'Custom Web Platform',
-      startDate: 'Aug 10, 2026',
-      targetDate: 'Nov 25, 2026',
-      status: 'IN_PROGRESS',
-      progress: 68,
-      techStack: ['Next.js', 'React', 'Tailwind CSS', 'Neon PostgreSQL', 'Docker'],
-      milestones: [
-        { name: '1. Discovery & Architecture Blueprint', status: 'COMPLETED', date: 'Aug 24, 2026' },
-        { name: '2. UI Design System & Component Library', status: 'COMPLETED', date: 'Sep 15, 2026' },
-        { name: '3. Multi-Tenant DB Schema & Core APIs', status: 'IN_PROGRESS', date: 'Oct 30, 2026' },
-        { name: '4. Client Role-Based Access & Billing Engine', status: 'PENDING', date: 'Nov 12, 2026' },
-        { name: '5. End-to-End QA Testing & Prod Deployment', status: 'PENDING', date: 'Nov 25, 2026' },
-      ],
-    },
-    {
-      id: 'prj-102',
-      title: 'iOS & Android Field Technician App',
-      category: 'Mobile Application',
-      startDate: 'Sep 01, 2026',
-      targetDate: 'Dec 15, 2026',
-      status: 'IN_PROGRESS',
-      progress: 42,
-      techStack: ['React Native', 'Expo', 'SQLite', 'Node.js', 'AWS S3'],
-      milestones: [
-        { name: '1. Wireframes & UX User Journey', status: 'COMPLETED', date: 'Sep 14, 2026' },
-        { name: '2. Offline Sync Protocol & SQLite Engine', status: 'IN_PROGRESS', date: 'Nov 05, 2026' },
-        { name: '3. Bluetooth Barcode Scanner Integration', status: 'PENDING', date: 'Nov 22, 2026' },
-        { name: '4. App Store & Play Store Sandbox Testing', status: 'PENDING', date: 'Dec 15, 2026' },
-      ],
-    },
-  ];
+  const { projects, currentClient } = useEmployeeAuth();
+
+  // Filter projects for the logged-in client, or show full projects if in demo/admin preview
+  const clientProjects = currentClient
+    ? projects.filter(
+        (p) =>
+          (p.clientEmail && p.clientEmail.toLowerCase() === currentClient.email.toLowerCase()) ||
+          (p.clientName && p.clientName.toLowerCase().includes(currentClient.name.toLowerCase())) ||
+          (currentClient.projectIds && currentClient.projectIds.includes(p.id))
+      )
+    : projects;
+
+  const displayProjects = clientProjects.length > 0 ? clientProjects : projects.slice(0, 2);
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
-            Workspaces
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-            My Ongoing Projects & Milestones
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EFF6FF] text-[#0062E6] border border-blue-200 text-xs font-bold mb-2">
+            <FolderKanban className="w-3.5 h-3.5" />
+            <span>Client SOW Execution Workspaces</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E]">
+            {currentClient ? `${currentClient.name} Projects & Milestones` : 'My Ongoing Projects & Milestones'}
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Track real-time progress, sprint deliverables, and architectural milestones.
+          <p className="text-sm text-[#475569] mt-1">
+            Track real-time progress, dynamic sprint requirements, and architectural milestones for your projects.
           </p>
         </div>
 
         <Link
-          href="/contact"
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors self-start sm:self-auto"
+          href="/dashboard/tickets"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-xs font-bold text-white transition-all shadow-sm self-start sm:self-auto"
         >
-          <span>Request New Feature / Scope</span>
+          <span>Ask Query / Request Scope</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
       <div className="space-y-8">
-        {projects.map((proj) => (
-          <div
-            key={proj.id}
-            className="p-6 sm:p-8 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-6"
-          >
-            {/* Project Header */}
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-slate-500 font-semibold">{proj.id}</span>
-                  <span className="px-2.5 py-0.5 text-[11px] font-semibold bg-blue-500/10 text-blue-400 rounded-md border border-blue-500/20">
-                    {proj.category}
-                  </span>
+        {displayProjects.map((proj) => {
+          const checklist = proj.checklist || [];
+          const stages = proj.stages || [];
+          const progress = proj.progress || 0;
+
+          return (
+            <div
+              key={proj.id}
+              className="p-6 sm:p-8 rounded-3xl bg-white border border-[#E2E8F0] space-y-6 shadow-2xs"
+            >
+              {/* Project Header */}
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#0062E6] font-bold bg-[#EFF6FF] px-2 py-0.5 rounded border border-blue-200">
+                      {proj.id}
+                    </span>
+                    <span className="px-2.5 py-0.5 text-[11px] font-bold bg-[#EFF6FF] text-[#0062E6] rounded-md border border-blue-200">
+                      {proj.category || 'Custom Software'}
+                    </span>
+                    <span className="text-xs text-[#475569]">Client: <strong className="text-[#0A224E]">{proj.clientName}</strong></span>
+                  </div>
+                  <h2 className="text-xl sm:text-2xl font-black text-[#0A224E] mt-2">{proj.title}</h2>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">{proj.title}</h2>
+
+                <div className="flex items-center gap-6">
+                  <div className="text-right">
+                    <div className="text-xs text-[#475569]">Completion Status</div>
+                    <div className="text-xl font-black text-[#0062E6]">{progress}%</div>
+                  </div>
+                  <div className="w-36 bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-[#E2E8F0]">
+                    <div
+                      className="bg-gradient-to-r from-[#0062E6] via-indigo-500 to-[#10B981] h-full rounded-full transition-all duration-500"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="flex items-center gap-6">
-                <div className="text-right">
-                  <div className="text-xs text-slate-400">Overall Progress</div>
-                  <div className="text-lg font-bold text-blue-400">{proj.progress}%</div>
+              {/* Meta information: Target Delivery, Lead Architect, Budget */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs">
+                <div>
+                  <span className="text-[10px] text-[#475569] uppercase tracking-wider block font-bold">Target Delivery</span>
+                  <span className="font-bold text-[#0A224E]">{proj.targetDelivery || 'Q4 2026 Sprint'}</span>
                 </div>
-                <div className="w-32 bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                  <div
-                    className="bg-gradient-to-r from-blue-500 to-indigo-500 h-full rounded-full"
-                    style={{ width: `${proj.progress}%` }}
-                  />
+                <div>
+                  <span className="text-[10px] text-[#475569] uppercase tracking-wider block font-bold">Lead Engineering Architect</span>
+                  <span className="font-bold text-[#0062E6]">{proj.assignedTo || 'Vivek Pawar (CTO)'}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#475569] uppercase tracking-wider block font-bold">Approved SOW Budget</span>
+                  <span className="font-bold text-emerald-700">{proj.budget || 'Confidential SOW'}</span>
                 </div>
               </div>
-            </div>
 
-            {/* Dates and Stack */}
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-2 border-t border-slate-800/80">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                Started: <strong className="text-slate-300">{proj.startDate}</strong>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-slate-500" />
-                Target Handover: <strong className="text-slate-300">{proj.targetDate}</strong>
-              </span>
-              <div className="flex items-center gap-1.5 ml-auto">
-                <span className="text-slate-500">Stack:</span>
-                {proj.techStack.map((tech, i) => (
-                  <span key={i} className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
+              {/* Requirements & Checklist Items */}
+              {checklist.length > 0 && (
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-[#0A224E] flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Sprint Deliverable Checkpoints ({checklist.filter((c) => c.done).length}/{checklist.length} Complete)</span>
+                    </span>
+                  </div>
 
-            {/* Milestones timeline */}
-            <div className="pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
-                Sprint Milestones Breakdown:
-              </h3>
-              <div className="space-y-3">
-                {proj.milestones.map((ms, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between text-xs"
-                  >
-                    <div className="flex items-center gap-3">
-                      {ms.status === 'COMPLETED' ? (
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      ) : ms.status === 'IN_PROGRESS' ? (
-                        <Clock className="w-4 h-4 text-blue-400 shrink-0 animate-pulse" />
-                      ) : (
-                        <div className="w-4 h-4 rounded-full border border-slate-700 shrink-0" />
-                      )}
-                      <span className={`font-medium ${ms.status === 'COMPLETED' ? 'text-slate-400 line-through' : 'text-slate-200'}`}>
-                        {ms.name}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                      <span className="text-slate-500 font-mono text-[11px]">{ms.date}</span>
-                      <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-semibold ${
-                          ms.status === 'COMPLETED'
-                            ? 'bg-emerald-500/10 text-emerald-400'
-                            : ms.status === 'IN_PROGRESS'
-                            ? 'bg-blue-500/10 text-blue-400'
-                            : 'bg-slate-800 text-slate-400'
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {checklist.map((item) => (
+                      <div
+                        key={item.id}
+                        className={`p-3 rounded-xl border flex items-start gap-2.5 text-xs transition-colors ${
+                          item.done
+                            ? 'bg-emerald-50 border-emerald-200 text-slate-700'
+                            : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#0A224E]'
                         }`}
                       >
-                        {ms.status}
-                      </span>
-                    </div>
+                        {item.done ? (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                        ) : (
+                          <Clock className="w-4 h-4 text-[#FF8800] shrink-0 mt-0.5" />
+                        )}
+                        <span className={item.done ? 'line-through text-slate-400 font-medium' : 'text-[#0A224E] font-medium'}>
+                          {item.text}
+                        </span>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {/* Delivery Stages History */}
+              {stages.length > 0 && (
+                <div className="pt-4 border-t border-[#E2E8F0]">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-[#0A224E] block mb-3">
+                    Milestone Architecture Stages
+                  </span>
+                  <div className="space-y-2">
+                    {stages.map((stg) => (
+                      <div
+                        key={stg.id}
+                        className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-4 text-xs"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          {stg.status === 'COMPLETED' || stg.status === 'DONE' ? (
+                            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                          ) : (
+                            <span className="w-2 h-2 rounded-full bg-[#0062E6] animate-pulse" />
+                          )}
+                          <div>
+                            <span className="font-bold text-[#0A224E] block">{stg.name}</span>
+                            {stg.notes && (
+                              <span className="text-[11px] text-[#475569] block mt-0.5">{stg.notes}</span>
+                            )}
+                          </div>
+                        </div>
+
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                            stg.status === 'COMPLETED' || stg.status === 'DONE'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                              : 'bg-blue-50 text-[#0062E6] border-blue-200'
+                          }`}
+                        >
+                          {stg.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

@@ -1,4 +1,9 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
+import ClientLoginModal from '@/components/ClientLoginModal';
 import {
   FolderKanban,
   Receipt,
@@ -10,29 +15,36 @@ import {
   Building,
   Copy,
   Sparkles,
+  LogIn,
+  Layers,
+  Calendar,
+  Send,
 } from 'lucide-react';
 
 export default function ClientDashboardPage() {
-  const activeProjects = [
-    {
-      id: 'prj-101',
-      title: 'Enterprise ERP & Multi-Tenant Portal',
-      stage: 'Phase 3: Backend API & Neon DB Integration',
-      progress: 68,
-      leadArchitect: 'Vivek Pawar (Lead Architect)',
-      targetDelivery: 'Nov 25, 2026',
-    },
-    {
-      id: 'prj-102',
-      title: 'iOS & Android Field Technician App',
-      stage: 'Phase 2: Offline SQLite Sync & UI',
-      progress: 42,
-      leadArchitect: 'Dhiraj Gaikwad (Principal Engineer)',
-      targetDelivery: 'Dec 15, 2026',
-    },
-  ];
+  const { projects, currentClient, expenseClaims = [] } = useEmployeeAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const recentInvoices = [
+  // Filter projects for the logged in client or fallback to top active projects
+  const clientProjects = currentClient
+    ? projects.filter(
+        (p) =>
+          (p.clientEmail && p.clientEmail.toLowerCase() === currentClient.email.toLowerCase()) ||
+          (p.clientName && p.clientName.toLowerCase().includes(currentClient.name.toLowerCase())) ||
+          (currentClient.projectIds && currentClient.projectIds.includes(p.id))
+      )
+    : projects.slice(0, 2);
+
+  const displayProjects = clientProjects.length > 0 ? clientProjects : projects.slice(0, 2);
+
+  const avgVelocity =
+    displayProjects.length > 0
+      ? Math.round(
+          displayProjects.reduce((acc, p) => acc + (p.progress || 0), 0) / displayProjects.length
+        )
+      : 60;
+
+  const sampleInvoices = [
     {
       id: 'INV-2026-089',
       description: 'Sprint 2 Milestone Deliverables',
@@ -61,204 +73,217 @@ export default function ClientDashboardPage() {
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
-      {/* Interactive Demo Mode Banner */}
-      <div className="p-4 rounded-2xl bg-gradient-to-r from-[#071736] via-slate-900 to-[#1e1305] border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg shadow-black/20">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center shrink-0">
-            <Sparkles className="w-4 h-4 text-[#FF8800]" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold text-white uppercase tracking-wider">Client Portal Demo Mode</span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-[#FF8800] border border-amber-500/20">
-                Interactive Preview
-              </span>
-            </div>
-            <p className="text-xs text-slate-300 mt-0.5">
-              Exploring a live interactive simulation. Active ADVIKS clients receive private encrypted credentials to monitor sprint velocity, approve milestone deliverables, and raise direct SLA tickets.
-            </p>
-          </div>
-        </div>
-        <Link
-          href="/contact"
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#FF8800] hover:opacity-90 text-white text-xs font-bold shrink-0 shadow-lg shadow-orange-500/20 transition-all self-start sm:self-auto"
-        >
-          <span>Hire Our Pod</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
-
-      {/* Top Banner */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-[#0A224E]/90 via-slate-900 to-[#071736] border border-blue-600/30 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl shadow-blue-950/20">
+      {/* Top Welcome Banner */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#0A224E] via-[#0062E6] to-[#0A224E] text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl shadow-blue-900/10 border border-blue-200">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            Client Workspace
-          </span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white border border-white/20 text-xs font-bold mb-2">
+            <span className="w-2 h-2 rounded-full bg-[#FF8800] animate-pulse" />
+            <span>{currentClient ? `Client Organization: ${currentClient.name}` : 'Client Workspace Overview'}</span>
+          </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-            Acme Enterprises Dashboard
+            {currentClient ? `${currentClient.name} Portal` : 'Client Dashboard'}
           </h1>
-          <p className="text-sm text-slate-300 mt-1 max-w-xl">
-            You have 2 active development projects running with ADVIKS Softech. 1 pending milestone invoice requires bank transfer reconciliation.
+          <p className="text-sm text-blue-100 mt-1 max-w-xl">
+            Track live sprint deliverables, check architectural milestone progress, inspect billing invoices &amp; bank UTRs, and raise priority queries to your engineering pod.
           </p>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <Link
             href="/dashboard/tickets"
-            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-slate-700 transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold text-white border border-white/30 backdrop-blur-sm transition-colors flex items-center gap-1.5"
           >
-            Create Ticket
+            <LifeBuoy className="w-3.5 h-3.5 text-blue-200" />
+            <span>Raise Query / Ticket</span>
           </Link>
           <Link
             href="/dashboard/invoices"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#0062E6] to-blue-600 hover:from-blue-700 hover:to-blue-600 text-xs font-semibold text-white transition-colors shadow-lg shadow-blue-600/20"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] hover:opacity-95 text-xs font-extrabold text-white transition-all shadow-md flex items-center gap-1.5"
           >
-            Settle Invoices
+            <Receipt className="w-3.5 h-3.5" />
+            <span>View Invoices &amp; Bank UTR</span>
           </Link>
         </div>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/30 transition-colors">
-          <div className="flex items-center justify-between text-slate-400 mb-3">
-            <span className="text-xs font-medium uppercase tracking-wider">Active Projects</span>
+        <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+          <div className="flex items-center justify-between text-[#475569] mb-3">
+            <span className="text-xs font-bold uppercase tracking-wider">Active SOW Projects</span>
             <FolderKanban className="w-4 h-4 text-[#0062E6]" />
           </div>
-          <div className="text-2xl font-bold text-white">2</div>
-          <div className="text-xs text-emerald-400 mt-1 font-medium">On schedule for Q4 release</div>
+          <div className="text-2xl font-black text-[#0A224E]">{displayProjects.length}</div>
+          <div className="text-xs text-emerald-600 mt-1 font-semibold">Under active sprint execution</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-blue-500/30 transition-colors">
-          <div className="flex items-center justify-between text-slate-400 mb-3">
-            <span className="text-xs font-medium uppercase tracking-wider">Overall Velocity</span>
-            <Clock className="w-4 h-4 text-indigo-400" />
+        <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+          <div className="flex items-center justify-between text-[#475569] mb-3">
+            <span className="text-xs font-bold uppercase tracking-wider">Overall Velocity</span>
+            <Clock className="w-4 h-4 text-[#0062E6]" />
           </div>
-          <div className="text-2xl font-bold text-white">55%</div>
-          <div className="text-xs text-slate-400 mt-1">Across 12 scheduled sprints</div>
+          <div className="text-2xl font-black text-[#0A224E]">{avgVelocity}%</div>
+          <div className="text-xs text-[#475569] mt-1">Across deliverable checkpoints</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-orange-500/30 transition-colors">
-          <div className="flex items-center justify-between text-slate-400 mb-3">
-            <span className="text-xs font-medium uppercase tracking-wider">Pending Invoice</span>
+        <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+          <div className="flex items-center justify-between text-[#475569] mb-3">
+            <span className="text-xs font-bold uppercase tracking-wider">Pending Invoice</span>
             <Receipt className="w-4 h-4 text-[#FF8800]" />
           </div>
-          <div className="text-2xl font-bold text-[#FF8800]">₹1,50,000</div>
-          <div className="text-xs text-slate-400 mt-1">Due by Nov 05 via Bank Wire</div>
+          <div className="text-2xl font-black text-[#EA580C]">₹1,50,000</div>
+          <div className="text-xs text-[#475569] mt-1">Due via direct NEFT / IMPS wire</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-emerald-500/30 transition-colors">
-          <div className="flex items-center justify-between text-slate-400 mb-3">
-            <span className="text-xs font-medium uppercase tracking-wider">Open Tickets</span>
-            <LifeBuoy className="w-4 h-4 text-emerald-400" />
+        <div className="p-5 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+          <div className="flex items-center justify-between text-[#475569] mb-3">
+            <span className="text-xs font-bold uppercase tracking-wider">Helpdesk Tickets</span>
+            <LifeBuoy className="w-4 h-4 text-[#0062E6]" />
           </div>
-          <div className="text-2xl font-bold text-white">1</div>
-          <div className="text-xs text-blue-400 mt-1">Engineering response within 2h</div>
+          <div className="text-2xl font-black text-[#0A224E]">{openTickets.length} Active</div>
+          <div className="text-xs text-[#0062E6] mt-1 font-semibold">Engineering response SLA &lt; 2h</div>
         </div>
       </div>
 
-      {/* Projects & Bank Transfer Split Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Active Projects List */}
-        <div className="lg:col-span-7 space-y-6">
+      {/* Main Grid: Projects + Invoices */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Active Projects Column (2 cols) */}
+        <div className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Current Projects & Delivery</h2>
+            <h2 className="text-lg font-extrabold text-[#0A224E] flex items-center gap-2">
+              <FolderKanban className="w-4 h-4 text-[#0062E6]" />
+              <span>Active SOW Projects &amp; Milestones ({displayProjects.length})</span>
+            </h2>
             <Link
               href="/dashboard/projects"
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1"
+              className="text-xs text-[#0062E6] hover:underline font-bold transition-colors"
             >
-              <span>View All</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              View Full Workspaces →
             </Link>
           </div>
 
           <div className="space-y-4">
-            {activeProjects.map((p) => (
+            {displayProjects.map((p) => (
               <div
                 key={p.id}
-                className="p-5 rounded-2xl bg-slate-900/40 border border-slate-800 hover:border-blue-500/30 transition-colors"
+                className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs space-y-4 hover:border-blue-300 transition-colors"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  <h3 className="font-bold text-white text-base">{p.title}</h3>
-                  <span className="text-xs font-mono text-blue-400 font-semibold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">
-                    {p.progress}% Complete
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <span className="text-[10px] font-mono font-bold text-[#0062E6] bg-[#EFF6FF] px-2.5 py-0.5 rounded-full border border-blue-200">
+                      {p.id} • {p.category || 'Custom Engineering'}
+                    </span>
+                    <h3 className="text-base font-extrabold text-[#0A224E] mt-1">{p.title}</h3>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono font-bold text-[#0062E6]">{p.progress || 0}%</span>
+                    <div className="w-24 bg-slate-100 h-2 rounded-full overflow-hidden">
+                      <div
+                        className="bg-[#0062E6] h-full rounded-full"
+                        style={{ width: `${p.progress || 0}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-xs text-[#475569] leading-relaxed">
+                  {p.requirements || 'SOW specifications active.'}
+                </p>
+
+                <div className="pt-3 border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <span className="text-[#475569]">
+                    Lead: <strong className="text-[#0A224E]">{p.assignedTo || 'Vivek Pawar (CTO)'}</strong>
                   </span>
-                </div>
-
-                <p className="text-xs text-slate-400 mb-3">{p.stage}</p>
-
-                <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-4">
-                  <div
-                    className="bg-gradient-to-r from-[#0062E6] to-[#0A224E] h-full rounded-full transition-all duration-500"
-                    style={{ width: `${p.progress}%` }}
-                  />
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-slate-800/80">
-                  <span>Lead: <strong className="text-slate-200">{p.leadArchitect}</strong></span>
-                  <span>Target Handover: <strong className="text-slate-300">{p.targetDelivery}</strong></span>
+                  <Link
+                    href="/dashboard/projects"
+                    className="text-[#0062E6] hover:underline font-bold flex items-center gap-1"
+                  >
+                    <span>Checklist Milestones</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Company Bank Account Quick Details & Pending Invoice Box */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-white">Manual Wire Transfer Details</h2>
+        {/* Invoices & Support Sidebar Column (1 col) */}
+        <div className="space-y-6">
+          {/* Recent Invoices Card */}
+          <div className="p-6 rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-extrabold text-[#0A224E] flex items-center gap-1.5">
+                <Receipt className="w-4 h-4 text-[#FF8800]" />
+                <span>Milestone Invoices</span>
+              </h3>
+              <Link
+                href="/dashboard/invoices"
+                className="text-[11px] text-[#0062E6] hover:underline font-bold"
+              >
+                All Invoices →
+              </Link>
+            </div>
+
+            <div className="space-y-3">
+              {sampleInvoices.map((inv) => (
+                <div
+                  key={inv.id}
+                  className="p-3.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between gap-2 text-xs"
+                >
+                  <div>
+                    <div className="font-bold text-[#0A224E]">{inv.id}</div>
+                    <div className="text-[11px] text-[#475569]">{inv.description}</div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="font-extrabold text-[#0A224E]">{inv.amount}</div>
+                    <span
+                      className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                        inv.status === 'PAID'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : 'bg-[#FFF7ED] text-[#EA580C] border border-orange-200'
+                      }`}
+                    >
+                      {inv.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
             <Link
               href="/dashboard/invoices"
-              className="text-xs font-semibold text-blue-400 hover:text-blue-300"
+              className="w-full py-2.5 px-3 rounded-xl bg-[#F8FAFC] hover:bg-slate-100 text-[#0A224E] border border-[#E2E8F0] text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
             >
-              Invoices
+              <span>Download Invoices &amp; Upload UTR</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div className="p-6 rounded-2xl bg-slate-900/40 border border-slate-800 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-300">
-              <Building className="w-4 h-4 text-blue-400" />
-              <span>Official Beneficiary Account</span>
+          {/* Direct Helpdesk Support Card */}
+          <div className="p-6 rounded-2xl bg-[#EFF6FF] border border-blue-200 space-y-3">
+            <div className="w-9 h-9 rounded-xl bg-white text-[#0062E6] border border-blue-200 flex items-center justify-center shadow-2xs">
+              <LifeBuoy className="w-4 h-4" />
             </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Use these details to initiate NEFT, RTGS, IMPS or UPI transfers. Once transferred, submit your bank reference/UTR in the invoice page for immediate receipt generation.
+            <h3 className="text-sm font-extrabold text-[#0A224E]">Direct Engineering Support</h3>
+            <p className="text-xs text-[#475569] leading-relaxed">
+              Have questions regarding your sprint roadmap, API keys, or DNS mapping? Submit a query directly to your assigned pod.
             </p>
-
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-2.5 font-mono">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Beneficiary:</span>
-                <span className="text-slate-200 font-semibold">ADVIKS SOFTECH PVT LTD</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Bank:</span>
-                <span className="text-slate-200">HDFC Bank Ltd</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Account No:</span>
-                <span className="text-blue-400 font-semibold">50200012345678</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">IFSC Code:</span>
-                <span className="text-slate-200">HDFC0001234</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">UPI VPA:</span>
-                <span className="text-emerald-400">advikssoftech@hdfcbank</span>
-              </div>
-            </div>
-
             <Link
-              href="/dashboard/invoices"
-              className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition-colors"
+              href="/dashboard/tickets"
+              className="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-xs"
             >
-              <span>Submit Bank Transfer UTR / Proof</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <Send className="w-3.5 h-3.5" />
+              <span>Raise Query to Lead Architect</span>
             </Link>
           </div>
         </div>
       </div>
+
+      <ClientLoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </div>
   );
 }

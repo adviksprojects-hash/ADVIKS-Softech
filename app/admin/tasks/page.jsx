@@ -115,16 +115,16 @@ export default function AdminTasksPage() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#E2E8F0]">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold mb-2">
-            <CheckSquare2 className="w-3.5 h-3.5" />
-            <span>Sprint Execution & Pod Velocity</span>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-orange-200 text-xs font-bold mb-2">
+            <CheckSquare2 className="w-3.5 h-3.5 text-[#FF8800]" />
+            <span>Sprint Execution &amp; Pod Velocity</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Sprint Tasks & Team Velocity
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E]">
+            Sprint Tasks &amp; Team Velocity
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-[#475569] mt-1">
             Real-time calculation of work done vs working on across Developer and Marketing teams.
           </p>
         </div>
@@ -137,7 +137,7 @@ export default function AdminTasksPage() {
             }
             setShowAddModal(true);
           }}
-          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-orange-600 via-amber-600 to-orange-600 hover:opacity-95 text-white text-xs font-extrabold transition-all shadow-md shadow-orange-600/20 flex items-center gap-2"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] hover:opacity-95 text-white text-xs font-extrabold transition-all shadow-xs flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           <span>+ Add Sprint Task</span>
@@ -147,20 +147,18 @@ export default function AdminTasksPage() {
       {/* TEAM WORKLOAD & VELOCITY CALCULATOR CARDS (Developer vs Marketing) */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Developer Pod Workload Card */}
-        <div className="p-6 sm:p-7 rounded-3xl bg-slate-900 border border-blue-500/30 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
-
+        <div className="p-6 sm:p-7 rounded-3xl bg-white border border-blue-200 shadow-2xs relative overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
+              <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] border border-blue-200 flex items-center justify-center text-[#0062E6] shadow-2xs">
                 <Code2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold text-white">Developer Team Pod</h3>
-                <span className="text-[11px] text-slate-400">Architecture, APIs & Full-Stack Systems</span>
+                <h3 className="text-base font-extrabold text-[#0A224E]">Developer Team Pod</h3>
+                <span className="text-[11px] text-[#475569]">Architecture, APIs &amp; Full-Stack Systems</span>
               </div>
             </div>
-            <span className="text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded-full border border-blue-500/20">
+            <span className="text-xs font-mono font-bold text-[#0062E6] bg-[#EFF6FF] px-2.5 py-1 rounded-full border border-blue-200">
               {devTotal} Total Tasks
             </span>
           </div>
@@ -168,54 +166,52 @@ export default function AdminTasksPage() {
           {/* Progress Bar */}
           <div className="space-y-1.5 mb-5">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-medium">Sprint Completion Velocity</span>
-              <span className="font-mono font-extrabold text-blue-400">{devCompletionRate}% Done</span>
+              <span className="text-[#475569] font-medium">Sprint Completion Velocity</span>
+              <span className="font-mono font-extrabold text-[#0062E6]">{devCompletionRate}% Done</span>
             </div>
-            <div className="w-full bg-slate-950 h-3 rounded-full overflow-hidden p-0.5 border border-slate-800">
+            <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-[#E2E8F0]">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-400 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-[#0062E6] via-indigo-500 to-cyan-500 transition-all duration-500"
                 style={{ width: `${devCompletionRate}%` }}
               />
             </div>
           </div>
 
           {/* Work Done vs Working On Metric Counters */}
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-800">
-            <div className="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/20">
-              <div className="text-[11px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#E2E8F0]">
+            <div className="p-3 rounded-xl bg-[#F8FAFC] border border-emerald-200">
+              <div className="text-[11px] text-emerald-700 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Work Done</span>
               </div>
-              <div className="text-2xl font-black text-white font-mono">{devDone} Tasks</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Shipped to production</div>
+              <div className="text-2xl font-black text-[#0A224E] font-mono">{devDone} Tasks</div>
+              <div className="text-[10px] text-[#475569] mt-0.5">Shipped to production</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/70 border border-blue-500/20">
-              <div className="text-[11px] text-blue-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
-                <Clock className="w-3.5 h-3.5 text-blue-400" />
+            <div className="p-3 rounded-xl bg-[#F8FAFC] border border-blue-200">
+              <div className="text-[11px] text-[#0062E6] font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <Clock className="w-3.5 h-3.5 text-[#0062E6]" />
                 <span>Working On</span>
               </div>
-              <div className="text-2xl font-black text-white font-mono">{devWorkingOn} Tasks</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Active sprint execution</div>
+              <div className="text-2xl font-black text-[#0A224E] font-mono">{devWorkingOn} Tasks</div>
+              <div className="text-[10px] text-[#475569] mt-0.5">Active sprint execution</div>
             </div>
           </div>
         </div>
 
         {/* Marketing Pod Workload Card */}
-        <div className="p-6 sm:p-7 rounded-3xl bg-slate-900 border border-orange-500/30 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-600/10 rounded-full blur-3xl pointer-events-none" />
-
+        <div className="p-6 sm:p-7 rounded-3xl bg-white border border-orange-200 shadow-2xs relative overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-[#FF8800]">
+              <div className="w-10 h-10 rounded-xl bg-[#FFF7ED] border border-orange-200 flex items-center justify-center text-[#FF8800] shadow-2xs">
                 <Megaphone className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-extrabold text-white">Marketing Team Pod</h3>
-                <span className="text-[11px] text-slate-400">Meta/Google PPC, Local SEO & CRO</span>
+                <h3 className="text-base font-extrabold text-[#0A224E]">Marketing Team Pod</h3>
+                <span className="text-[11px] text-[#475569]">Meta/Google PPC, Local SEO &amp; CRO</span>
               </div>
             </div>
-            <span className="text-xs font-mono font-bold text-orange-400 bg-orange-500/10 px-2.5 py-1 rounded-full border border-orange-500/20">
+            <span className="text-xs font-mono font-bold text-[#EA580C] bg-[#FFF7ED] px-2.5 py-1 rounded-full border border-orange-200">
               {mktTotal} Total Tasks
             </span>
           </div>
@@ -223,49 +219,49 @@ export default function AdminTasksPage() {
           {/* Progress Bar */}
           <div className="space-y-1.5 mb-5">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-medium">Campaign Milestone Velocity</span>
-              <span className="font-mono font-extrabold text-orange-400">{mktCompletionRate}% Done</span>
+              <span className="text-[#475569] font-medium">Campaign Milestone Velocity</span>
+              <span className="font-mono font-extrabold text-[#EA580C]">{mktCompletionRate}% Done</span>
             </div>
-            <div className="w-full bg-slate-950 h-3 rounded-full overflow-hidden p-0.5 border border-slate-800">
+            <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-[#E2E8F0]">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-orange-600 via-amber-500 to-yellow-400 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-[#FF8800] via-amber-500 to-orange-500 transition-all duration-500"
                 style={{ width: `${mktCompletionRate}%` }}
               />
             </div>
           </div>
 
           {/* Work Done vs Working On Metric Counters */}
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-800">
-            <div className="p-3 rounded-xl bg-slate-950/70 border border-emerald-500/20">
-              <div className="text-[11px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-[#E2E8F0]">
+            <div className="p-3 rounded-xl bg-[#F8FAFC] border border-emerald-200">
+              <div className="text-[11px] text-emerald-700 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Work Done</span>
               </div>
-              <div className="text-2xl font-black text-white font-mono">{mktDone} Tasks</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">Campaigns launched & live</div>
+              <div className="text-2xl font-black text-[#0A224E] font-mono">{mktDone} Tasks</div>
+              <div className="text-[10px] text-[#475569] mt-0.5">Campaigns launched &amp; live</div>
             </div>
 
-            <div className="p-3 rounded-xl bg-slate-950/70 border border-orange-500/20">
-              <div className="text-[11px] text-orange-400 font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
-                <Flame className="w-3.5 h-3.5 text-orange-400" />
+            <div className="p-3 rounded-xl bg-[#F8FAFC] border border-orange-200">
+              <div className="text-[11px] text-[#EA580C] font-bold uppercase tracking-wider flex items-center gap-1.5 mb-1">
+                <Flame className="w-3.5 h-3.5 text-[#FF8800]" />
                 <span>Working On</span>
               </div>
-              <div className="text-2xl font-black text-white font-mono">{mktWorkingOn} Tasks</div>
-              <div className="text-[10px] text-slate-400 mt-0.5">A/B tests & funnel builds</div>
+              <div className="text-2xl font-black text-[#0A224E] font-mono">{mktWorkingOn} Tasks</div>
+              <div className="text-[10px] text-[#475569] mt-0.5">A/B tests &amp; funnel builds</div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Primary Scope Switcher: All Tasks vs My Tasks */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-3.5 rounded-2xl border border-[#E2E8F0] shadow-2xs">
         <div className="flex items-center gap-2">
           <button
             onClick={() => setScopeFilter('ALL')}
             className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
               scopeFilter === 'ALL'
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-[#0062E6] text-white shadow-xs'
+                : 'text-[#475569] hover:text-[#0A224E] hover:bg-[#F8FAFC]'
             }`}
           >
             <CheckSquare2 className="w-4 h-4" />
@@ -285,8 +281,8 @@ export default function AdminTasksPage() {
             }}
             className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all flex items-center gap-2 ${
               scopeFilter === 'MY'
-                ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                ? 'bg-gradient-to-r from-[#FF8800] to-[#EA580C] text-white shadow-xs'
+                : 'text-[#475569] hover:text-[#0A224E] hover:bg-[#F8FAFC]'
             }`}
           >
             <UserCheck className="w-4 h-4" />
@@ -308,7 +304,7 @@ export default function AdminTasksPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search sprint task..."
-              className="pl-8 pr-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 w-44 sm:w-56"
+              className="pl-8 pr-3 py-1.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] placeholder-slate-400 focus:outline-none focus:border-[#0062E6] w-44 sm:w-56"
             />
           </div>
 
@@ -316,7 +312,7 @@ export default function AdminTasksPage() {
           <select
             value={deptFilter}
             onChange={(e) => setDeptFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none"
           >
             <option value="ALL">All Teams</option>
             <option value="Developer">Developer Team</option>
@@ -327,7 +323,7 @@ export default function AdminTasksPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-slate-200 focus:outline-none"
+            className="px-3 py-1.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none"
           >
             <option value="ALL">All Status</option>
             <option value="IN_PROGRESS">Working On (In Progress)</option>
@@ -339,15 +335,15 @@ export default function AdminTasksPage() {
 
       {/* Prompt if "My Tasks" is selected without being logged in */}
       {scopeFilter === 'MY' && !currentUser && (
-        <div className="p-8 rounded-2xl bg-slate-900 border border-amber-500/30 text-center max-w-xl mx-auto space-y-3">
-          <AlertCircle className="w-8 h-8 text-amber-400 mx-auto" />
-          <h3 className="text-base font-bold text-white">Employee Login Required for &quot;My Tasks&quot;</h3>
-          <p className="text-xs text-slate-400 leading-relaxed">
-            Please log in with your name and access PIN (e.g. ADVIKS2026) to view and manage tasks assigned specifically to you.
+        <div className="p-8 rounded-2xl bg-[#FFF7ED] border border-orange-200 text-center max-w-xl mx-auto space-y-3 shadow-2xs">
+          <AlertCircle className="w-8 h-8 text-[#FF8800] mx-auto" />
+          <h3 className="text-base font-bold text-[#0A224E]">Employee Login Required for &quot;My Tasks&quot;</h3>
+          <p className="text-xs text-[#475569] leading-relaxed">
+            Please log in with your officer account to view and manage tasks assigned specifically to you.
           </p>
           <button
             onClick={() => setShowLoginModal(true)}
-            className="px-5 py-2.5 rounded-xl bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold transition-all shadow-md"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF8800] to-[#EA580C] text-white text-xs font-bold transition-all shadow-xs"
           >
             Log In to View My Tasks
           </button>
@@ -357,10 +353,10 @@ export default function AdminTasksPage() {
       {/* Tasks List */}
       <div className="space-y-3">
         {filteredTasks.length === 0 ? (
-          <div className="py-16 text-center rounded-2xl bg-slate-900/40 border border-slate-800">
-            <CheckSquare2 className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-            <p className="text-sm font-semibold text-slate-400">No sprint tasks found for this filter.</p>
-            <p className="text-xs text-slate-500 mt-1">
+          <div className="py-16 text-center rounded-2xl bg-white border border-[#E2E8F0] shadow-2xs">
+            <CheckSquare2 className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+            <p className="text-sm font-semibold text-[#475569]">No sprint tasks found for this filter.</p>
+            <p className="text-xs text-slate-400 mt-1">
               Click &quot;+ Add Sprint Task&quot; above to create a new engineering or marketing deliverable.
             </p>
           </div>
@@ -379,10 +375,10 @@ export default function AdminTasksPage() {
                 key={task.id}
                 className={`p-4 sm:p-5 rounded-2xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                   isDone
-                    ? 'bg-slate-950/60 border-slate-800/80 opacity-80'
+                    ? 'bg-[#F8FAFC] border-[#E2E8F0] opacity-80'
                     : isMyTask
-                    ? 'bg-slate-900 border-amber-500/40 ring-1 ring-amber-500/20 shadow-md'
-                    : 'bg-slate-900 border-slate-800 hover:border-slate-700'
+                    ? 'bg-[#FFF7ED]/50 border-orange-200 ring-1 ring-orange-500/20 shadow-2xs'
+                    : 'bg-white border-[#E2E8F0] hover:border-slate-300 shadow-2xs'
                 }`}
               >
                 <div className="space-y-2 flex-1 min-w-0">
@@ -390,64 +386,64 @@ export default function AdminTasksPage() {
                     <span
                       className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
                         isDev
-                          ? 'text-blue-400 bg-blue-500/10 border-blue-500/30'
-                          : 'text-orange-400 bg-orange-500/10 border-orange-500/30'
+                          ? 'text-[#0062E6] bg-[#EFF6FF] border-blue-200'
+                          : 'text-[#EA580C] bg-[#FFF7ED] border-orange-200'
                       }`}
                     >
                       {isDev ? 'Developer' : 'Marketing'}
                     </span>
 
                     <span
-                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
                         task.priority === 'URGENT'
-                          ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                          ? 'bg-rose-50 text-rose-700 border-rose-200'
                           : task.priority === 'HIGH'
-                          ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                          : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                          ? 'bg-orange-50 text-orange-700 border-orange-200'
+                          : 'bg-blue-50 text-blue-700 border-blue-200'
                       }`}
                     >
                       {task.priority || 'NORMAL'}
                     </span>
 
-                    <span className="text-[11px] text-slate-400 font-mono truncate max-w-xs">
+                    <span className="text-[11px] text-[#475569] font-mono truncate max-w-xs">
                       {task.project}
                     </span>
                   </div>
 
                   <h4
                     className={`text-sm sm:text-base font-bold leading-snug ${
-                      isDone ? 'line-through text-slate-400' : 'text-white'
+                      isDone ? 'line-through text-slate-400' : 'text-[#0A224E]'
                     }`}
                   >
                     {task.title}
                   </h4>
 
-                  <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 pt-1">
+                  <div className="flex flex-wrap items-center gap-4 text-xs text-[#475569] pt-1">
                     <span className="flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-blue-400" />
-                      <span className="text-slate-300 font-semibold">{task.assignedTo}</span>
+                      <User className="w-3.5 h-3.5 text-[#0062E6]" />
+                      <span className="text-[#0A224E] font-bold">{task.assignedTo}</span>
                       {isMyTask && (
-                        <span className="text-[10px] text-amber-300 bg-amber-500/20 px-1.5 py-0.2 rounded font-bold">
+                        <span className="text-[10px] text-[#EA580C] bg-[#FFF7ED] px-1.5 py-0.5 rounded font-bold border border-orange-200">
                           You
                         </span>
                       )}
                     </span>
 
-                    <span className="flex items-center gap-1 text-slate-500">
-                      <Calendar className="w-3 h-3 text-slate-400" />
+                    <span className="flex items-center gap-1 text-[#475569]">
+                      <Calendar className="w-3 h-3 text-[#475569]" />
                       <span>Due: {task.dueDate || 'TBD'}</span>
                     </span>
                   </div>
                 </div>
 
                 {/* Status Switcher Action Buttons */}
-                <div className="flex items-center gap-1.5 sm:shrink-0 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                <div className="flex items-center gap-1.5 sm:shrink-0 bg-[#F8FAFC] p-1 rounded-xl border border-[#E2E8F0]">
                   <button
                     onClick={() => updateTaskStatus(task.id, 'TODO')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       task.status === 'TODO'
-                        ? 'bg-slate-800 text-slate-200'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'bg-white text-[#0A224E] border border-[#E2E8F0] shadow-2xs'
+                        : 'text-[#475569] hover:text-[#0A224E]'
                     }`}
                   >
                     Todo
@@ -456,8 +452,8 @@ export default function AdminTasksPage() {
                     onClick={() => updateTaskStatus(task.id, 'IN_PROGRESS')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       isInProgress
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'text-slate-500 hover:text-slate-300'
+                        ? 'bg-[#0062E6] text-white shadow-xs'
+                        : 'text-[#475569] hover:text-[#0A224E]'
                     }`}
                   >
                     Working On
@@ -467,7 +463,7 @@ export default function AdminTasksPage() {
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 ${
                       isDone
                         ? 'bg-emerald-600 text-white shadow-xs'
-                        : 'text-slate-500 hover:text-emerald-400'
+                        : 'text-[#475569] hover:text-emerald-600'
                     }`}
                   >
                     <CheckCircle2 className="w-3.5 h-3.5" />
