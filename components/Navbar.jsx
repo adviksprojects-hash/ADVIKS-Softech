@@ -25,9 +25,12 @@ import {
   Zap,
 } from 'lucide-react';
 import AdviksLogo from '@/components/AdviksLogo';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
 import { InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
+import { ShieldCheck } from 'lucide-react';
 
 export default function Navbar() {
+  const { currentUser } = useEmployeeAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -325,13 +328,23 @@ export default function Navbar() {
             </a>
           </div>
 
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#F8FAFC] border border-[#E2E8F0] text-[#0A224E] hover:bg-[#EFF6FF] hover:border-blue-200 transition-colors"
-          >
-            <User className="w-3 h-3 text-[#0062E6]" />
-            <span>Client Portal</span>
-          </Link>
+          {currentUser ? (
+            <Link
+              href="/admin/projects"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#EFF6FF] border border-blue-200 text-[#0062E6] hover:bg-blue-100 transition-colors"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[#FF8800]" />
+              <span>Admin ({currentUser.name.split(' ')[0]})</span>
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-[#F8FAFC] border border-[#E2E8F0] text-[#0A224E] hover:bg-[#EFF6FF] hover:border-blue-200 transition-colors"
+            >
+              <User className="w-3 h-3 text-[#0062E6]" />
+              <span>Client Portal</span>
+            </Link>
+          )}
 
           {/* Growth Amber CTA Button */}
           <Link

@@ -257,3 +257,60 @@ input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
   background: #EA580C;
 }
+
+/* Additional Micro-Interactions & Modern UI Effects */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  animation: shimmer-sweep 2.5s infinite;
+}
+
+@keyframes pop-bounce {
+  0% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.checkbox-pop {
+  animation: pop-bounce 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glow-focus-ring {
+  transition: all 0.2s ease-in-out;
+}
+
+.glow-focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 98, 230, 0.25);
+  border-color: #0062E6;
+}

@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
 import {
   Users2,
   FolderKanban,
@@ -10,29 +13,48 @@ import {
   AlertTriangle,
   CheckCircle2,
   Clock,
+  Code2,
+  Megaphone,
+  CheckSquare2,
+  Sparkles,
 } from 'lucide-react';
 
 export default function AdminOverviewPage() {
+  const { tasks, projects, currentUser } = useEmployeeAuth();
+
+  // Developer vs Marketing calculations
+  const devTasks = tasks.filter((t) => t.department === 'Developer');
+  const devDone = devTasks.filter((t) => t.status === 'DONE').length;
+  const devWorkingOn = devTasks.filter((t) => t.status === 'IN_PROGRESS' || t.status === 'TODO').length;
+  const devTotal = devTasks.length;
+  const devRate = devTotal > 0 ? Math.round((devDone / devTotal) * 100) : 0;
+
+  const mktTasks = tasks.filter((t) => t.department === 'Marketing');
+  const mktDone = mktTasks.filter((t) => t.status === 'DONE').length;
+  const mktWorkingOn = mktTasks.filter((t) => t.status === 'IN_PROGRESS' || t.status === 'TODO').length;
+  const mktTotal = mktTasks.length;
+  const mktRate = mktTotal > 0 ? Math.round((mktDone / mktTotal) * 100) : 0;
+
   const kpis = [
+    {
+      label: 'Active SOW Projects',
+      value: `${projects.length} Active`,
+      change: `${projects.filter((p) => p.progress >= 75).length} Near Delivery`,
+      icon: FolderKanban,
+      color: 'text-blue-400',
+    },
+    {
+      label: 'Total Sprint Tasks',
+      value: `${tasks.length} Deliverables`,
+      change: `${tasks.filter((t) => t.status === 'DONE').length} Completed`,
+      icon: CheckSquare2,
+      color: 'text-emerald-400',
+    },
     {
       label: 'Total Invoiced (YTD)',
       value: '₹34,50,000',
       change: '+18% vs last month',
       icon: ReceiptText,
-      color: 'text-emerald-400',
-    },
-    {
-      label: 'Offline Payments Verified',
-      value: '₹33,00,000',
-      change: 'Bank Wire / NEFT Reconciled',
-      icon: TrendingUp,
-      color: 'text-blue-400',
-    },
-    {
-      label: 'Active Sprint Projects',
-      value: '6 Projects',
-      change: '4 Clients on Retainer',
-      icon: FolderKanban,
       color: 'text-indigo-400',
     },
     {
@@ -86,22 +108,24 @@ export default function AdminOverviewPage() {
             ADVIKS Softech Business Command
           </h1>
           <p className="text-sm text-slate-400 mt-1">
-            Real-time operational metrics across incoming website leads, active client sprints, and bank wire reconciliations.
+            Real-time operational metrics across incoming website leads, active client sprints, and pod velocity.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
           <Link
-            href="/admin/invoices"
-            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 transition-colors"
+            href="/admin/tasks"
+            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-semibold text-slate-200 transition-colors flex items-center gap-1.5"
           >
-            Issue New Invoice
+            <CheckSquare2 className="w-3.5 h-3.5 text-blue-400" />
+            <span>Sprint Board</span>
           </Link>
           <Link
             href="/admin/projects"
-            className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors"
+            className="px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors flex items-center gap-1.5"
           >
-            Create Project
+            <FolderKanban className="w-3.5 h-3.5" />
+            <span>Projects & SOWs</span>
           </Link>
         </div>
       </div>
@@ -121,6 +145,101 @@ export default function AdminOverviewPage() {
             </div>
           );
         })}
+      </div>
+
+      {/* TWO TEAMS WORKLOAD SUMMARY: DEVELOPER VS MARKETING */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Developer Pod */}
+        <div className="p-6 rounded-3xl bg-slate-900/80 border border-blue-500/20 shadow-md">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                <Code2 className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">Developer Team Pod</h3>
+                <span className="text-[11px] text-slate-400">Architecture, APIs, Microservices</span>
+              </div>
+            </div>
+            <Link
+              href="/admin/tasks"
+              className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1"
+            >
+              <span>Manage Tasks</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="space-y-1 mb-4">
+            <div className="flex justify-between text-xs">
+              <span className="text-slate-400">Pod Completion Rate</span>
+              <span className="font-mono text-blue-400 font-bold">{devRate}%</span>
+            </div>
+            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full"
+                style={{ width: `${devRate}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">Work Done</span>
+              <span className="text-lg font-black text-emerald-400 font-mono">{devDone} Tasks</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">Working On</span>
+              <span className="text-lg font-black text-blue-400 font-mono">{devWorkingOn} Tasks</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Marketing Pod */}
+        <div className="p-6 rounded-3xl bg-slate-900/80 border border-orange-500/20 shadow-md">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-[#FF8800]">
+                <Megaphone className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">Marketing Team Pod</h3>
+                <span className="text-[11px] text-slate-400">Meta/Google Ads, SEO, Funnel CRO</span>
+              </div>
+            </div>
+            <Link
+              href="/admin/tasks"
+              className="text-xs font-bold text-orange-400 hover:text-orange-300 flex items-center gap-1"
+            >
+              <span>Manage Tasks</span>
+              <ArrowUpRight className="w-3 h-3" />
+            </Link>
+          </div>
+
+          <div className="space-y-1 mb-4">
+            <div className="flex justify-between text-xs">
+              <span className="text-slate-400">Campaign Completion Rate</span>
+              <span className="font-mono text-orange-400 font-bold">{mktRate}%</span>
+            </div>
+            <div className="w-full bg-slate-950 h-2 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-orange-600 to-amber-400 rounded-full"
+                style={{ width: `${mktRate}%` }}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">Work Done</span>
+              <span className="text-lg font-black text-emerald-400 font-mono">{mktDone} Tasks</span>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800">
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">Working On</span>
+              <span className="text-lg font-black text-orange-400 font-mono">{mktWorkingOn} Tasks</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Pending Bank Transfer Reconciliations Alert */}
@@ -218,41 +337,38 @@ export default function AdminOverviewPage() {
           </div>
         </div>
 
-        {/* Quick Operations Guide */}
+        {/* Active Projects Snapshot */}
         <div className="lg:col-span-5 space-y-4">
-          <h3 className="text-base font-bold text-white">System Architecture & Tech Setup</h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-base font-bold text-white">Active SOW Milestones</h3>
+            <Link
+              href="/admin/projects"
+              className="text-xs font-semibold text-blue-400 hover:text-blue-300 flex items-center gap-1"
+            >
+              <span>All Projects</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
 
-          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-3 text-xs text-slate-300">
-            <div className="flex items-center gap-2 text-white font-semibold pb-2 border-b border-slate-800">
-              <span>Neon DB & Clerk Integration Status</span>
-            </div>
-
-            <p className="leading-relaxed text-slate-400">
-              The project is configured for <strong className="text-white">Clerk</strong> authentication and <strong className="text-white">Neon PostgreSQL</strong> serverless database.
-            </p>
-
-            <div className="space-y-2 font-mono text-[11px] bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <div className="flex justify-between">
-                <span className="text-slate-500">Framework:</span>
-                <span className="text-blue-400">Next.js 16 + React 19</span>
+          <div className="p-5 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-3.5">
+            {projects.slice(0, 3).map((p) => (
+              <div key={p.id} className="space-y-1.5 pb-3 border-b border-slate-800/80 last:border-0 last:pb-0">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-white font-bold truncate max-w-[200px]">{p.title}</span>
+                  <span className="font-mono text-amber-400 font-extrabold">{p.progress}%</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-slate-400">
+                  <span>{p.clientName}</span>
+                  <span className="text-blue-400">{p.assignedTo}</span>
+                </div>
+                <div className="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-600 to-amber-500 rounded-full"
+                    style={{ width: `${p.progress}%` }}
+                  />
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Format:</span>
-                <span className="text-emerald-400">JavaScript (.jsx / .js)</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Auth Provider:</span>
-                <span className="text-indigo-400">Clerk Auth</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Database:</span>
-                <span className="text-cyan-400">Neon Serverless PostgreSQL</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500">Payment Gateway:</span>
-                <span className="text-amber-400">Disabled (Manual Bank Wire)</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

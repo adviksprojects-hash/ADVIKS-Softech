@@ -1,8 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
+import EmployeeLoginModal from '@/components/EmployeeLoginModal';
+import EditProfileModal from '@/components/EditProfileModal';
 import {
   Target,
   Users,
@@ -16,172 +20,19 @@ import {
   Cpu,
   TrendingUp,
   CheckCircle2,
+  Edit3,
+  UserCheck,
+  ShieldCheck,
+  LogIn,
+  LogOut,
 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
 
 export default function AboutPage() {
-  const teamMembers = [
-    {
-      name: 'Kaustubh Ronge',
-      initials: 'KR',
-      avatarBg: 'bg-gradient-to-tr from-[#0A224E] via-[#0062E6] to-[#0088FF]',
-      role: 'Chief Executive Officer (CEO)',
-      specialty: 'Corporate Strategy • AI Systems • Executive Leadership',
-      bio: 'Chief Executive Officer driving ADVIKS Softech’s global vision, executive strategy, and client success. Focuses on orchestrating high-velocity technology execution, enterprise AI product adoption, and cross-border operational excellence.',
-      skills: [
-        'Executive Leadership',
-        'Product Strategy & Vision',
-        'AI Applications & Chatbots',
-        'React & Next.js Platforms',
-        'Cross-Functional Operations',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/kaustubh-ronge-ba2733289/',
-      githubUrl: 'https://github.com/kaustubh-ronge',
-      portfolioUrl: null,
-      badge: 'Executive Leadership',
-      badgeColor: 'text-[#0062E6] bg-[#EFF6FF] border-blue-200',
-    },
-    {
-      name: 'Vivek Pawar',
-      initials: 'VP',
-      avatarBg: 'bg-gradient-to-tr from-[#0A224E] to-[#0062E6]',
-      role: 'Chief Technology Officer (CTO)',
-      specialty: 'Enterprise Architecture • Java Concurrency • AI Systems',
-      bio: 'Chief Technology Officer and Lead Solutions Architect with 500+ algorithmic problem-solving depth. Directs core technical architecture, resilient multi-tenant microservices, and AI integrations engineered for commercial scale.',
-      skills: [
-        'Next.js 16 & React.js',
-        'Java & Spring Boot',
-        'Cloud Microservices & DevOps',
-        'PostgreSQL & Neon DB',
-        'AI / ML Integration Pipelines',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/company/adviks-software-solutions/posts/?feedView=all',
-      githubUrl: 'https://github.com/vivekpawar3010',
-      portfolioUrl: 'https://vivekpawar.vercel.app/',
-      badge: 'Architecture & Leadership',
-      badgeColor: 'text-[#0062E6] bg-[#EFF6FF] border-blue-200',
-    },
-    {
-      name: 'Dipak Pawar',
-      initials: 'DP',
-      avatarBg: 'bg-gradient-to-tr from-[#071736] via-[#0A224E] to-[#0088FF]',
-      role: 'Chief Technology Officer (CTO)',
-      specialty: 'Backend Scalability • High-Concurrency APIs • Cloud Infrastructure',
-      bio: 'Chief Technology Officer directing backend infrastructure, high-concurrency data streaming, and production reliability. Specializes in robust API design, containerized cloud deployments, and resilient database performance.',
-      skills: [
-        'System Design & Scalability',
-        'Backend APIs & Microservices',
-        'Database Optimization',
-        'Cloud DevOps & CI/CD',
-        'Production Reliability & Security',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/dipakpawar356/',
-      githubUrl: null,
-      portfolioUrl: null,
-      badge: 'Core Infrastructure',
-      badgeColor: 'text-[#0062E6] bg-[#EFF6FF] border-blue-200',
-    },
-    {
-      name: 'Atharv Malavde',
-      initials: 'AM',
-      avatarBg: 'bg-gradient-to-tr from-[#0A224E] via-indigo-900 to-[#FF8800]',
-      role: 'Chief Business Development Officer (CBDO)',
-      specialty: 'Strategic Partnerships • Client Acquisition • Enterprise Expansion',
-      bio: 'Chief Business Development Officer leading commercial growth, enterprise client acquisition, and high-value strategic partnerships. Bridges client business goals with ADVIKS software delivery pods.',
-      skills: [
-        'Enterprise Account Management',
-        'Client Acquisition & Inbound Sales',
-        'Strategic Partnerships',
-        'Contract Negotiation',
-        'Go-To-Market Strategy',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/atharv-malavde-74a661275/',
-      githubUrl: null,
-      portfolioUrl: null,
-      badge: 'Business Development',
-      badgeColor: 'text-[#FF8800] bg-[#FFF7ED] border-orange-200',
-    },
-    {
-      name: 'Dhiraj Gaikwad',
-      initials: 'DG',
-      avatarBg: 'bg-gradient-to-tr from-[#0A224E] to-[#0088FF]',
-      role: 'Chief Financial Officer (CFO)',
-      specialty: 'Fiscal Strategy • ERP Architecture • Full-Stack Systems',
-      bio: 'Chief Financial Officer overseeing corporate finance, resource allocation, and billing systems engineering. Deep expertise in full-stack architecture, ledger data integrity, and scalable ERP products like VyaparStock.',
-      skills: [
-        'Financial Modeling & Budgets',
-        'Next.js & TypeScript',
-        'ERP & Billing Architecture',
-        'Resource Optimization',
-        'REST & Cloud APIs',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/dhirajgaikwad333/',
-      githubUrl: 'https://github.com/GaikwadDhiraj',
-      portfolioUrl: null,
-      badge: 'Finance & Systems',
-      badgeColor: 'text-[#0062E6] bg-[#EFF6FF] border-blue-200',
-    },
-    {
-      name: 'Vijay Patil',
-      initials: 'VP',
-      avatarBg: 'bg-gradient-to-tr from-[#EA580C] to-[#FF8800]',
-      role: 'Chief Marketing Officer (CMO)',
-      specialty: 'Brand Positioning • Market Penetration • Digital Acquisition',
-      bio: 'Chief Marketing Officer heading brand positioning, multi-channel marketing campaigns, and B2B market expansion. Directs creative and performance teams to maximize client acquisition and brand equity.',
-      skills: [
-        'Brand Strategy & Positioning',
-        'Performance Marketing Campaigns',
-        'Inbound Acquisition Funnels',
-        'Market Research & Analytics',
-        'Multi-Channel Media Buying',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/vijay-patil-706239259/',
-      githubUrl: null,
-      portfolioUrl: null,
-      badge: 'Marketing Leadership',
-      badgeColor: 'text-[#EA580C] bg-[#FFF7ED] border-orange-200',
-    },
-    {
-      name: 'Shreya Jagtap',
-      initials: 'SJ',
-      avatarBg: 'bg-gradient-to-tr from-[#FF8800] via-rose-500 to-[#EA580C]',
-      role: 'Chief Marketing Officer (CMO)',
-      specialty: 'Performance Marketing • Social Growth • Campaign Execution',
-      bio: 'Chief Marketing Officer leading performance ads, organic social expansion, and brand messaging across digital touchpoints. Expert in ROAS optimization, viral social positioning, and conversion rate optimization.',
-      skills: [
-        'Meta Ads (Advantage+ Shopping)',
-        'Google Search Intent & PMax',
-        'Conversion Rate Optimization',
-        'Social Media Branding',
-        'Creative Direction & Copywriting',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/shreya-jagtap-0b5a1326b/',
-      githubUrl: null,
-      portfolioUrl: null,
-      badge: 'Growth & Campaigns',
-      badgeColor: 'text-[#EA580C] bg-[#FFF7ED] border-orange-200',
-    },
-    {
-      name: 'Payal Kharat',
-      initials: 'PK',
-      avatarBg: 'bg-gradient-to-tr from-[#0A224E] via-teal-800 to-teal-600',
-      role: 'HR & Project Manager',
-      specialty: 'Agile Sprint Management • Talent Operations • Delivery Timelines',
-      bio: 'HR & Project Manager coordinating agile sprint cadences, developer resource management, and client milestone delivery. Ensures cross-functional sync across engineering, growth pods, and client stakeholders.',
-      skills: [
-        'Agile & Scrum Facilitation',
-        'Milestone Tracking & SLA Delivery',
-        'Team Operations & HR Policy',
-        'Stakeholder Communications',
-        'Sprint Velocity Optimization',
-      ],
-      linkedinUrl: 'https://www.linkedin.com/in/shreya-jagtap-0b5a1326b/',
-      githubUrl: null,
-      portfolioUrl: null,
-      badge: 'Operations & HR',
-      badgeColor: 'text-teal-700 bg-teal-50 border-teal-200',
-    },
-  ];
+  const { teamMembers, currentUser, logout } = useEmployeeAuth();
+
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [editingMember, setEditingMember] = useState(null);
 
   const values = [
     {
@@ -192,12 +43,12 @@ export default function AboutPage() {
     {
       icon: Shield,
       title: 'Radical Transparency',
-      desc: 'Through our public GitHub repositories and dedicated Client Portal, our clients have 100% visibility into code deliverables and milestones.',
+      desc: 'Through our dedicated Client Portal, sprint milestones, and transparent SOW deliverables, clients have 100% visibility into progress.',
     },
     {
       icon: Rocket,
       title: 'Execution Velocity',
-      desc: 'By leveraging modern frameworks (Next.js 16, TypeScript, PostgreSQL) and data-backed marketing funnels, we launch high-performing assets in record time.',
+      desc: 'By leveraging modern frameworks (Next.js 16, TypeScript, Neon DB) and data-backed marketing funnels, we launch high-performing assets in record time.',
     },
     {
       icon: Users,
@@ -236,7 +87,7 @@ export default function AboutPage() {
       <main className="flex-1 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF6FF] border border-blue-200 text-xs font-extrabold text-[#0062E6] mb-6">
               <Sparkles className="w-3.5 h-3.5 text-[#0062E6]" />
               <span>Executive Leadership & Engineering Team</span>
@@ -249,6 +100,68 @@ export default function AboutPage() {
             </p>
           </div>
 
+          {/* Employee / Founder Mode Status Banner */}
+          <div className="mb-10 max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] border border-blue-200 flex items-center justify-center text-[#0062E6]">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                {currentUser ? (
+                  <>
+                    <div className="text-xs font-bold text-[#0A224E] flex items-center gap-2">
+                      <span>Logged in as:</span>
+                      <span className="text-[#0062E6] font-extrabold">{currentUser.name}</span>
+                      <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">
+                        {currentUser.position}
+                      </span>
+                    </div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">
+                      You can edit your profile directly below, or manage client projects in the Admin Center.
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-xs font-bold text-[#0A224E]">
+                      Founder & Employee Self-Service Portal
+                    </div>
+                    <div className="text-[11px] text-slate-500 mt-0.5">
+                      Log in with your employee passkey to edit your public biography, skills, and links.
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2.5 shrink-0">
+              {currentUser ? (
+                <>
+                  <Link
+                    href="/admin/projects"
+                    className="px-3.5 py-2 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-extrabold transition-colors shadow-xs"
+                  >
+                    Go to Admin Portal
+                  </Link>
+                  <button
+                    onClick={logout}
+                    className="px-3 py-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-bold transition-colors flex items-center gap-1.5"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Logout</span>
+                  </button>
+                </>
+              ) : (
+                <button
+                  onClick={() => setIsLoginModalOpen(true)}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#FF8800] hover:opacity-95 text-white text-xs font-extrabold transition-all shadow-md shadow-orange-600/20 flex items-center gap-1.5"
+                >
+                  <LogIn className="w-3.5 h-3.5" />
+                  <span>Employee / Founder Login</span>
+                </button>
+              )}
+            </div>
+          </div>
+
           {/* Team Grid */}
           <div className="mb-24">
             <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#E2E8F0]">
@@ -257,104 +170,150 @@ export default function AboutPage() {
                 <p className="text-xs text-slate-500 mt-1">Directly accessible founders and executive team members.</p>
               </div>
               <span className="text-xs font-mono font-bold text-[#0062E6] bg-[#EFF6FF] px-3 py-1 rounded-full border border-blue-200">
-                8 Team Members
+                {teamMembers.length} Team Members
               </span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {teamMembers.map((member, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-[#0062E6]/40 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div>
-                    {/* Header: Avatar, Name, Title, Badge */}
-                    <div className="flex items-start justify-between gap-4 mb-5">
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-14 h-14 rounded-2xl ${member.avatarBg} text-white font-extrabold text-lg flex items-center justify-center shrink-0 shadow-md shadow-blue-900/10`}
-                        >
-                          {member.initials}
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-extrabold text-[#0A224E]">
-                            {member.name}
-                          </h3>
-                          <div className="text-xs font-bold text-[#0062E6]">
-                            {member.role}
+              {teamMembers.map((member) => {
+                const isCurrentMember =
+                  currentUser &&
+                  (currentUser.name.toLowerCase() === member.name.toLowerCase() ||
+                    currentUser.isSuperAdmin);
+
+                return (
+                  <div
+                    key={member.id || member.name}
+                    className="rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-10 flex flex-col justify-between shadow-xs hover:shadow-xl hover:border-[#0062E6]/40 transition-all duration-300 hover:-translate-y-1 relative group"
+                  >
+                    <div>
+                      {/* Header: Avatar, Name, Title, Badge */}
+                      <div className="flex items-start justify-between gap-4 mb-5">
+                        <div className="flex items-center gap-4">
+                          <div
+                            className={`w-14 h-14 rounded-2xl ${member.avatarBg} text-white font-extrabold text-lg flex items-center justify-center shrink-0 shadow-md shadow-blue-900/10`}
+                          >
+                            {member.initials}
+                          </div>
+                          <div>
+                            <div className="flex items-center gap-2">
+                              <h3 className="text-xl font-extrabold text-[#0A224E]">
+                                {member.name}
+                              </h3>
+                              {isCurrentMember && (
+                                <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
+                                  You
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-xs font-bold text-[#0062E6]">
+                              {member.role}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <span className={`text-[11px] font-bold px-3 py-1 rounded-full border ${member.badgeColor}`}>
-                        {member.badge}
-                      </span>
-                    </div>
 
-                    <div className="text-xs font-mono font-medium text-slate-600 mb-4 bg-[#F8FAFC] px-3.5 py-2 rounded-xl border border-slate-200">
-                      {member.specialty}
-                    </div>
-
-                    <p className="text-sm text-[#475569] mb-6 leading-relaxed">
-                      {member.bio}
-                    </p>
-
-                    {/* Skill Pills */}
-                    <div className="mb-6">
-                      <div className="text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-2.5">
-                        Core Competencies:
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {member.skills.map((skill, sIdx) => (
+                        <div className="flex flex-col items-end gap-2">
                           <span
-                            key={sIdx}
-                            className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-[#F8FAFC] text-slate-700 font-semibold border border-slate-200"
+                            className={`text-[11px] font-bold px-3 py-1 rounded-full border ${member.badgeColor || 'text-[#0062E6] bg-[#EFF6FF] border-blue-200'}`}
                           >
-                            <CheckCircle2 className="w-3 h-3 text-[#FF8800] shrink-0" />
-                            <span>{skill}</span>
+                            {member.badge || member.department || 'Leadership'}
                           </span>
-                        ))}
+
+                          {/* Quick Edit Profile Pill */}
+                          {isCurrentMember && (
+                            <button
+                              onClick={() => setEditingMember(member)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#EA580C] border border-amber-200 text-[11px] font-bold transition-colors shadow-xs"
+                              title="Edit your bio, role, and social links"
+                            >
+                              <Edit3 className="w-3 h-3" />
+                              <span>Edit Profile</span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="text-xs font-mono font-medium text-slate-600 mb-4 bg-[#F8FAFC] px-3.5 py-2 rounded-xl border border-slate-200">
+                        {member.specialty}
+                      </div>
+
+                      <p className="text-sm text-[#475569] mb-6 leading-relaxed">
+                        {member.bio}
+                      </p>
+
+                      {/* Skill Pills */}
+                      <div className="mb-6">
+                        <div className="text-xs font-bold text-[#0A224E] uppercase tracking-wider mb-2.5">
+                          Core Competencies:
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {(member.skills || []).map((skill, sIdx) => (
+                            <span
+                              key={sIdx}
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-[#F8FAFC] text-slate-700 font-semibold border border-slate-200"
+                            >
+                              <CheckCircle2 className="w-3 h-3 text-[#FF8800] shrink-0" />
+                              <span>{skill}</span>
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Links / Social Profiles */}
-                  <div className="pt-5 border-t border-[#E2E8F0] flex flex-wrap items-center gap-4">
-                    {member.linkedinUrl && (
-                      <a
-                        href={member.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0062E6] hover:text-[#0A224E] transition-colors bg-[#EFF6FF] px-3 py-1.5 rounded-lg border border-blue-200"
-                      >
-                        <LinkedinIcon className="w-3.5 h-3.5" />
-                        <span>LinkedIn</span>
-                      </a>
-                    )}
-                    {member.portfolioUrl && (
-                      <a
-                        href={member.portfolioUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EA580C] hover:text-orange-700 transition-colors bg-[#FFF7ED] px-3 py-1.5 rounded-lg border border-orange-200"
-                      >
-                        <Globe className="w-3.5 h-3.5" />
-                        <span>Portfolio</span>
-                      </a>
-                    )}
-                    {member.githubUrl && (
-                      <a
-                        href={member.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A224E] hover:text-[#0062E6] transition-colors bg-[#F8FAFC] px-3 py-1.5 rounded-lg border border-slate-200"
-                      >
-                        <GithubIcon className="w-3.5 h-3.5" />
-                        <span>GitHub</span>
-                      </a>
-                    )}
+                    {/* Links / Social Profiles */}
+                    <div className="pt-5 border-t border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex flex-wrap items-center gap-3">
+                        {member.linkedinUrl && (
+                          <a
+                            href={member.linkedinUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0062E6] hover:text-[#0A224E] transition-colors bg-[#EFF6FF] px-3 py-1.5 rounded-lg border border-blue-200"
+                          >
+                            <LinkedinIcon className="w-3.5 h-3.5" />
+                            <span>LinkedIn</span>
+                          </a>
+                        )}
+                        {member.portfolioUrl && (
+                          <a
+                            href={member.portfolioUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EA580C] hover:text-orange-700 transition-colors bg-[#FFF7ED] px-3 py-1.5 rounded-lg border border-orange-200"
+                          >
+                            <Globe className="w-3.5 h-3.5" />
+                            <span>Portfolio</span>
+                          </a>
+                        )}
+                        {member.githubUrl && (
+                          <a
+                            href={member.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A224E] hover:text-[#0062E6] transition-colors bg-[#F8FAFC] px-3 py-1.5 rounded-lg border border-slate-200"
+                          >
+                            <GithubIcon className="w-3.5 h-3.5" />
+                            <span>GitHub</span>
+                          </a>
+                        )}
+                      </div>
+
+                      {/* If not logged in, prompt to edit */}
+                      {!currentUser && (
+                        <button
+                          onClick={() => {
+                            setIsLoginModalOpen(true);
+                          }}
+                          className="text-[11px] text-slate-400 hover:text-[#0062E6] font-medium flex items-center gap-1 transition-colors"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                          <span>Are you {member.name.split(' ')[0]}? Log in to edit</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -379,84 +338,68 @@ export default function AboutPage() {
 
           {/* Core Values */}
           <div className="mb-24">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-extrabold tracking-widest text-[#0062E6] uppercase">
-                Principles That Guide Us
-              </span>
-              <h2 className="mt-2 text-3xl font-extrabold text-[#0A224E] tracking-tight">
-                Our Core Operating Values
-              </h2>
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <h2 className="text-3xl font-extrabold text-[#0A224E]">Our Operating Principles</h2>
+              <p className="text-sm text-[#475569] mt-2">
+                How our developer and marketing pods execute with discipline every single day.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {values.map((val, idx) => {
-                const Icon = val.icon;
+              {values.map((v, i) => {
+                const Icon = v.icon;
                 return (
                   <div
-                    key={idx}
-                    className="p-6 rounded-2xl border border-[#E2E8F0] bg-white shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow"
+                    key={i}
+                    className="p-6 rounded-2xl border border-slate-200 bg-white hover:border-[#0062E6]/40 hover:shadow-lg transition-all duration-300"
                   >
-                    <div>
-                      <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] border border-blue-200 text-[#0062E6] flex items-center justify-center mb-6">
-                        <Icon className="w-6 h-6" />
-                      </div>
-                      <h3 className="text-lg font-extrabold text-[#0A224E] mb-2">{val.title}</h3>
-                      <p className="text-xs text-[#475569] leading-relaxed">{val.desc}</p>
+                    <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#0062E6] flex items-center justify-center mb-4">
+                      <Icon className="w-5 h-5" />
                     </div>
+                    <h3 className="text-base font-bold text-[#0A224E] mb-2">{v.title}</h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">{v.desc}</p>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Timeline */}
-          <div className="mb-24">
-            <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-extrabold tracking-widest text-[#0062E6] uppercase">
-                Our Journey
-              </span>
-              <h2 className="mt-2 text-3xl font-extrabold text-[#0A224E] tracking-tight">
-                From Development Pod to Full-Service Agency
-              </h2>
+          {/* Company Milestones */}
+          <div className="p-8 sm:p-12 rounded-3xl border border-slate-200 bg-white shadow-xs mb-20">
+            <div className="max-w-2xl mb-10">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-[#0062E6]">Company Trajectory</span>
+              <h2 className="text-3xl font-extrabold text-[#0A224E] mt-1">Our Journey So Far</h2>
+              <p className="text-xs text-slate-500 mt-1">From boutique code craft to unified engineering & marketing pods.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {milestones.map((m, idx) => (
-                <div
-                  key={idx}
-                  className="p-6 rounded-2xl border border-[#E2E8F0] bg-white shadow-xs"
-                >
-                  <div className="text-2xl font-extrabold text-[#0062E6] mb-2 font-mono">
-                    {m.year}
-                  </div>
-                  <h3 className="text-base font-extrabold text-[#0A224E] mb-2">{m.title}</h3>
-                  <p className="text-xs text-[#475569] leading-relaxed">{m.desc}</p>
+                <div key={idx} className="relative pl-6 border-l-2 border-[#0062E6]/30">
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#0062E6] border-4 border-white" />
+                  <span className="text-xs font-extrabold text-[#EA580C] font-mono">{m.year}</span>
+                  <h3 className="text-base font-bold text-[#0A224E] mt-1">{m.title}</h3>
+                  <p className="text-xs text-slate-500 mt-2 leading-relaxed">{m.desc}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* CTA Box */}
-          <div className="p-8 sm:p-12 rounded-3xl border border-blue-200 bg-gradient-to-r from-[#EFF6FF] to-white text-center max-w-4xl mx-auto shadow-xs">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E]">
-              Want to Build or Scale With Us?
-            </h3>
-            <p className="mt-3 text-[#475569] text-sm max-w-md mx-auto">
-              Schedule a discovery session with our core engineering and leadership team to plan your roadmap.
-            </p>
-            <div className="mt-6 flex justify-center gap-4">
-              <Link
-                href="/contact"
-                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#EA580C] to-[#FF8800] hover:from-[#EA580C] hover:to-[#EA580C] font-bold text-white shadow-md shadow-orange-500/20 transition-all hover:scale-105"
-              >
-                Start a Conversation
-              </Link>
             </div>
           </div>
         </div>
       </main>
 
       <Footer />
+
+      {/* Login Modal */}
+      <EmployeeLoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
+
+      {/* Edit Profile Modal */}
+      <EditProfileModal
+        isOpen={Boolean(editingMember)}
+        member={editingMember}
+        onClose={() => setEditingMember(null)}
+      />
     </div>
   );
 }

@@ -1,14 +1,19 @@
+'use client';
+
 import { ClerkProvider } from '@clerk/nextjs';
+import { EmployeeAuthProvider } from '@/context/EmployeeAuthContext';
 
 export default function AuthProvider({ children }) {
   const hasClerkKey =
     process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
     !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes('your_clerk_publishable_key');
 
+  const content = <EmployeeAuthProvider>{children}</EmployeeAuthProvider>;
+
   if (hasClerkKey) {
-    return <ClerkProvider>{children}</ClerkProvider>;
+    return <ClerkProvider>{content}</ClerkProvider>;
   }
 
-  // Graceful fallback for local development before Clerk keys are configured
-  return <>{children}</>;
+  // Fallback with full EmployeeAuthContext active
+  return content;
 }
