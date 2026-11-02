@@ -39,7 +39,6 @@ export default function ProductShowcase() {
       badge: 'Flagship In-House SaaS',
       status: 'Live in Production',
       liveUrl: 'https://www.vyaparstock.in',
-      githubUrl: 'https://github.com/adviksprojects-hash',
       stats: [
         { label: 'Invoice Generation', val: '< 2 Sec' },
         { label: 'Uptime SLA', val: '99.98%' },
@@ -94,7 +93,6 @@ export default function ProductShowcase() {
       badge: 'AI / NLP Platform',
       status: 'Live Vercel Deployment',
       liveUrl: 'https://ai-review-system-bay.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/AI-Review-System',
       stats: [
         { label: 'Classification Speed', val: '180ms' },
         { label: 'Accuracy Score', val: '97.4%' },
@@ -142,7 +140,6 @@ export default function ProductShowcase() {
       badge: 'Commercial Enterprise',
       status: 'Live Vercel Deployment',
       liveUrl: 'https://paras-business-park-2.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/paras-business-park-2',
       stats: [
         { label: 'Page Load Speed', val: '0.6s' },
         { label: 'Inquiry Conversion', val: '+44%' },
@@ -185,7 +182,6 @@ export default function ProductShowcase() {
       badge: 'D2C E-Commerce & Growth',
       status: 'Live Vercel Deployment',
       liveUrl: 'https://haru-viru-gold-honey.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/HaruViru-Gold-Honey',
       stats: [
         { label: 'Checkout Velocity', val: 'Sub-second' },
         { label: 'Mobile Cart CRO', val: '+38%' },
@@ -226,7 +222,6 @@ export default function ProductShowcase() {
       badge: 'Interior Catalog',
       status: 'Live Vercel Deployment',
       liveUrl: 'https://aameena-ferniture.vercel.app',
-      githubUrl: 'https://github.com/adviksprojects-hash/Aameena-Ferniture',
       stats: [
         { label: 'Catalog Assets', val: '120+ Items' },
         { label: 'Lead Velocity', val: '< 60 Sec' },
@@ -283,10 +278,10 @@ export default function ProductShowcase() {
           <button
             key={tab.id}
             onClick={() => setActiveCategory(tab.id)}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
               activeCategory === tab.id
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20 scale-105'
-                : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                ? 'bg-[#0A224E] text-white shadow-md scale-105'
+                : 'bg-[#F8FAFC] hover:bg-slate-200 text-[#475569] border border-[#E2E8F0]'
             }`}
           >
             {tab.label}
@@ -314,8 +309,8 @@ export default function ProductShowcase() {
                 }}
                 className={`cursor-pointer rounded-2xl p-5 border text-left transition-all duration-300 relative ${
                   isSelected
-                    ? 'bg-white border-blue-500 shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/20 translate-x-1'
-                    : 'bg-white/80 border-slate-200 hover:border-slate-300 hover:bg-white shadow-xs'
+                    ? 'bg-white border-[#0062E6] shadow-lg shadow-blue-500/10 ring-2 ring-blue-500/20 translate-x-1'
+                    : 'bg-white/80 border-[#E2E8F0] hover:border-slate-300 hover:bg-white shadow-xs'
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
@@ -407,20 +402,15 @@ export default function ProductShowcase() {
                     href={selectedProduct.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-xs hover:scale-105"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0062E6] hover:bg-[#0A224E] text-white transition-all shadow-xs hover:scale-105"
                   >
                     <span>Launch Live App</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
-                  <a
-                    href={selectedProduct.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
-                  >
-                    <GithubIcon className="w-3.5 h-3.5" />
-                    <span>GitHub Code</span>
-                  </a>
+                  <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono font-bold bg-[#EFF6FF] border border-blue-200 text-[#0062E6]">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>{selectedProduct.liveUrl ? selectedProduct.liveUrl.replace('https://', '') : 'vercel.app'}</span>
+                  </div>
                 </div>
               </div>
 

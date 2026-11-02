@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADVIKS Softech — 2026 Strategy & Scaling Roadmap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .slide {
+      display: none;
+    }
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media print {
+      body { background: white !important; }
+      .slide { display: flex !important; page-break-after: always; height: 100vh; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col justify-between select-none">
+
+  <!-- TOP BAR (Presentation Header) -->
+  <header class="no-print bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between shadow-2xs z-50">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-extrabold flex items-center justify-center text-sm shadow-xs">
+        A
+      </div>
+      <div>
+        <div class="font-extrabold text-sm text-slate-900 tracking-tight">ADVIKS SOFTECH</div>
+        <div class="text-[11px] text-slate-500 font-medium">Team Presentation & Growth Roadmap 2026</div>
+      </div>
+    </div>
+
+    <!-- Slide Indicators & Controls -->
+    <div class="flex items-center gap-4">
+      <div class="text-xs font-mono font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-md border border-slate-200">
+        Slide <span id="currentSlideNum">1</span> of <span id="totalSlidesNum">8</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <button onclick="prevSlide()" class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="Previous Slide (Left Arrow)">
+          ◀
+        </button>
+        <button onclick="nextSlide()" class="p-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold transition shadow-xs" title="Next Slide (Right Arrow / Space)">
+          ▶
+        </button>
+      </div>
+      <button onclick="toggleFullScreen()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold transition">
+        ⛶ Fullscreen
+      </button>
+      <button onclick="window.print()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold transition" title="Save as PDF">
+        🖨 Print / PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- SLIDES CONTAINER -->
+  <main class="flex-1 flex items-center justify-center p-4 sm:p-8">
+    <div class="w-full max-w-6xl aspect-[16/9] bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden relative flex flex-col justify-between p-8 sm:p-14">
+
+      <!-- SLIDE 1: TITLE SLIDE -->
+      <div class="slide active flex-col justify-between h-full" data-slide="1">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-wider mb-8">
+            <span>ADVIKS SOFTECH • 2026 STRATEGIC ROADMAP</span>
+          </div>
+          <h1 class="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+            Engineering Scalable Tech.<br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600">
+              Accelerating Market Growth.
+            </span>
+          </h1>
+          <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-3xl leading-relaxed">
+            Internal Strategy & Execution Presentation: Expanding Our Team Footprint, Scaling the Operations Admin Panel, and Activating 5 Revenue Catalysts.
+          </p>
+        </div>
+
+        <div class="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between text-xs sm:text-sm text-slate-500 font-medium">
+          <div>Presented by: <strong class="text-slate-900">Vivek Pawar & Founding Engineering Pod</strong></div>
+          <div class="mono">advikssoftech.com • vyaparstock.in</div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: CURRENT STATE & VERIFIED ASSETS -->
+      <div class="slide flex-col justify-between h-full" data-slide="2">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+            <span>Executive Overview</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Where ADVIKS Softech Stands Today
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Unlike typical agency concepts, we already have production-verified assets across SaaS, Real Estate, and AI.
+          </p>
+
+          <div class="grid grid-cols-2 gap-4 mt-8">
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60">
+              <div class="flex items-center justify-between text-xs font-bold text-blue-600 uppercase mb-1">
+                <span>Enterprise Billing SaaS</span>
+                <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">99.98% SLA</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-slate-900">VyaparStock Cloud</h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Multi-tenant GST billing, POS barcode scanning, real-time stock ledger, and automated WhatsApp invoice dispatch.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60">
+              <div class="flex items-center justify-between text-xs font-bold text-emerald-600 uppercase mb-1">
+                <span>Commercial Real Estate</span>
+                <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">0.6s TTFB</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-slate-900">Paras Business Park</h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                High-intent corporate leasing portal with interactive floor plan navigators and automated tenant inquiry capture.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60">
+              <div class="flex items-center justify-between text-xs font-bold text-purple-600 uppercase mb-1">
+                <span>Machine Learning / NLP</span>
+                <span class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded">180ms Latency</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-slate-900">AI Review & Sentiment Engine</h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Real-time sentiment classification (97.4% accuracy), customer satisfaction telemetry, and automated AI reply generation.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/60">
+              <div class="flex items-center justify-between text-xs font-bold text-amber-600 uppercase mb-1">
+                <span>Growth Marketing</span>
+                <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded">4.8x Avg ROAS</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-slate-900">Performance Marketing Pod</h3>
+              <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                Google Search PMax intent targeting, Meta Advantage+ ads, WhatsApp API automated sales nurturing, and technical SEO.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Source: Verified production deployments hosted on Vercel & custom cloud infrastructure.
+        </div>
+      </div>
+
+      <!-- SLIDE 3: TEAM DATA GATHERING FRAMEWORK -->
+      <div class="slide flex-col justify-between h-full" data-slide="3">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+            <span>Pillar 01 • Human Capital</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Team Profiles & Intake System
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Enterprise clients do not hire anonymous agencies — they hire verified engineering and growth leaders.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-white shadow-2xs space-y-4">
+              <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 border-b pb-2">
+                Core Roles to Showcase on Website:
+              </h4>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <strong class="text-blue-600 text-sm block">1. Architecture & Founding Leadership</strong>
+                  <span class="text-slate-600">Vivek Pawar & Dhiraj Gaikwad — High-concurrency systems, Next.js, Java Spring Boot, and enterprise ERPs.</span>
+                </div>
+                <div>
+                  <strong class="text-purple-600 text-sm block">2. Product & AI Engineering Pod</strong>
+                  <span class="text-slate-600">Kaustubh Ronge & team — Next.js 15, LLM sentiment models, responsive UI/UX, and sub-second web performance.</span>
+                </div>
+                <div>
+                  <strong class="text-emerald-600 text-sm block">3. Growth & Performance Marketing Pod</strong>
+                  <span class="text-slate-600">Acquisition strategists managing client ad budgets, technical SEO, and Instagram @adviks_softech.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50/70 shadow-2xs">
+              <h4 class="text-sm font-bold uppercase tracking-wider text-slate-900 border-b pb-2">
+                The 7-Point WhatsApp Questionnaire:
+              </h4>
+              <ul class="mt-3 space-y-2 text-xs font-semibold text-slate-700">
+                <li class="flex items-center gap-2"><span>1.</span> Full Name & Official Job Title</li>
+                <li class="flex items-center gap-2"><span>2.</span> 2–3 Sentence Professional Bio</li>
+                <li class="flex items-center gap-2"><span>3.</span> Top 5 Technical or Growth Skills</li>
+                <li class="flex items-center gap-2"><span>4.</span> LinkedIn & GitHub Profile URLs</li>
+                <li class="flex items-center gap-2"><span>5.</span> High-Resolution Headshot / Photo</li>
+                <li class="flex items-center gap-2"><span>6.</span> ADVIKS Projects Contributed To</li>
+                <li class="flex items-center gap-2"><span>7.</span> Quantifiable Wins (e.g., '+40% Speed', '4.8x ROAS')</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Action Item: Distribute prompt to all contributors via WhatsApp / Slack by Friday.
+        </div>
+      </div>
+
+      <!-- SLIDE 4: ADMIN PANEL ARCHITECTURE -->
+      <div class="slide flex-col justify-between h-full" data-slide="4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+            <span>Pillar 02 • Operations Hub</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Next-Gen Admin Panel Blueprint (/admin)
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Transforming internal operations from disorganized WhatsApp chats into an automated enterprise control tower.
+          </p>
+
+          <div class="grid grid-cols-4 gap-4 mt-6">
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-[10px] font-bold text-blue-600 uppercase mb-1">Acquisition</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">1. CRM & Lead Kanban</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>✓ Visual Kanban pipeline stages</li>
+                <li>✓ 1-click WhatsApp follow-up</li>
+                <li>✓ Attribution tracking (Ad vs Direct)</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-[10px] font-bold text-emerald-600 uppercase mb-1">Delivery</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">2. Client Delivery Hub</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>✓ Sprint % progress bars</li>
+                <li>✓ Figma & GitHub staging bank</li>
+                <li>✓ Live sync with Client Portal</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-[10px] font-bold text-amber-600 uppercase mb-1">Fintech</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">3. Invoicing & Billing</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>✓ GST PDF invoice generator</li>
+                <li>✓ NEFT/RTGS UTR verification</li>
+                <li>✓ 30-day retainer renewal alerts</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-[10px] font-bold text-purple-600 uppercase mb-1">SLA Desk</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">4. Support Ticket Desk</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>✓ Severity tags (P0 to P3)</li>
+                <li>✓ Direct engineer assignment</li>
+                <li>✓ Private resolution notes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Result: Zero client communication leakage and 100% accountable billing milestones.
+        </div>
+      </div>
+
+      <!-- SLIDE 5: MARKETING & GROWTH ENGINE METHODOLOGY -->
+      <div class="slide flex-col justify-between h-full" data-slide="5">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 uppercase tracking-wider mb-3">
+            <span>Pillar 03 • Growth Engine</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            The 4-Stage Full-Funnel Growth Architecture
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Why ADVIKS crushes traditional marketing agencies: We connect technical engineering directly with ad spend.
+          </p>
+
+          <div class="grid grid-cols-4 gap-4 mt-6">
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-blue-600 mb-1">STAGE 01</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Intent & Capture</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Negative keyword filtering on Google Search + Meta AI lookalikes targeting high-intent commercial buyers.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-emerald-600 mb-1">STAGE 02</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Sub-Second Funnels</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                600ms page load times engineered with Next.js 15. Eliminates the 70% paid ad bounce rates standard in WordPress.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-purple-600 mb-1">STAGE 03</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">WhatsApp Routing</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                WhatsApp Business Cloud API webhooks engage incoming inquiries in &lt; 90 seconds before interest cools down.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-amber-600 mb-1">STAGE 04</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Server-Side CAPI</h4>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                Meta Conversions API bypassing iOS tracking blocks, delivering verified 4.6x – 5.4x sustained client ROAS.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Integrated Live on Homepage via Interactive ROAS Calculator & Growth Matrix.
+        </div>
+      </div>
+
+      <!-- SLIDE 6: 5 GROWTH CATALYSTS FOR ADVIKS SOFTECH -->
+      <div class="slide flex-col justify-between h-full" data-slide="6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+            <span>Strategic Growth</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            5 Growth Catalysts to Scale ADVIKS in 2026
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Actionable competitive advantages that elevate our market positioning above traditional agencies.
+          </p>
+
+          <div class="space-y-2.5 mt-6">
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs sm:text-sm">
+              <div><strong class="text-slate-900">1. Instant WhatsApp Lead Webhooks:</strong> <span class="text-slate-600">Trigger founder notifications within 5 seconds of form submission. First to call wins the client.</span></div>
+              <span class="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded text-xs">&lt; 5s SLA</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs sm:text-sm">
+              <div><strong class="text-slate-900">2. Interactive Client Scope Wizard:</strong> <span class="text-slate-600">Self-service questionnaire generating estimated project scope sheets and discovery bookings.</span></div>
+              <span class="text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded text-xs">Self-Service</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs sm:text-sm">
+              <div><strong class="text-slate-900">3. Careers & Internship Portal (/careers):</strong> <span class="text-slate-600">Recruit top engineering and growth interns to scale delivery pods without bottlenecks.</span></div>
+              <span class="text-purple-700 font-bold bg-purple-50 px-2 py-0.5 rounded text-xs">Talent Pod</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs sm:text-sm">
+              <div><strong class="text-slate-900">4. Flagship SaaS Funnel (VyaparStock):</strong> <span class="text-slate-600">Turn one-time service clients into recurring monthly software subscribers (vyaparstock.in).</span></div>
+              <span class="text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded text-xs">Recurring MRR</span>
+            </div>
+
+            <div class="p-3.5 rounded-xl border border-slate-200 bg-white flex items-center justify-between text-xs sm:text-sm">
+              <div><strong class="text-slate-900">5. 'Verified on GitHub' Trust Seals:</strong> <span class="text-slate-600">Feature public open-source verification badges that non-technical marketing agencies cannot match.</span></div>
+              <span class="text-slate-700 font-bold bg-slate-100 px-2 py-0.5 rounded text-xs">Trust Proof</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Focus: High-margin recurring retainers and authority-building engineering.
+        </div>
+      </div>
+
+      <!-- SLIDE 7: 30-DAY EXECUTION TIMELINE -->
+      <div class="slide flex-col justify-between h-full" data-slide="7">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-3">
+            <span>Execution Plan</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            30-Day Phased Rollout Roadmap
+          </h2>
+          <p class="text-sm text-slate-600 mt-2">
+            Clear weekly milestones for our engineering and marketing pods.
+          </p>
+
+          <div class="grid grid-cols-4 gap-4 mt-6">
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-blue-600 mb-1">WEEK 01</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Data & Assets</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>• Send WhatsApp prompts</li>
+                <li>• Collect headshots & bios</li>
+                <li>• Collate verified GitHub repos</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-blue-600 mb-1">WEEK 02</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Admin CRM</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>• Configure Kanban lead pipeline</li>
+                <li>• 1-Click WhatsApp follow-ups</li>
+                <li>• Project milestone % bars</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-blue-600 mb-1">WEEK 03</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Fintech & Alerts</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>• GST PDF invoice generator</li>
+                <li>• Instant webhook lead alerts</li>
+                <li>• SLA support desk routing</li>
+              </ul>
+            </div>
+
+            <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50/70">
+              <div class="text-xs font-mono font-bold text-blue-600 mb-1">WEEK 04</div>
+              <h4 class="text-base font-extrabold text-slate-900 mb-2">Launch & Scale</h4>
+              <ul class="text-xs text-slate-600 space-y-2">
+                <li>• Activate Instagram & LinkedIn</li>
+                <li>• Launch VyaparStock campaign</li>
+                <li>• Target 10+ new B2B leads</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-400 font-medium pt-4 border-t border-slate-100">
+          Target Completion: Full production deployment within 30 days.
+        </div>
+      </div>
+
+      <!-- SLIDE 8: CLOSING SLIDE -->
+      <div class="slide flex-col justify-center items-center text-center h-full" data-slide="8">
+        <div class="p-10 rounded-3xl border-2 border-blue-600/30 bg-blue-50/30 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-6">
+            ADVIKS SOFTECH
+          </div>
+          <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+            Let's Build & Scale Together.
+          </h2>
+          <p class="mt-4 text-slate-600 text-base max-w-xl mx-auto">
+            Engineering Scalable Tech. Accelerating Market Growth.
+          </p>
+
+          <div class="mt-8 pt-8 border-t border-blue-200/60 flex flex-wrap justify-center gap-6 text-xs text-slate-600 font-mono">
+            <div>🌐 advikssoftech.com</div>
+            <div>💼 github.com/adviksprojects-hash</div>
+            <div>📱 instagram.com/adviks_softech</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide Bottom Progress Bar -->
+      <div class="no-print absolute bottom-0 left-0 right-0 h-1.5 bg-slate-100">
+        <div id="progressBar" class="h-full bg-blue-600 transition-all duration-300" style="width: 12.5%;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- KEYBOARD SHORTCUT HELPER -->
+  <footer class="no-print text-center py-3 text-xs text-slate-500 font-medium">
+    Use <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono text-[11px]">◀</kbd> and <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono text-[11px]">▶</kbd> or <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono text-[11px]">Spacebar</kbd> to navigate slides. Press <kbd class="px-1.5 py-0.5 rounded bg-white border border-slate-300 font-mono text-[11px]">F11</kbd> for Fullscreen.
+  </footer>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      if (n > totalSlides) currentSlide = 1;
+      else if (n < 1) currentSlide = totalSlides;
+      else currentSlide = n;
+
+      slides.forEach(s => s.classList.remove('active'));
+      document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+      document.getElementById('currentSlideNum').innerText = currentSlide;
+      document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
+

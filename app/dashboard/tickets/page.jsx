@@ -12,7 +12,7 @@ export default function ClientTicketsPage() {
       priority: 'MEDIUM',
       status: 'IN_PROGRESS',
       createdAt: 'Oct 28, 2026',
-      latestReply: 'Lead Architect Siddharth is reviewing the Redis event queue logs. Fix deploying to staging today.',
+      latestReply: 'Lead Architect Vivek Pawar is reviewing the Redis event queue logs. Fix deploying to staging today.',
     },
     {
       id: 'TCK-389',

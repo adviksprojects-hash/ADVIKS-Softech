@@ -12,7 +12,7 @@ export default function AdminProjectsPage() {
       status: 'IN_PROGRESS',
       progress: 68,
       budget: '₹8,50,000',
-      leadEngineer: 'Siddharth M.',
+      leadEngineer: 'Vivek Pawar',
       targetDate: 'Nov 25, 2026',
     },
     {
@@ -22,7 +22,7 @@ export default function AdminProjectsPage() {
       status: 'IN_PROGRESS',
       progress: 42,
       budget: '₹6,00,000',
-      leadEngineer: 'Ananya R.',
+      leadEngineer: 'Dhiraj Gaikwad',
       targetDate: 'Dec 15, 2026',
     },
     {
@@ -32,7 +32,7 @@ export default function AdminProjectsPage() {
       status: 'PLANNING',
       progress: 15,
       budget: '₹12,00,000',
-      leadEngineer: 'Vikram Joshi',
+      leadEngineer: 'Kaustubh Ronge',
       targetDate: 'Jan 30, 2027',
     },
   ]);

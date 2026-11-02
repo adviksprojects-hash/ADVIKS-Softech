@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AdviksLogo from '@/components/AdviksLogo';
 import {
   LayoutDashboard,
   FolderKanban,
@@ -27,16 +28,8 @@ export default function ClientSidebar() {
     <aside className="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between shrink-0 min-h-screen">
       <div>
         {/* Portal Header */}
-        <div className="h-20 border-b border-slate-800 px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white text-base">
-              A
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-white text-sm">ADVIKS Softech</span>
-              <span className="text-[10px] text-blue-400 font-medium uppercase tracking-wider">Client Portal</span>
-            </div>
-          </Link>
+        <div className="h-20 border-b border-slate-800 px-5 flex items-center justify-between">
+          <AdviksLogo size="small" showTagline={false} />
         </div>
 
         {/* Client Organization Pill */}
@@ -46,7 +39,7 @@ export default function ClientSidebar() {
           </div>
           <div className="overflow-hidden">
             <div className="text-xs font-semibold text-white truncate">Acme Enterprises</div>
-            <div className="text-[11px] text-slate-400">Client Account</div>
+            <div className="text-[11px] text-slate-400">Client Workspace</div>
           </div>
         </div>
 
@@ -61,7 +54,7 @@ export default function ClientSidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/20'
+                    ? 'bg-[#0062E6] text-white font-semibold shadow-md shadow-blue-600/20'
                     : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
                 }`}
               >
