@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import HeroInteractive from '@/components/HeroInteractive';
 import ClientTrustStrip from '@/components/ClientTrustStrip';
 import InfiniteMarquee from '@/components/InfiniteMarquee';
 import CapabilitiesBento from '@/components/CapabilitiesBento';
+import ProductsProvidedSection from '@/components/ProductsProvidedSection';
+import EnterpriseSystemsSection from '@/components/EnterpriseSystemsSection';
 import OurWorkShowcase from '@/components/OurWorkShowcase';
-import MarketingRoiCalculator from '@/components/MarketingRoiCalculator';
 import GrowthFunnelMatrix from '@/components/GrowthFunnelMatrix';
 import FunnelComparisonToggle from '@/components/FunnelComparisonToggle';
 import EngagementModels from '@/components/EngagementModels';
@@ -18,6 +18,7 @@ import {
   Cpu,
   Layers,
   Shield,
+  ShieldCheck,
   Smartphone,
   TrendingUp,
   Search,
@@ -68,26 +69,26 @@ export default function HomePage() {
     {
       icon: Code2,
       title: 'Full-Stack Web & SaaS Platforms',
-      desc: 'Next.js 16, React, and PostgreSQL architectures engineered for sub-second page loads, high concurrency, and seamless enterprise integrations.',
+      desc: 'Sub-second high-concurrency architectures engineered for multi-tenant isolation, role-based workflows, and seamless enterprise integrations.',
       badge: 'Core Engineering',
     },
     {
       icon: Smartphone,
       title: 'Mobile App Engineering',
-      desc: 'Cross-platform iOS and Android applications built with React Native and Expo, featuring offline SQLite syncing and micro-interactions.',
+      desc: 'Cross-platform iOS and Android applications built for offline reliability, biometric security, and responsive touch micro-interactions.',
       badge: 'Mobile First',
     },
     {
       icon: Cloud,
       title: 'Cloud DevOps & Infrastructure',
-      desc: 'Containerized AWS, Docker, and Neon DB pipelines configured for zero-downtime CI/CD deployments and enterprise security standards.',
+      desc: 'Containerized high-availability pipelines configured for automated zero-downtime deployments and enterprise compliance.',
       badge: 'Cloud & Scale',
     },
     {
-      icon: Cpu,
-      title: 'AI Systems & NLP Pipelines',
-      desc: 'Intelligent sentiment classification, customer feedback automation, and tailored LLM integrations built for commercial operations.',
-      badge: 'Applied AI',
+      icon: ShieldCheck,
+      title: 'Website Revamps & Performance Audits',
+      desc: 'Complete architectural modernizations, legacy codebase cleanups, Core Web Vitals acceleration, and conversion funnel refactoring for existing websites.',
+      badge: 'Site Revamps',
     },
   ];
 
@@ -156,7 +157,7 @@ export default function HomePage() {
 
       <main className="flex-1">
         {/* HERO SECTION: Brand Mesh Glow & Dual-Logo Gradient */}
-        <section className="relative overflow-hidden pt-16 pb-14 md:pt-24 md:pb-20 border-b border-[#E2E8F0] hero-mesh-glow" aria-label="Hero Introduction">
+        <section className="relative overflow-hidden pt-12 pb-14 md:pt-8 md:pb-16 border-b border-[#E2E8F0] hero-mesh-glow" aria-label="Hero Introduction">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             {/* Pill badge with logo blue & orange accent */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E2E8F0] text-xs font-bold text-[#0A224E] mb-8 shadow-xs animate-pulse-subtle">
@@ -195,8 +196,38 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Interactive Hero Terminal in Deep Midnight Navy */}
-            <HeroInteractive />
+            {/* Enterprise Solution Pillars Strip */}
+            <div className="mt-12 max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+              <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center gap-3.5 hover:shadow-md transition-all">
+                <div className="w-11 h-11 rounded-xl bg-[#EFF6FF] text-[#0062E6] flex items-center justify-center shrink-0 border border-blue-100">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#0A224E]">Mission-Critical SaaS</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Cloud ERP, POS &amp; Multi-Tenant Platforms</div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center gap-3.5 hover:shadow-md transition-all">
+                <div className="w-11 h-11 rounded-xl bg-[#FFF7ED] text-[#EA580C] flex items-center justify-center shrink-0 border border-orange-100">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#0A224E]">Performance Marketing</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">4.6x+ Target ROAS &amp; High-Intent Funnels</div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-sm flex items-center gap-3.5 hover:shadow-md transition-all">
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-100">
+                  <ShieldCheck className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-[#0A224E]">Website Speed &amp; Revamps</div>
+                  <div className="text-[11px] text-slate-500 mt-0.5">Sub-Second Modernization &amp; Audits</div>
+                </div>
+              </div>
+            </div>
 
             {/* Stats strip */}
             <div className="mt-16 pt-10 border-t border-[#E2E8F0] grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -222,6 +253,12 @@ export default function HomePage() {
 
         {/* REPLACED WITH SCANNABLE BENTO CARDS (Benchmark Requirement 2) */}
         <CapabilitiesBento />
+
+        {/* PRODUCTS PROVIDED (In-House SaaS Platforms & Systems) */}
+        <ProductsProvidedSection />
+
+        {/* ENTERPRISE SYSTEMS ARCHITECTURE (ERP & CRM Deep Dive) */}
+        <EnterpriseSystemsSection />
 
         {/* DEDICATED OUR WORK SHOWCASE WITH BROWSER FRAMES & REVIEWS (Benchmark Requirement 3) */}
         <OurWorkShowcase />
@@ -350,11 +387,6 @@ export default function HomePage() {
                 </p>
               </div>
               <GrowthFunnelMatrix />
-            </div>
-
-            {/* Interactive ROAS & Growth Simulator in Warm Amber */}
-            <div className="mb-8">
-              <MarketingRoiCalculator />
             </div>
 
             {/* INTERACTIVE BEFORE VS AFTER FUNNEL TOGGLE */}

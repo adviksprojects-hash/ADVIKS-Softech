@@ -139,6 +139,14 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center gap-7">
+          {/* Home Link */}
+          <Link
+            href="/"
+            className="text-sm font-bold text-[#475569] hover:text-[#0062E6] transition-colors py-2"
+          >
+            Home
+          </Link>
+
           {/* Services with 3minds-style Hover Mega-Dropdown */}
           <div
             className="relative"
@@ -320,6 +328,15 @@ export default function Navbar() {
       {/* Mobile dropdown menu */}
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-[#E2E8F0] bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl max-h-[85vh] overflow-y-auto">
+          {/* Home on Mobile */}
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-bold text-[#0A224E] py-2"
+          >
+            Home
+          </Link>
+
           {/* Services Accordion on Mobile */}
           <div>
             <button

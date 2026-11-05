@@ -10,6 +10,7 @@ import {
   XCircle,
   ArrowRight,
   ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -18,43 +19,43 @@ export default function FunnelComparisonToggle() {
 
   const metrics = [
     {
-      label: 'Landing Page Load Speed',
+      label: 'Website Load Speed & Core Vitals',
       icon: Gauge,
-      beforeVal: '3.8 Seconds',
-      beforeSub: 'Slow bloated themes causing 65%+ ad traffic bounce rates',
+      beforeVal: '3.8+ Seconds',
+      beforeSub: 'Slow bloated themes & legacy plugins causing 65%+ ad bounce rates on existing sites',
       beforeBad: true,
       afterVal: '0.4 Seconds',
-      afterSub: 'Sub-second Next.js edge rendering maximizing Google Quality Score',
+      afterSub: 'Sub-second Next.js edge overhaul maximizing Google Quality Scores & SEO ranking',
       afterGood: true,
     },
     {
       label: 'Paid Advertising Return (ROAS)',
       icon: TrendingUp,
       beforeVal: '1.8x – 2.1x ROAS',
-      beforeSub: 'Unoptimized audience targeting with no code attribution tracking',
+      beforeSub: 'Leaking ad spend on existing funnels with zero server-side attribution or CAPI tracking',
       beforeBad: true,
       afterVal: '4.6x – 5.4x ROAS',
-      afterSub: 'Server-side Meta Conversions API (CAPI) & negative keyword intent filter',
+      afterSub: 'Server-side Meta Conversions API (CAPI) & precise negative keyword intent filtering',
       afterGood: true,
     },
     {
-      label: 'Lead Follow-up Velocity',
+      label: 'Lead Capture & WhatsApp Velocity',
       icon: Clock,
       beforeVal: '24+ Hours Delay',
-      beforeSub: 'Leads dumped into static spreadsheets; 70% lost to competitor response',
+      beforeSub: 'Static email forms dumped into spreadsheets; 70% lost to competitor response times',
       beforeBad: true,
       afterVal: '< 90 Seconds',
-      afterSub: 'Automated WhatsApp Cloud API webhook routing leads straight to your phone',
+      afterSub: 'Automated WhatsApp Cloud API webhook routing qualified leads straight to your phone',
       afterGood: true,
     },
     {
-      label: 'Project Delivery & Tracking',
+      label: 'Legacy Code Audit & Revamps',
       icon: ShieldCheck,
-      beforeVal: 'Opaque Monthly PDFs',
-      beforeSub: 'No visibility into sprint commits, billable hours, or real deliverables',
+      beforeVal: 'Technical Debt & Bugs',
+      beforeSub: 'Outdated libraries, sluggish unindexed databases, and zero sprint visibility',
       beforeBad: true,
-      afterVal: '24/7 Live Client Portal',
-      afterSub: 'Interactive burndown dashboard with downloadable GST invoices & SLA tickets',
+      afterVal: 'Modern Clean Architecture',
+      afterSub: 'Deep refactoring of existing websites, high-speed APIs, and 24/7 Live Client Portal',
       afterGood: true,
     },
   ];
@@ -66,15 +67,15 @@ export default function FunnelComparisonToggle() {
         {/* Header with Switcher */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-[#E2E8F0]">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF7ED] border border-orange-200 text-xs font-bold text-[#FF8800] uppercase tracking-wider mb-2">
-              <Zap className="w-3.5 h-3.5" />
-              <span>Measurable Architecture ROI</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFF7ED] border border-orange-200 text-xs font-bold text-[#EA580C] uppercase tracking-wider mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#FF8800]" />
+              <span>New Builds &amp; Existing Website Revamps</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E] tracking-tight">
-              Interactive Funnel Comparison
+              Interactive Architecture &amp; Website Revamp Comparison
             </h3>
-            <p className="text-sm text-[#475569] mt-1">
-              Toggle between traditional agencies and the ADVIKS code-backed growth engine.
+            <p className="text-sm text-[#475569] mt-1 max-w-2xl leading-relaxed">
+              We don&apos;t just build from scratch — we also audit, optimize, and modernize already-built websites to eliminate bottlenecks and multiply conversions.
             </p>
           </div>
 
@@ -88,7 +89,7 @@ export default function FunnelComparisonToggle() {
                   : 'text-[#475569] hover:text-[#0A224E]'
               }`}
             >
-              Before ADVIKS (Standard Agency)
+              Before ADVIKS (Slow / Legacy Website)
             </button>
             <button
               onClick={() => setViewMode('after')}
@@ -98,7 +99,7 @@ export default function FunnelComparisonToggle() {
                   : 'text-[#475569] hover:text-[#0A224E]'
               }`}
             >
-              After ADVIKS (Full-Stack Engine)
+              After ADVIKS (Re-Engineered Website)
             </button>
           </div>
         </div>
@@ -130,12 +131,12 @@ export default function FunnelComparisonToggle() {
                     {isAfter ? (
                       <span className="text-[11px] font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
                         <CheckCircle2 className="w-3 h-3" />
-                        ADVIKS Model
+                        ADVIKS Overhaul
                       </span>
                     ) : (
                       <span className="text-[11px] font-bold text-rose-700 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200 flex items-center gap-1">
                         <XCircle className="w-3 h-3" />
-                        Legacy Trap
+                        Existing Bottlenecks
                       </span>
                     )}
                   </div>
@@ -164,14 +165,14 @@ export default function FunnelComparisonToggle() {
         <div className="mt-8 pt-6 border-t border-[#E2E8F0] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold">
           <div className="text-[#475569] flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#FF8800] animate-pulse" />
-            <span>Eliminate agency finger-pointing. We connect code performance with commercial growth.</span>
+            <span>Already have an existing website or SaaS? We audit code, eliminate load delays, and boost conversion rates.</span>
           </div>
 
           <Link
-            href="/contact"
+            href="/contact?service=Website+Revamp"
             className="inline-flex items-center gap-1.5 text-[#0062E6] hover:text-[#0A224E] font-bold transition-colors"
           >
-            <span>Upgrade Your Infrastructure</span>
+            <span>Request Free Website Audit &amp; Revamp</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -179,4 +180,3 @@ export default function FunnelComparisonToggle() {
     </div>
   );
 }
-

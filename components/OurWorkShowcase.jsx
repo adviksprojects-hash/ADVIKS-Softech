@@ -111,10 +111,10 @@ export default function OurWorkShowcase() {
 
                 {/* Project Title & Tagline */}
                 <h3 className="text-xl font-extrabold text-[#0A224E] mb-1.5 group-hover:text-[#0062E6] transition-colors">
-                  {proj.title}
+                  {proj.title || proj.name}
                 </h3>
                 <div className="text-xs font-bold text-[#EA580C] mb-3">
-                  {proj.tagline}
+                  {proj.tagline || proj.subtitle}
                 </div>
 
                 {/* Architecture Description */}
@@ -228,14 +228,14 @@ export default function OurWorkShowcase() {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <h4 className="text-sm font-extrabold text-[#0A224E] group-hover:text-[#0062E6] transition-colors truncate">
-                          {proj.title}
+                          {proj.title || proj.name}
                         </h4>
                         <span className="text-[10px] text-slate-400 font-mono hidden lg:inline">
                           ({proj.domain})
                         </span>
                       </div>
                       <p className="text-xs text-slate-500 truncate mt-0.5">
-                        {proj.tagline || proj.description}
+                        {proj.tagline || proj.subtitle || proj.description}
                       </p>
                     </div>
                   </div>
@@ -296,7 +296,7 @@ export default function OurWorkShowcase() {
                   <span>{modalProject.category}</span>
                 </div>
                 <h3 className="text-2xl font-extrabold text-white">
-                  {modalProject.title}
+                  {modalProject.title || modalProject.name}
                 </h3>
                 <div className="text-xs text-blue-100 mt-1 flex items-center gap-2">
                   <span>Domain:</span>

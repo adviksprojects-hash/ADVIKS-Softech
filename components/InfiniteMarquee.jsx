@@ -17,14 +17,13 @@ import {
 export default function InfiniteMarquee() {
   const items = [
     { label: 'VyaparStock Cloud ERP', icon: Layers, tag: 'SaaS', color: 'text-[#0062E6]', bg: 'bg-[#EFF6FF]' },
-    { label: 'Next.js 15 & TypeScript', icon: Code2, tag: 'Framework', color: 'text-[#0A224E]', bg: 'bg-slate-100' },
+    { label: 'Multi-Tenant Enterprise ERP', icon: Code2, tag: 'Enterprise OS', color: 'text-[#0A224E]', bg: 'bg-slate-100' },
     { label: 'Paras Business Park Portal', icon: Globe, tag: 'Commercial', color: 'text-[#0A224E]', bg: 'bg-slate-100' },
     { label: 'Meta Advantage+ AI Ads', icon: TrendingUp, tag: 'Paid ROAS', color: 'text-[#FF8800]', bg: 'bg-[#FFF7ED]' },
     { label: 'AI Review & Sentiment NLP', icon: Cpu, tag: 'Machine Learning', color: 'text-purple-600', bg: 'bg-purple-50' },
     { label: 'Google Search Intent & PMax', icon: Sparkles, tag: 'Growth', color: 'text-[#EA580C]', bg: 'bg-orange-50' },
     { label: 'WhatsApp Business API Webhooks', icon: Zap, tag: 'Automation', color: 'text-[#FF8800]', bg: 'bg-[#FFF7ED]' },
-    { label: 'PostgreSQL & Cloud Infrastructure', icon: Database, tag: 'Backend', color: 'text-[#0062E6]', bg: 'bg-[#EFF6FF]' },
-    { label: 'HaruViru D2C E-Commerce', icon: Smartphone, tag: 'D2C', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Website Speed & Core Vitals Revamps', icon: Shield, tag: 'Optimization', color: 'text-[#0062E6]', bg: 'bg-[#EFF6FF]' },
     { label: 'Sub-Second Edge Rendering', icon: Shield, tag: 'Performance', color: 'text-[#0062E6]', bg: 'bg-[#EFF6FF]' },
   ];
 

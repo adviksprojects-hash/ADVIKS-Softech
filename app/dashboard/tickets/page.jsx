@@ -13,6 +13,7 @@ import {
   Sparkles,
   Zap,
   Check,
+  UserCheck,
 } from 'lucide-react';
 
 export default function ClientTicketsPage() {
@@ -26,6 +27,7 @@ export default function ClientTicketsPage() {
       priority: 'MEDIUM',
       status: 'IN_PROGRESS',
       createdAt: 'Oct 28, 2026',
+      assignedStaff: 'Vivek Pawar (CTO)',
       latestReply: 'Lead Architect Vivek Pawar is reviewing the Redis event queue logs. Fix deploying to staging today.',
     },
     {
@@ -35,6 +37,7 @@ export default function ClientTicketsPage() {
       priority: 'LOW',
       status: 'RESOLVED',
       createdAt: 'Oct 14, 2026',
+      assignedStaff: 'Kaustubh Ronge (CEO)',
       latestReply: 'SVGs replaced and cache invalidated across CDN.',
     },
   ]);
@@ -265,6 +268,12 @@ export default function ClientTicketsPage() {
                   {t.priority}
                 </span>
                 <span className="text-xs text-slate-400">{t.createdAt}</span>
+                {t.assignedStaff && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFF6FF] text-[#0062E6] border border-blue-200">
+                    <UserCheck className="w-3 h-3" />
+                    <span>Assigned Lead: {t.assignedStaff}</span>
+                  </span>
+                )}
               </div>
 
               <span

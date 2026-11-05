@@ -22,7 +22,21 @@ import {
   KeyRound,
   Lock,
 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
+import { GithubIcon, LinkedinIcon, PlatformIcon } from '@/components/SocialIcons';
+
+const SOCIAL_PLATFORMS = [
+  { id: 'x', label: 'X (Twitter)', placeholder: 'https://x.com/yourhandle' },
+  { id: 'instagram', label: 'Instagram', placeholder: 'https://instagram.com/yourhandle' },
+  { id: 'discord', label: 'Discord', placeholder: 'https://discord.gg/yourinvite' },
+  { id: 'threads', label: 'Threads', placeholder: 'https://threads.net/@yourhandle' },
+  { id: 'youtube', label: 'YouTube', placeholder: 'https://youtube.com/@channel' },
+  { id: 'telegram', label: 'Telegram', placeholder: 'https://t.me/yourusername' },
+  { id: 'behance', label: 'Behance', placeholder: 'https://behance.net/yourprofile' },
+  { id: 'dribbble', label: 'Dribbble', placeholder: 'https://dribbble.com/yourhandle' },
+  { id: 'substack', label: 'Substack', placeholder: 'https://yourname.substack.com' },
+  { id: 'medium', label: 'Medium', placeholder: 'https://medium.com/@yourhandle' },
+  { id: 'custom', label: 'Custom Website / Portfolio', placeholder: 'https://yourwebsite.com' },
+];
 
 function ProfileEditorForm({ currentMember }) {
   const { updateMemberProfile } = useEmployeeAuth();
@@ -39,10 +53,19 @@ function ProfileEditorForm({ currentMember }) {
   const [linkedinUrl, setLinkedinUrl] = useState(currentMember?.linkedinUrl || '');
   const [portfolioUrl, setPortfolioUrl] = useState(currentMember?.portfolioUrl || '');
   const [githubUrl, setGithubUrl] = useState(currentMember?.githubUrl || '');
+  const [customLinks, setCustomLinks] = useState(
+    Array.isArray(currentMember?.customLinks) ? currentMember.customLinks : []
+  );
+  const [selectedPlatformId, setSelectedPlatformId] = useState('x');
+  const [customLabelInput, setCustomLabelInput] = useState('');
+  const [newCustomUrl, setNewCustomUrl] = useState('');
   const [badge, setBadge] = useState(currentMember?.badge || 'Leadership');
   const [email, setEmail] = useState(currentMember?.email || '');
   const [newPassword, setNewPassword] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
+
+  const currentPlatform =
+    SOCIAL_PLATFORMS.find((p) => p.id === selectedPlatformId) || SOCIAL_PLATFORMS[0];
 
   const handleAddSkill = (e) => {
     e.preventDefault();
@@ -57,6 +80,26 @@ function ProfileEditorForm({ currentMember }) {
     setSkills(skills.filter((s) => s !== skillToRemove));
   };
 
+  const handleAddCustomLink = (e) => {
+    e.preventDefault();
+    if (!newCustomUrl.trim()) return;
+    const label =
+      selectedPlatformId === 'custom'
+        ? (customLabelInput.trim() || 'Website')
+        : currentPlatform.label;
+
+    setCustomLinks([
+      ...customLinks,
+      { platform: selectedPlatformId, label, url: newCustomUrl.trim() },
+    ]);
+    setNewCustomUrl('');
+    setCustomLabelInput('');
+  };
+
+  const handleRemoveCustomLink = (indexToRemove) => {
+    setCustomLinks(customLinks.filter((_, idx) => idx !== indexToRemove));
+  };
+
   const handleSave = (e) => {
     e.preventDefault();
 
@@ -69,6 +112,7 @@ function ProfileEditorForm({ currentMember }) {
       linkedinUrl: linkedinUrl.trim(),
       portfolioUrl: portfolioUrl.trim(),
       githubUrl: githubUrl.trim(),
+      customLinks,
       badge: badge.trim(),
       email: email.trim(),
     };
@@ -283,6 +327,108 @@ function ProfileEditorForm({ currentMember }) {
                   className="w-full px-3.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
                 />
               </div>
+
+              {/* Custom Social / Web Links ("add row for custom") */}
+              <div className="pt-2 space-y-2">
+                <label className="block text-[11px] font-bold text-[#475569] flex items-center justify-between">
+                  <span>Custom Social &amp; Portfolio Links ({customLinks.length})</span>
+                  <span className="text-[10px] text-slate-400 font-normal">Twitter/X, Substack, Medium, Personal Site</span>
+                </label>
+
+                {customLinks.length > 0 && (
+                  <div className="space-y-1.5 mb-2">
+                    {customLinks.map((lnk, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between p-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs"
+                      >
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="inline-flex items-center gap-1.5 font-bold text-[#0A224E] bg-white px-2.5 py-1 rounded-lg border border-slate-200">
+                            <PlatformIcon platform={lnk.platform || lnk.label} className="w-3.5 h-3.5 text-[#0062E6]" />
+                            <span>{lnk.label}</span>
+                          </span>
+                          <span className="text-slate-500 font-mono truncate">{lnk.url}</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveCustomLink(idx)}
+                          className="text-slate-400 hover:text-rose-600 p-1 transition-colors"
+                          title="Remove custom link"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Dropdown selector for Social Platforms */}
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
+                  <div className="sm:col-span-4 flex items-center gap-1.5">
+                    <div className="w-8 h-8 rounded-xl bg-white border border-[#E2E8F0] text-[#0A224E] flex items-center justify-center shrink-0 shadow-2xs">
+                      <PlatformIcon
+                        platform={selectedPlatformId === 'custom' ? customLabelInput : currentPlatform.label}
+                        className="w-4 h-4 text-[#0062E6]"
+                      />
+                    </div>
+                    <select
+                      value={selectedPlatformId}
+                      onChange={(e) => setSelectedPlatformId(e.target.value)}
+                      className="w-full px-2.5 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs font-bold text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                    >
+                      {SOCIAL_PLATFORMS.map((plat) => (
+                        <option key={plat.id} value={plat.id}>
+                          {plat.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {selectedPlatformId === 'custom' ? (
+                    <>
+                      <div className="sm:col-span-3">
+                        <input
+                          type="text"
+                          value={customLabelInput}
+                          onChange={(e) => setCustomLabelInput(e.target.value)}
+                          placeholder="Platform Label"
+                          className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                        />
+                      </div>
+                      <div className="sm:col-span-3">
+                        <input
+                          type="url"
+                          value={newCustomUrl}
+                          onChange={(e) => setNewCustomUrl(e.target.value)}
+                          placeholder="https://..."
+                          className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="sm:col-span-6">
+                      <input
+                        type="url"
+                        value={newCustomUrl}
+                        onChange={(e) => setNewCustomUrl(e.target.value)}
+                        placeholder={currentPlatform.placeholder}
+                        className="w-full px-3 py-2 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs text-[#0A224E] focus:outline-none focus:ring-2 focus:ring-[#0062E6]"
+                      />
+                    </div>
+                  )}
+
+                  <div className="sm:col-span-2">
+                    <button
+                      type="button"
+                      onClick={handleAddCustomLink}
+                      className="w-full py-2 px-3 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-bold transition-colors flex items-center justify-center gap-1 shadow-xs"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Account Credentials & Password Management */}
@@ -435,6 +581,14 @@ function ProfileEditorForm({ currentMember }) {
                   <GithubIcon className="w-3 h-3" />
                   <span>GitHub</span>
                 </span>
+              )}
+              {customLinks && customLinks.length > 0 && (
+                customLinks.map((lnk, idx) => (
+                  <span key={idx} className="inline-flex items-center gap-1.5 text-[11px] font-bold text-[#0A224E] bg-[#F8FAFC] px-2.5 py-1 rounded-lg border border-slate-200">
+                    <PlatformIcon platform={lnk.platform || lnk.label} className="w-3.5 h-3.5 text-[#0062E6]" />
+                    <span>{lnk.label}</span>
+                  </span>
+                ))
               )}
             </div>
           </div>

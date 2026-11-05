@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/SocialIcons';
-import { Mail, MessageSquare, MapPin, Send, CheckCircle2, AlertCircle, Loader2, ArrowRight, Globe } from 'lucide-react';
+import { Mail, MessageSquare, MapPin, Send, CheckCircle2, AlertCircle, Loader2, ArrowRight, Globe, Phone } from 'lucide-react';
 
 function ContactFormContent() {
   const searchParams = useSearchParams();
@@ -74,9 +74,9 @@ function ContactFormContent() {
           </p>
 
           <div className="space-y-4 pt-2">
-            {/* WhatsApp Click-to-Chat Button */}
+            {/* WhatsApp Click-to-Chat Button with Explicit Number */}
             <a
-              href="https://api.whatsapp.com/send?phone=919823000000&text=Hi%20ADVIKS%20Softech%20team%2C%20I%20would%20like%20to%20discuss%20a%20project."
+              href="https://wa.me/919370750263?text=Hi%20ADVIKS%20Softech%20team%2C%20I%20would%20like%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 p-3.5 rounded-2xl bg-[#FFF7ED] border border-orange-200 hover:border-[#FF8800] transition-all group"
@@ -87,11 +87,35 @@ function ContactFormContent() {
               <div>
                 <div className="text-[11px] text-[#EA580C] font-extrabold uppercase tracking-wider">Fastest Response</div>
                 <div className="text-sm font-extrabold text-[#0A224E] group-hover:text-[#EA580C] transition-colors flex items-center gap-1">
-                  <span>Chat on WhatsApp Business</span>
+                  <span>Chat on WhatsApp: +91 93707 50263</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
             </a>
+
+            {/* Direct Telephone Lines */}
+            <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
+                <Phone className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider">Direct Executive Lines</div>
+                <div className="space-y-1 mt-0.5">
+                  <a
+                    href="tel:+919370750263"
+                    className="block text-sm font-bold text-[#0A224E] hover:text-[#0062E6] transition-colors"
+                  >
+                    +91 93707 50263 <span className="text-[11px] text-slate-400 font-normal">(Primary Business)</span>
+                  </a>
+                  <a
+                    href="tel:+919325646429"
+                    className="block text-sm font-bold text-[#0A224E] hover:text-[#0062E6] transition-colors"
+                  >
+                    +91 93256 46429 <span className="text-[11px] text-slate-400 font-normal">(Technical Architecture)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
 
             {/* Email */}
             <div className="flex items-start gap-4 p-3.5 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0]">
@@ -359,7 +383,7 @@ export default function ContactPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#475569]">
       <Navbar />
 
-      <main className="flex-1 py-16 md:py-24">
+      <main className="flex-1 pt-12 pb-16 md:pt-8 md:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-extrabold tracking-widest text-[#0062E6] uppercase">

@@ -62,7 +62,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/services" className="hover:text-[#0062E6] transition-colors">
-                  AI Review & NLP Systems
+                  Website Speed & Code Audits
                 </Link>
               </li>
               <li>
@@ -135,18 +135,18 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://haru-viru-gold-honey.vercel.app"
+                  href="https://erp.adviks.in"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 hover:text-[#0062E6] transition-colors"
                 >
-                  <span>HaruViru Gold Honey</span>
+                  <span>Multi-Tenant ERP Suite</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
                 </a>
               </li>
               <li>
                 <Link href="/portfolio" className="text-[#0062E6] font-bold hover:underline">
-                  View All 6+ GitHub Projects →
+                  View All Production Platforms →
                 </Link>
               </li>
             </ul>

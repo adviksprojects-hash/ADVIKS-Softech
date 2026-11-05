@@ -158,11 +158,11 @@ const INITIAL_PROJECTS = [
   },
   {
     id: 'prj-103',
-    title: 'HaruViru Meta Advantage+ & ROAS Scaling Pod',
+    title: 'Zenith Logistics Meta & Google ROAS Pod',
     department: 'Marketing',
     category: 'Performance Marketing',
-    clientName: 'HaruViru Natural Foods',
-    clientEmail: 'founder@haruviru.com',
+    clientName: 'Zenith Logistics Systems',
+    clientEmail: 'ops@zenithlogistics.in',
     clientPhone: '+91 98450 11223',
     assignedTo: 'Shreya Jagtap',
     progress: 60,
@@ -409,7 +409,7 @@ const INITIAL_TASKS = [
   {
     id: 'tsk-06',
     title: 'Setup Meta CAPI server-side event sync to eliminate iOS ad tracking loss',
-    project: 'HaruViru Meta Advantage+ & ROAS Scaling Pod',
+    project: 'Zenith Logistics Meta & Google ROAS Pod',
     department: 'Marketing',
     assignedTo: 'Shreya Jagtap',
     priority: 'URGENT',
@@ -418,8 +418,8 @@ const INITIAL_TASKS = [
   },
   {
     id: 'tsk-07',
-    title: 'Launch 3 new video hook creatives for D2C raw honey bundle sale',
-    project: 'HaruViru Meta Advantage+ & ROAS Scaling Pod',
+    title: 'Launch 3 new high-intent video hook creatives for supply chain lead generation',
+    project: 'Zenith Logistics Meta & Google ROAS Pod',
     department: 'Marketing',
     assignedTo: 'Vijay Patil',
     priority: 'HIGH',
@@ -449,7 +449,7 @@ const INITIAL_TASKS = [
   {
     id: 'tsk-10',
     title: 'Weekly ROAS & CAC executive client report drafting',
-    project: 'HaruViru Meta Advantage+ & ROAS Scaling Pod',
+    project: 'Zenith Logistics Meta & Google ROAS Pod',
     department: 'Marketing',
     assignedTo: 'Shreya Jagtap',
     priority: 'MEDIUM',

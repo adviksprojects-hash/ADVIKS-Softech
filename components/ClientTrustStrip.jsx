@@ -33,13 +33,13 @@ export default function ClientTrustStrip() {
       liveUrl: 'https://ai-review-system-bay.vercel.app',
     },
     {
-      name: 'HaruViru Natural Foods',
-      category: 'D2C Wellness Brand',
-      icon: ShoppingBag,
-      color: 'text-[#FF8800]',
-      bg: 'bg-[#FFF7ED]',
-      border: 'border-orange-200',
-      liveUrl: 'https://haru-viru-gold-honey.vercel.app',
+      name: 'Enterprise ERP Suite',
+      category: 'Multi-Tenant OS',
+      icon: Layers,
+      color: 'text-[#0062E6]',
+      bg: 'bg-[#EFF6FF]',
+      border: 'border-blue-200',
+      liveUrl: 'https://erp.adviks.in',
     },
     {
       name: 'Aameena Furniture',
@@ -49,15 +49,6 @@ export default function ClientTrustStrip() {
       bg: 'bg-amber-50',
       border: 'border-amber-200',
       liveUrl: 'https://aameena-ferniture.vercel.app',
-    },
-    {
-      name: 'HaruViru Celebrations',
-      category: 'Hospitality & Venues',
-      icon: Sparkles,
-      color: 'text-emerald-600',
-      bg: 'bg-emerald-50',
-      border: 'border-emerald-200',
-      liveUrl: 'https://haruvirucelebrationhouse.vercel.app',
     },
   ];
 

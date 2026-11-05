@@ -16,21 +16,20 @@ import {
 export default function ProjectScopeEstimator() {
   const [platformType, setPlatformType] = useState('saas');
   const [selectedAddons, setSelectedAddons] = useState(['auth', 'db']);
-  const [timeline, setTimeline] = useState('standard');
 
   const platformOptions = [
-    { id: 'saas', name: 'Enterprise SaaS & Cloud ERP', baseDays: 30, baseBudget: '₹1,50,000+' },
-    { id: 'web', name: 'Sub-Second Web & Custom Portal', baseDays: 20, baseBudget: '₹75,000+' },
-    { id: 'mobile', name: 'Cross-Platform iOS & Android', baseDays: 35, baseBudget: '₹1,80,000+' },
-    { id: 'growth', name: 'Performance Marketing & SEO Retainer', baseDays: 14, baseBudget: '₹45,000 / mo' },
+    { id: 'saas', name: 'Enterprise SaaS & Cloud ERP', baseDays: 30, tag: 'Full-Stack Microservices & Ledgers' },
+    { id: 'web', name: 'Sub-Second Web & Custom Portal', baseDays: 20, tag: 'Next.js 16 Edge Architecture' },
+    { id: 'mobile', name: 'Cross-Platform iOS & Android', baseDays: 35, tag: 'Offline-First Native Apps' },
+    { id: 'growth', name: 'Performance Marketing & SEO Retainer', baseDays: 14, tag: 'ROAS Growth & High-Intent Funnels' },
   ];
 
   const availableAddons = [
     { id: 'auth', label: 'RBAC Auth & Multi-Tenant Security', days: 4 },
     { id: 'db', label: 'PostgreSQL Real-time Stock / Data Ledger', days: 6 },
     { id: 'whatsapp', label: 'WhatsApp Business Cloud API Webhooks', days: 3 },
-    { id: 'payment', label: 'Payment Gateway (Razorpay/Stripe/UPI)', days: 3 },
-    { id: 'ai', label: 'AI LLM Integration & Sentiment Pipeline', days: 7 },
+    { id: 'payment', label: 'Payment Gateway Integration (UPI / Razorpay / Stripe)', days: 3 },
+    { id: 'audit', label: 'Legacy Codebase Audit & Website Revamp', days: 5 },
     { id: 'seo', label: 'Technical SEO Schema & SSR Optimization', days: 4 },
   ];
 
@@ -56,13 +55,13 @@ export default function ProjectScopeEstimator() {
         <div className="max-w-3xl mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFF6FF] border border-blue-200 text-xs font-extrabold text-[#0062E6] uppercase tracking-wider mb-3">
             <Calculator className="w-3.5 h-3.5" />
-            <span>Interactive Scope & Timeline Estimator</span>
+            <span>Interactive Scope &amp; Timeline Estimator</span>
           </div>
           <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0A224E] tracking-tight">
             Estimate Your Project Delivery Blueprint
           </h3>
           <p className="mt-2 text-sm sm:text-base text-[#475569]">
-            Select your architecture requirements and features to simulate estimated sprint duration and deliverables.
+            Select your architecture requirements and features to simulate estimated sprint duration and engineering deliverables.
           </p>
         </div>
 
@@ -86,7 +85,7 @@ export default function ProjectScopeEstimator() {
                     }`}
                   >
                     <div className="text-xs font-bold text-[#0A224E]">{opt.name}</div>
-                    <div className="text-[11px] text-[#0062E6] font-semibold mt-1">Starting {opt.baseBudget}</div>
+                    <div className="text-[11px] text-[#0062E6] font-semibold mt-1">{opt.tag}</div>
                   </button>
                 ))}
               </div>
@@ -167,7 +166,7 @@ export default function ProjectScopeEstimator() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-[#0062E6] shrink-0" />
-                  <span>30-Day post-deployment warranty & code audits</span>
+                  <span>30-Day post-deployment warranty &amp; code audits</span>
                 </div>
               </div>
 
@@ -185,4 +184,3 @@ export default function ProjectScopeEstimator() {
     </div>
   );
 }
-

@@ -27,7 +27,7 @@ import {
   LogOut,
   Mail,
 } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '@/components/SocialIcons';
+import { GithubIcon, LinkedinIcon, PlatformIcon } from '@/components/SocialIcons';
 
 export default function AboutPage() {
   const { teamMembers, currentUser, logout } = useEmployeeAuth();
@@ -49,7 +49,7 @@ export default function AboutPage() {
     {
       icon: Rocket,
       title: 'Execution Velocity',
-      desc: 'By leveraging modern frameworks (Next.js 16, TypeScript, Neon DB) and data-backed marketing funnels, we launch high-performing assets in record time.',
+      desc: 'By leveraging high-performance cloud architectures and data-backed marketing funnels, we launch high-performing assets in record time.',
     },
     {
       icon: Users,
@@ -71,13 +71,13 @@ export default function AboutPage() {
     },
     {
       year: '2025',
-      title: 'Expansion into Performance Growth',
-      desc: 'Integrated digital marketing, conversion rate optimization (CRO), and ROAS ad pipelines directly alongside custom software builds.',
+      title: 'Strategic Growth & AI Expansion',
+      desc: 'Integrated full-funnel performance marketing, conversion rate optimization (CRO), automated WhatsApp revenue channels, and custom applied AI engines directly alongside software builds.',
     },
     {
       year: '2026',
-      title: 'Full-Service Digital Force',
-      desc: 'Now delivering end-to-end SaaS platforms, commercial real-estate web solutions, and high-ROI acquisition engines worldwide.',
+      title: 'Global Enterprise Systems Force',
+      desc: 'Architecting end-to-end multi-tenant ERP suites, mission-critical SaaS platforms, commercial real-estate web portals, and high-ROI acquisition engines worldwide.',
     },
   ];
 
@@ -85,7 +85,7 @@ export default function AboutPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#475569]">
       <Navbar />
 
-      <main className="flex-1 py-16 md:py-24">
+      <main className="flex-1 pt-12 pb-16 md:pt-8 md:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-14">
@@ -307,20 +307,20 @@ export default function AboutPage() {
                             <span>GitHub</span>
                           </a>
                         )}
+                        {Array.isArray(member.customLinks) && member.customLinks.filter(lnk => lnk && lnk.url).map((lnk, cIdx) => (
+                          <a
+                            key={cIdx}
+                            href={lnk.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#0A224E] hover:text-[#0062E6] transition-colors bg-[#F8FAFC] hover:bg-white px-3 py-1.5 rounded-lg border border-slate-200 hover:border-blue-200 shadow-2xs"
+                            title={`${member.name} on ${lnk.label}`}
+                          >
+                            <PlatformIcon platform={lnk.platform || lnk.label} className="w-3.5 h-3.5 text-[#0062E6]" />
+                            <span>{lnk.label}</span>
+                          </a>
+                        ))}
                       </div>
-
-                      {/* If not logged in, prompt to edit */}
-                      {!currentUser && (
-                        <button
-                          onClick={() => {
-                            setIsLoginModalOpen(true);
-                          }}
-                          className="text-[11px] text-slate-400 hover:text-[#0062E6] font-medium flex items-center gap-1 transition-colors"
-                        >
-                          <Edit3 className="w-3 h-3" />
-                          <span>Are you {member.name.split(' ')[0]}? Log in to edit</span>
-                        </button>
-                      )}
                     </div>
                   </div>
                 );

@@ -358,18 +358,18 @@ export default function AdminFinancePage() {
             </span>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden shadow-2xs">
+          <div className="bg-white rounded-3xl border border-[#E2E8F0] overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-[#0A224E]">
+              <table className="w-full text-left text-xs text-[#0A224E] min-w-[1080px]">
                 <thead className="bg-[#F8FAFC] text-[11px] font-extrabold uppercase tracking-wider text-[#0A224E] border-b border-[#E2E8F0]">
                   <tr>
-                    <th className="py-3.5 px-4">Claim # &amp; Date</th>
-                    <th className="py-3.5 px-4">Claimant (Member)</th>
-                    <th className="py-3.5 px-4">Client / Project</th>
-                    <th className="py-3.5 px-4">Expense Details</th>
-                    <th className="py-3.5 px-4">Amount</th>
-                    <th className="py-3.5 px-4">Status</th>
-                    <th className="py-3.5 px-4 text-right">CFO Actions</th>
+                    <th className="py-4 px-5 w-[140px]">Claim # &amp; Date</th>
+                    <th className="py-4 px-5 w-[180px]">Claimant (Member)</th>
+                    <th className="py-4 px-5 w-[200px]">Client / Project</th>
+                    <th className="py-4 px-5 min-w-[260px]">Expense Details</th>
+                    <th className="py-4 px-5 w-[130px]">Amount</th>
+                    <th className="py-4 px-5 w-[160px]">Status</th>
+                    <th className="py-4 px-5 text-right w-[170px]">CFO Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#E2E8F0]">
@@ -389,88 +389,88 @@ export default function AdminFinancePage() {
                       return (
                         <tr
                           key={claim.id}
-                          className="hover:bg-[#F8FAFC] transition-colors group"
+                          className="hover:bg-[#F8FAFC]/80 transition-colors group"
                         >
                           {/* Claim # & Date */}
-                          <td className="py-3.5 px-4 whitespace-nowrap">
-                            <div className="font-mono font-bold text-[#0A224E]">{claim.claimNumber}</div>
-                            <div className="text-[10px] text-slate-400 mt-0.5 flex items-center gap-1">
+                          <td className="py-4 px-5 whitespace-nowrap">
+                            <div className="font-mono font-bold text-[#0A224E] text-xs">{claim.claimNumber}</div>
+                            <div className="text-[11px] text-slate-500 mt-0.5 flex items-center gap-1.5 font-medium">
                               <Calendar className="w-3 h-3 text-slate-400" />
                               <span>{claim.spentDate}</span>
                             </div>
                           </td>
 
                           {/* Claimant */}
-                          <td className="py-3.5 px-4">
-                            <div className="font-bold text-[#0A224E]">{claim.spentBy}</div>
-                            <div className="text-[10px] text-[#475569] truncate max-w-[150px]">
+                          <td className="py-4 px-5">
+                            <div className="font-bold text-[#0A224E] text-sm">{claim.spentBy}</div>
+                            <div className="text-[11px] text-[#475569] truncate max-w-[170px] mt-0.5 font-medium">
                               {claim.spentByEmail || claim.upiId}
                             </div>
                           </td>
 
                           {/* Client / Project */}
-                          <td className="py-3.5 px-4">
-                            <div className="font-semibold text-[#0A224E]">{claim.clientName}</div>
-                            <span className="inline-block mt-0.5 text-[10px] text-[#0062E6] bg-[#EFF6FF] px-2 py-0.5 rounded border border-blue-200">
+                          <td className="py-4 px-5">
+                            <div className="font-bold text-[#0A224E] leading-tight">{claim.clientName}</div>
+                            <span className="inline-block mt-1 text-[10px] font-bold text-[#0062E6] bg-[#EFF6FF] px-2.5 py-0.5 rounded-full border border-blue-200">
                               {claim.category}
                             </span>
                           </td>
 
                           {/* Expense Details */}
-                          <td className="py-3.5 px-4 max-w-xs">
-                            <div className="font-bold text-[#0A224E] truncate" title={claim.title}>
+                          <td className="py-4 px-5">
+                            <div className="font-bold text-[#0A224E] leading-snug" title={claim.title}>
                               {claim.title}
                             </div>
-                            <div className="text-[11px] text-[#475569] truncate mt-0.5" title={claim.description}>
+                            <div className="text-[11px] text-[#475569] mt-1 leading-relaxed font-medium" title={claim.description}>
                               {claim.description}
                             </div>
-                            <div className="text-[10px] text-slate-400 mt-1 font-mono">
-                              Ref: {claim.receiptRef}
+                            <div className="text-[10px] text-slate-400 mt-1.5 font-mono">
+                              Ref: <span className="font-semibold text-slate-600">{claim.receiptRef}</span>
                             </div>
                           </td>
 
                           {/* Amount */}
-                          <td className="py-3.5 px-4 whitespace-nowrap">
-                            <div className="text-sm font-black text-[#0A224E]">
+                          <td className="py-4 px-5 whitespace-nowrap">
+                            <div className="text-base font-extrabold text-[#0A224E] font-mono">
                               ₹{claim.amount.toLocaleString('en-IN')}
                             </div>
-                            <div className="text-[10px] text-slate-400">{claim.paymentMethod}</div>
+                            <div className="text-[11px] text-slate-500 font-medium mt-0.5">{claim.paymentMethod}</div>
                           </td>
 
                           {/* Status */}
-                          <td className="py-3.5 px-4 whitespace-nowrap">
+                          <td className="py-4 px-5 whitespace-nowrap">
                             {isPending && (
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-orange-200 text-[11px] font-bold">
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] border border-orange-200 text-xs font-bold shadow-2xs">
                                 <Clock className="w-3 h-3 text-[#FF8800]" />
-                                <span>Pending CFO Review</span>
+                                <span>Pending Review</span>
                               </span>
                             )}
                             {isApproved && (
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-[#0062E6] border border-blue-200 text-[11px] font-bold">
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#0062E6] border border-blue-200 text-xs font-bold shadow-2xs">
                                 <Check className="w-3 h-3 text-[#0062E6]" />
-                                <span>Approved (Ready for Payout)</span>
+                                <span>Approved</span>
                               </span>
                             )}
                             {isReimbursed && (
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold">
-                                <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                                <span>Reimbursed (Paid)</span>
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold shadow-2xs">
+                                <CheckCircle2 className="w-3 h-3 text-emerald-600" />
+                                <span>Reimbursed</span>
                               </span>
                             )}
                             {isRejected && (
-                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/30 text-[11px] font-bold">
-                                <XCircle className="w-3 h-3 text-rose-400" />
+                              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-xs font-bold shadow-2xs">
+                                <XCircle className="w-3 h-3 text-rose-600" />
                                 <span>Rejected</span>
                               </span>
                             )}
                           </td>
 
                           {/* CFO Actions */}
-                          <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                            <div className="flex items-center justify-end gap-1.5">
+                          <td className="py-4 px-5 text-right whitespace-nowrap">
+                            <div className="flex items-center justify-end gap-2">
                               <button
                                 onClick={() => setInspectClaim(claim)}
-                                className="p-1.5 rounded-lg bg-[#F8FAFC] hover:bg-slate-100 text-[#0A224E] border border-[#E2E8F0] transition-colors"
+                                className="p-2 rounded-xl bg-[#F8FAFC] hover:bg-slate-100 text-[#0A224E] border border-[#E2E8F0] shadow-2xs transition-colors"
                                 title="Inspect Claim Details"
                               >
                                 <Eye className="w-3.5 h-3.5 text-[#0A224E]" />
@@ -479,7 +479,7 @@ export default function AdminFinancePage() {
                               {isPending && (
                                 <button
                                   onClick={() => handleApprove(claim.id)}
-                                  className="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-[#0062E6] border border-blue-200 text-[11px] font-bold transition-colors"
+                                  className="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-[#0062E6] border border-blue-200 text-xs font-bold shadow-2xs transition-colors"
                                   title="Approve Expense Claim"
                                 >
                                   Approve

@@ -52,7 +52,7 @@ export default function PortfolioPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#475569]">
       <Navbar />
 
-      <main className="flex-1 py-16 md:py-24">
+      <main className="flex-1 pt-12 pb-16 md:pt-8 md:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -165,12 +165,12 @@ export default function PortfolioPage() {
                     </div>
                   )}
 
-                  {/* Tech stack pills */}
+                  {/* Solution Capabilities */}
                   <div className="flex flex-wrap gap-1.5 mb-6">
                     {(project.tech || []).map((t, idx) => (
                       <span
                         key={idx}
-                        className="px-2.5 py-1 text-xs rounded-md bg-[#F8FAFC] text-slate-700 font-mono border border-slate-200"
+                        className="px-2.5 py-1 text-xs rounded-lg bg-[#F8FAFC] text-[#0A224E] font-semibold border border-slate-200"
                       >
                         {t}
                       </span>

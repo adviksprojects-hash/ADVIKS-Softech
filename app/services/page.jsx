@@ -62,7 +62,7 @@ export default function ServicesPage() {
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#475569]">
       <Navbar />
 
-      <main className="flex-1 py-16 md:py-24">
+      <main className="flex-1 pt-12 pb-16 md:pt-8 md:pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
