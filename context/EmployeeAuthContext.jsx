@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useSyncExternalStore } from 'react';
+import React, { createContext, useContext, useState, useEffect, useSyncExternalStore } from 'react';
 import { INITIAL_TEAM_MEMBERS } from '@/lib/teamData';
 import { INITIAL_WEBSITE_PROJECTS, INITIAL_WEBSITE_SERVICES } from '@/lib/showcaseData';
 import { INITIAL_EXPENSE_CLAIMS } from '@/lib/financeData';
@@ -509,131 +509,79 @@ function normalizeTeamMembers(storedMembers) {
 }
 
 export function EmployeeAuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_employee_user');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return null;
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [teamMembers, setTeamMembers] = useState(INITIAL_TEAM_MEMBERS);
+  const [expenseClaims, setExpenseClaims] = useState(INITIAL_EXPENSE_CLAIMS);
+  const [projects, setProjects] = useState(INITIAL_PROJECTS);
+  const [tasks, setTasks] = useState(INITIAL_TASKS);
+  const [websiteProjects, setWebsiteProjects] = useState(INITIAL_WEBSITE_PROJECTS);
+  const [websiteServices, setWebsiteServices] = useState(INITIAL_WEBSITE_SERVICES);
+  const [clients, setClients] = useState(INITIAL_CLIENTS);
+  const [currentClient, setCurrentClient] = useState(null);
+  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
 
-  const [teamMembers, setTeamMembers] = useState(() => {
-    if (typeof window !== 'undefined') {
+  // Synchronize persisted client-side state after initial hydration to prevent SSR mismatch
+  useEffect(() => {
+    const timer = setTimeout(() => {
       try {
-        const stored = localStorage.getItem('adviks_team_profiles');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          return normalizeTeamMembers(parsed);
+        const storedUser = localStorage.getItem('adviks_employee_user');
+        if (storedUser) {
+          setCurrentUser(JSON.parse(storedUser));
+        }
+
+        const storedTeam = localStorage.getItem('adviks_team_profiles');
+        if (storedTeam) {
+          const parsed = JSON.parse(storedTeam);
+          setTeamMembers(normalizeTeamMembers(parsed));
+        }
+
+        const storedClaims = localStorage.getItem('adviks_expense_claims');
+        if (storedClaims) {
+          setExpenseClaims(JSON.parse(storedClaims));
+        }
+
+        const storedProjects = localStorage.getItem('adviks_admin_projects');
+        if (storedProjects) {
+          const parsed = JSON.parse(storedProjects);
+          setProjects(normalizeProjects(parsed));
+        }
+
+        const storedTasks = localStorage.getItem('adviks_admin_tasks');
+        if (storedTasks) {
+          setTasks(JSON.parse(storedTasks));
+        }
+
+        const storedWebProjects = localStorage.getItem('adviks_website_projects');
+        if (storedWebProjects) {
+          setWebsiteProjects(JSON.parse(storedWebProjects));
+        }
+
+        const storedWebServices = localStorage.getItem('adviks_website_services');
+        if (storedWebServices) {
+          setWebsiteServices(JSON.parse(storedWebServices));
+        }
+
+        const storedClients = localStorage.getItem('adviks_clients');
+        if (storedClients) {
+          setClients(JSON.parse(storedClients));
+        }
+
+        const storedClientUser = localStorage.getItem('adviks_client_user');
+        if (storedClientUser) {
+          setCurrentClient(JSON.parse(storedClientUser));
+        }
+
+        const storedNotifs = localStorage.getItem('adviks_notifications');
+        if (storedNotifs) {
+          setNotifications(JSON.parse(storedNotifs));
         }
       } catch (e) {
-        console.warn('LocalStorage error:', e);
+        console.warn('LocalStorage error during hydration sync:', e);
       }
-    }
-    return INITIAL_TEAM_MEMBERS;
-  });
+    }, 0);
 
-  const [expenseClaims, setExpenseClaims] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_expense_claims');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_EXPENSE_CLAIMS;
-  });
-
-  const [projects, setProjects] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_admin_projects');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          return normalizeProjects(parsed);
-        }
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_PROJECTS;
-  });
-
-  const [tasks, setTasks] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_admin_tasks');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_TASKS;
-  });
-
-  const [websiteProjects, setWebsiteProjects] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_website_projects');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_WEBSITE_PROJECTS;
-  });
-
-  const [websiteServices, setWebsiteServices] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_website_services');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_WEBSITE_SERVICES;
-  });
-
-  const [clients, setClients] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_clients');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_CLIENTS;
-  });
-
-  const [currentClient, setCurrentClient] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_client_user');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return null;
-  });
-
-  const [notifications, setNotifications] = useState(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const stored = localStorage.getItem('adviks_notifications');
-        if (stored) return JSON.parse(stored);
-      } catch (e) {
-        console.warn('LocalStorage error:', e);
-      }
-    }
-    return INITIAL_NOTIFICATIONS;
-  });
+    return () => clearTimeout(timer);
+  }, []);
 
   const hydrated = useSyncExternalStore(emptySubscribe, getClientSnapshot, getServerSnapshot);
 

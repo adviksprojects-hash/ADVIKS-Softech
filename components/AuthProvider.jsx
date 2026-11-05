@@ -11,7 +11,7 @@ export default function AuthProvider({ children }) {
   const content = <EmployeeAuthProvider>{children}</EmployeeAuthProvider>;
 
   if (hasClerkKey) {
-    return <ClerkProvider>{content}</ClerkProvider>;
+    return <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>{content}</ClerkProvider>;
   }
 
   // Fallback with full EmployeeAuthContext active
