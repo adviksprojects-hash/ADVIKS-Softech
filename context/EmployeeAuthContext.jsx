@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useSyncExternalStore } from 'react';
+import { useSession, signOut as nextAuthSignOut } from 'next-auth/react';
 import { INITIAL_TEAM_MEMBERS } from '@/lib/teamData';
 import { INITIAL_WEBSITE_PROJECTS, INITIAL_WEBSITE_SERVICES } from '@/lib/showcaseData';
 import { INITIAL_EXPENSE_CLAIMS } from '@/lib/financeData';
@@ -520,6 +521,43 @@ export function EmployeeAuthProvider({ children }) {
   const [currentClient, setCurrentClient] = useState(null);
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
 
+  const { data: session, status: sessionStatus } = useSession();
+
+  // Sync authenticated NextAuth Google session into state & set cookie
+  useEffect(() => {
+    if (session?.user) {
+      if (session.user.role === 'ADMIN') {
+        const googleAdmin = {
+          id: session.user.id || 'admin-google',
+          name: session.user.name || session.user.email.split('@')[0],
+          email: session.user.email,
+          role: 'Verified Administrator',
+          position: 'Executive Officer',
+          department: 'Executive',
+          isSuperAdmin: true,
+          avatarUrl: session.user.image,
+        };
+        setCurrentUser(googleAdmin);
+        if (typeof document !== 'undefined') {
+          document.cookie = 'adviks_emp_auth=true; path=/; max-age=2592000; SameSite=Lax';
+        }
+      } else if (session.user.role === 'CLIENT') {
+        const googleClient = {
+          id: session.user.id || 'client-google',
+          name: session.user.name || session.user.email.split('@')[0],
+          email: session.user.email,
+          company: session.user.company || 'Client Workspace',
+          avatarUrl: session.user.image,
+          projectIds: ['prj-101', 'prj-102'],
+        };
+        setCurrentClient(googleClient);
+        if (typeof document !== 'undefined') {
+          document.cookie = 'adviks_clt_auth=true; path=/; max-age=2592000; SameSite=Lax';
+        }
+      }
+    }
+  }, [session]);
+
   // Synchronize persisted client-side state after initial hydration to prevent SSR mismatch
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -735,6 +773,9 @@ export function EmployeeAuthProvider({ children }) {
     };
 
     setCurrentClient(clientObj);
+    if (typeof document !== 'undefined') {
+      document.cookie = 'adviks_clt_auth=true; path=/; max-age=2592000; SameSite=Lax';
+    }
     try {
       localStorage.setItem('adviks_client_user', JSON.stringify(clientObj));
     } catch (e) {
@@ -745,8 +786,12 @@ export function EmployeeAuthProvider({ children }) {
 
   const logoutClient = () => {
     setCurrentClient(null);
+    if (typeof document !== 'undefined') {
+      document.cookie = 'adviks_clt_auth=; path=/; max-age=0;';
+    }
     try {
       localStorage.removeItem('adviks_client_user');
+      nextAuthSignOut({ redirect: false });
     } catch (e) {
       console.error(e);
     }
@@ -874,6 +919,9 @@ export function EmployeeAuthProvider({ children }) {
     };
 
     setCurrentUser(userObj);
+    if (typeof document !== 'undefined') {
+      document.cookie = 'adviks_emp_auth=true; path=/; max-age=2592000; SameSite=Lax';
+    }
     try {
       localStorage.setItem('adviks_employee_user', JSON.stringify(userObj));
     } catch (e) {
@@ -885,8 +933,12 @@ export function EmployeeAuthProvider({ children }) {
 
   const logout = () => {
     setCurrentUser(null);
+    if (typeof document !== 'undefined') {
+      document.cookie = 'adviks_emp_auth=; path=/; max-age=0;';
+    }
     try {
       localStorage.removeItem('adviks_employee_user');
+      nextAuthSignOut({ redirect: false });
     } catch (e) {
       console.error(e);
     }

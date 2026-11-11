@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useEmployeeAuth } from '@/context/EmployeeAuthContext';
+import GoogleSignInButton from '@/components/GoogleSignInButton';
 import {
-  ShieldCheck,
   Building2,
   Lock,
   Mail,
@@ -11,7 +11,6 @@ import {
   AlertCircle,
   X,
   Sparkles,
-  KeyRound,
 } from 'lucide-react';
 
 export default function ClientLoginModal({ isOpen, onClose }) {
@@ -75,6 +74,22 @@ export default function ClientLoginModal({ isOpen, onClose }) {
               <span>{error}</span>
             </div>
           )}
+
+          {/* Google Sign In Option */}
+          <div>
+            <GoogleSignInButton
+              callbackUrl="/dashboard"
+              label="Sign in with Google Account"
+              roleHint="client"
+            />
+          </div>
+
+          <div className="relative flex items-center justify-center">
+            <div className="w-full border-t border-slate-200" />
+            <span className="absolute bg-white px-3 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              Or use client passkey
+            </span>
+          </div>
 
           {/* Quick Select Client Pills */}
           <div>
@@ -165,7 +180,7 @@ export default function ClientLoginModal({ isOpen, onClose }) {
               </button>
               <button
                 type="submit"
-                className="py-2 px-5 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all"
+                className="py-2 px-5 rounded-xl bg-[#0062E6] hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
               >
                 <span>Authorize & Access Portal</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -177,4 +192,3 @@ export default function ClientLoginModal({ isOpen, onClose }) {
     </div>
   );
 }
-
