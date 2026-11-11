@@ -20,6 +20,7 @@ import {
   LogOut,
   User,
   UserCheck,
+  Users,
   Globe,
   IndianRupee,
 } from 'lucide-react';
@@ -31,6 +32,7 @@ export default function AdminSidebar() {
 
   const navItems = [
     { name: 'Executive Overview', href: '/admin', icon: LayoutDashboard },
+    { name: 'Users & DB Roles', href: '/admin/users', icon: Users, badge: 'RBAC' },
     { name: 'CFO Finance & Reimbursements', href: '/admin/finance', icon: IndianRupee },
     { name: 'Sprint Tasks & Velocity', href: '/admin/tasks', icon: CheckSquare2 },
     { name: 'Projects & Milestones', href: '/admin/projects', icon: FolderKanban },
